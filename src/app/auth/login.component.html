@@ -1,0 +1,122 @@
+<div style="background-image: url('../../../assets/img/career-hero.jpg');">
+    <div class="box box-solid" id="helpdesk">
+        <div class="box-header with-border" style="
+    background: #3c8dbc;
+    color: #fff;">
+            <h3 class="box-title">Helpdesk</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-group" id="accordion">
+                <div class="panel box box-primary">
+                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="padding:12px;">
+                        <a href="assets/Templates/1. System Login.pdf" target="_blank"
+                            style="text-decoration:none;font-size:16px;color:#3c8dbc;">System Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button style="
+           position: fixed;
+           right: -36px;
+           top: 87px;
+           z-index: 99999;
+           background: #3c8dbc;
+           border: 0;
+           color: #fff;
+           padding: 10px 15px;
+           border-top-right-radius: 6px;
+           border-top-left-radius: 6px;
+           transform: rotate(-90deg);
+    " id="help-btn">
+        <img src="assets/img/helpdesk.jpg" style="width: 21px;
+       margin-right: 5px;
+       border-radius: 50%;
+       border: 2px solid #fff;"> Helpdesk
+    </button>
+
+    <div class="bac_img">
+        <div class="pen-title">
+
+
+        </div>
+        <!-- Form Module-->
+        <div class="module form-module" style="background: transparent;margin-top: 50px;" *ngIf="Login">
+
+            <div class="toggle" style="display:none">
+
+            </div>
+
+            <div class="form" style="background: #17161273;">
+                <h4 style="color:#fff;margin-top:0">CFS | CUSTOMER FEEDBACK SYSTEM</h4>
+                <form [formGroup]="loginForm" name="LoginForm">
+                    <input type="text" placeholder="UserName" formControlName="userName" required>
+
+                    <input type="password" placeholder="Password" formControlName="password" equired>
+
+                    <button type="submit" class="btn-default" (click)="testLogin()">Login</button>
+
+                    <button type="submit" style="margin-top:10px" class="btn-warning" (click)="toggleDiv('forgot')"
+                        class="btn-warning">Forgot Password</button>
+
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+        <div *ngIf="Forgot" class="module form-module" style="background: transparent;margin-top: 50px;">
+
+            <div class="toggle" style="display:none">
+
+
+            </div>
+            <div>
+                <div class="form" style="background: #17161273;">
+                    <h4 style="color:#fff;margin-top:0">CFS | Customer Feedback System</h4>
+                    <form [formGroup]="forgotPasswordForm" (ngSubmit)="forgotPassword()">
+
+                        <input type="text" placeholder="Username" formControlName="userName" required />
+
+
+                        <button type="submit">Send Password</button>
+                        <button type="submit" style="margin-top:10px" (click)="toggleDiv('Login')">Back</button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+       
+        <div class="module form-module" style="background: transparent;margin-top: 50px;" *ngIf="FirstLogin==true">
+
+            <div class="toggle" style="display:none">
+
+
+            </div>
+            <div class="form" style="background: #17161273;">
+                <h4 style="color:#fff;margin-top:0">Setup new password</h4>
+                <form (ngSubmit)="setNewPassword()">
+
+                    <input type="password" placeholder="Current Password" formControlName="currentPassword" required/>
+
+
+                    <input type="password" placeholder="New Password"  formControlName="newPassword" required/>
+
+
+                    <button type="submit">Update Password</button>
+
+                </form>
+            </div>
+        </div> 
+         
+  
+
+    </div>
+
+</div>

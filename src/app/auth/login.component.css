@@ -1,0 +1,60 @@
+#helpdesk.main {
+    right: -15px;
+}
+
+#helpdesk {
+    right: -508px;
+    border-radius: 6px;
+    box-shadow: -4px 3px 6px 0 #6e6c6c;
+    overflow: hidden;
+    margin: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 64px;
+    width: 264px;
+    padding-right: 15px;
+}
+
+.box-header.with-border {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+}
+
+    .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
+        display: inline-block;
+        font-size: 18px;
+        margin: 0;
+        line-height: 1;
+    }
+
+.box .box-group > .box {
+    margin-bottom: 5px;
+}
+
+.box.box-primary {
+    border-top-color: #3c8dbc;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 10px;
+}
