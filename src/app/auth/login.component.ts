@@ -44,10 +44,10 @@ export class LoginComponent implements OnInit {
     this.initializeForm();
    }
 
-  testLogin():any{
+  login():any{
  sessionStorage.setItem("app", "");
    
-   if( !this.loginForm.controls.userName.value){
+   if( !this.loginForm.controls.username.value){
       Swal.fire('Error', 'UserName can not empty', 'error');
       return false;
       }
@@ -57,11 +57,16 @@ export class LoginComponent implements OnInit {
     return false;
       } 
 
+      console.log("username is",this.loginForm.controls.username.value);
+     console.log("password is",this.loginForm.controls.password.value);
+     console.log(this.loginForm.value);
+
      const login = this.loginForm.value as Login;
   
      login.password = this.cryptService.hash(login.password);
-
-     console.log("password is",login.password)
+     
+     console.log("username is",login.username);
+     console.log("password is",login.password);
 
      let obs:Observable<any>=this.authService.authincateLogin(login);
        obs.subscribe((data):any=>{
@@ -72,7 +77,7 @@ export class LoginComponent implements OnInit {
          if (!data.IsGeoFencing) {
           sessionStorage.setItem("app",JSON.stringify(data));
           const session = sessionStorage.getItem("app");
-          console.log("mydata",JSON.parse("session"));
+         /*  console.log("mydata",JSON.parse("session")); */
           console.log("session..",session);
 
           if (data.IsFirstLogin == true){
@@ -124,11 +129,11 @@ export class LoginComponent implements OnInit {
     }
 
     forgotPassword():any{
-      if( !this.forgotPasswordForm.controls.userName.value){
+      if( !this.forgotPasswordForm.controls.username.value){
         Swal.fire('Error', 'UserName can not empty', 'error');
         return false;
       }
-      const username = this.forgotPasswordForm.controls.userName.value ;
+      const username = this.forgotPasswordForm.controls.username.value ;
       this.authService.fortgotPassword(username).subscribe(
         success=>{
           console.log(success)
@@ -190,7 +195,7 @@ export class LoginComponent implements OnInit {
        const geoFenceObj:GeoFence={
         lat : position.coords.latitude,
         lan : position.coords.longitude,
-        username : this.loginForm.controls.userName.value,
+        username : this.loginForm.controls.username.value,
         password : this.cryptService.hash(this.loginForm.controls.password.value)
        } 
   
@@ -242,11 +247,11 @@ export class LoginComponent implements OnInit {
     
   private initializeForm(): void {
     this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
     this.forgotPasswordForm = this.formBuilder.group({
-      userName:['',Validators.required]
+      username:['',Validators.required]
     });
     this.setNewPasswordForm = this.formBuilder.group({
       currentPassword:['',Validators.required],

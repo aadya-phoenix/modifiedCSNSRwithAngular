@@ -1,0 +1,28 @@
+export class Outlet{
+    constructor(
+       public CityName: string,
+       public City_Id: number,
+       public CreatedBy: number,
+       public CreationDate: any,
+       public DealerName: string,
+       public Dealer_Id: number,
+       public IsActive: boolean,
+       public IsGeoFencingAllowed: boolean,
+       public Lattitude: any,
+       public Longitude: any,
+       public ModifiedBy: any,
+       public ModifiedDate: any,
+       public OutletAddress: string,
+       public OutletCode: string,
+       public OutletContactNumber: string,
+       public OutletContactPerson: string,
+       public OutletEmail: string,
+       public OutletName: string,
+       public OutletType: string,
+       public OutletType_Id: number,
+       public Outlet_Id: number,
+       public ProximityDistance: any,
+       public StateName: string,
+       public State_Id : number,
+    ){}
+}

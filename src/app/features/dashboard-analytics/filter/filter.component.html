@@ -1,0 +1,92 @@
+<section class="content-header">
+    <h3 class="box-title" *ngIf="surveyTypeId==1"
+        style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">Customer Feedback Analysis
+        – Instant</h3>
+    <h3 class="box-title" *ngIf="surveyTypeId==2"
+        style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">Customer Feedback Analysis
+        – Survey</h3>
+</section>
+
+
+<section class="content">
+    <div class="row filtered-row">
+        <div class="rest-one">
+            <div class="col-xs-2 ">
+                <label>Switch To:</label>
+                <select name="Language" class="form-control selectpicker" [(ngModel)]="surveyTypeId"
+                    (change)="toggleDashboard(surveyTypeId)">
+                    <option [value]="1">Instant Feedback</option>
+                    <option [value]="2">Survey Feedback</option>
+
+                </select>
+            </div>
+
+            <div class="col-sm-2">
+                <label>From Date</label>
+                <mat-form-field style="display: block;">
+                  <input matInput [matDatepicker]="datepickerFrom" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
+                  <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #datepickerTo></mat-datepicker>
+                </mat-form-field>
+            
+              </div>
+            
+              <div class="col-sm-2">
+                <label>To Date</label>
+                <mat-form-field style="display: block;">
+                  <input matInput [matDatepicker]="datepickerTo" [(ngModel)]="searchObj.ToDate" placeholder="Select Date">
+                  <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+                  <mat-datepicker #datepickerFrom></mat-datepicker>
+                </mat-form-field>
+            
+              </div>
+
+              <div *ngIf="Role =='HOAdmin'" class="col-xs-2 col-sm-2">
+                <label>Country</label>
+                <select name="Language" class="form-control selectpicker" (change)="getDealerByCountry(searchObj.Country_Id)"
+                  [(ngModel)]="searchObj.Country_Id">
+                  <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                    {{country.CountryName}}
+                  </option>
+                </select>
+              </div>
+
+              <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 col-sm-2 ">
+                <label>Dealer Outlet Code</label>
+                <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.OutletId">
+                  <option *ngFor="let outlet of outletObj" [value]="outlet.Outlet_Id">
+                    {{outlet.OutletCode}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-xs-2 col-sm-2 ">
+                <label>Vehicle</label>
+                <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.VehicleType">
+                  <option *ngFor="let vehicle of vehicleTypeObj" [value]="vehicle.VehicleType_Id">
+                    {{vehicle.VehicleType}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-xs-1 " *ngIf="Survey==true">
+                <label>Source</label>
+                <select name="Language" class="form-control selectpicker"
+                        [(ngModel)]="searchObj.SourceType" >
+                    <option [value]="1" selected>All</option>
+                    <option [value]="2">Online</option>
+                    <option [value]="3">Telephonic</option>             
+        
+                </select>
+            </div>
+
+        </div>
+        <!--./rest-one-->
+        <div class="col-xs-1 button-restone">
+            <label style="width:100%">&nbsp;</label>
+            <button type="button" class="btn btn-primary btn-sm" (click)="changeCountry()">Search</button>
+        </div>
+    </div>
+    <br />
+    <app-counters></app-counters>
+</section>

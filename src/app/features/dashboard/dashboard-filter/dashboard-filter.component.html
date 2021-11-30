@@ -1,1 +1,96 @@
-<p>dashboard-filter works!</p>
+<section class="content-header">
+    <!-- Info boxes -->
+    <h3 class="box-title" [hidden] ="!Instant"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{InstantFeedbackLabel}} </h3>
+    <h3 class="box-title" [hidden]="!Survey"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{SurveyFeedbackLabel}} </h3>
+    <h3 class="box-title" [hidden]="!SMR"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{ServiceRemindersLabel}}</h3>
+    <!--  <h3 class="box-title" hidden="Analysis==true" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">{{SurveyAnalysisLabel}}</h3> -->
+    <h3 class="box-title" [hidden]="!PSFS"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      Post Service Follow-up</h3>
+    <h3 class="box-title" [hidden]="!PSFSales"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{PostSalesFollowupLabel}}</h3>
+    <h3 class="box-title" [hidden]="!PERF"
+      style="display:block;padding-top:14px;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{CSSRKPILabel}}</h3>
+  </section>
+<section class="content">
+  <div class="row">
+  <div class="col-sm-2 ">
+    <label>{{SwitchToLabel}}:</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="surveyTypeId"
+      (change)="toggleDashboard(surveyTypeId)">
+
+      <option [value]="1">{{InstantFeedbackLabel}}</option>
+      <option [value]="2">{{SurveyFeedbackLabel}}</option>
+      <option [value]="3">{{ServiceRemindersLabel}}</option>
+      <option [value]="4" [hidden]="session.Country_Id ==11">Post Service Follow-up</option>
+      <option [value]="6" [hidden]="session.Country_Id ==11">{{PostSalesFollowupLabel}}</option>
+      <option [value]="5">{{CSSRKPILabel}}</option>
+
+
+    </select>
+  </div>
+
+  <div class="col-sm-2">
+    <label>{{FromDateLabel}}</label>
+    <mat-form-field style="display: block;">
+      <input matInput [matDatepicker]="datepickerFrom" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
+      <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #datepickerFrom></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div class="col-sm-2">
+    <label>{{ToDateLabel}}</label>
+    <mat-form-field style="display: block;">
+      <input matInput [matDatepicker]="datepickerTo" [(ngModel)]="searchObj.ToDate" placeholder="Select Date">
+      <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #datepickerTo></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div [hidden]="Role!='HOAdmin'" class="col-xs-2 col-sm-2">
+    <label>{{CountryLabel}}</label>
+    <select name="Language" class="form-control selectpicker" (change)="getDealerByCountry(searchObj.Country_Id)"
+      [(ngModel)]="searchObj.Country_Id">
+      <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+        {{country.CountryName}}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 col-sm-2 ">
+    <label>{{DealerOutletCodeLabel}}</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.OutletId">
+      <option *ngFor="let outlet of outletObj" [value]="outlet.Outlet_Id">
+        {{outlet.OutletCode}}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-xs-2 col-sm-2 ">
+    <label>{{VehicleLabel}}</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.VehicleType">
+      <option *ngFor="let vehicle of vehicleTypeObj" [value]="vehicle.VehicleType_Id">
+        {{vehicle.VehicleType}}
+      </option>
+    </select>
+  </div>
+  
+  <div class="col-xs-2 col-sm-2">
+    <label style="width:100%">&nbsp;</label>
+    <button type="button" class="btn btn-primary btn-sm" (click)="changeCountry(surveyTypeId)">{{SearchLabel}}</button>
+  </div>
+</div>
+<app-dashboard-counters></app-dashboard-counters>
+<app-dashboard-graphs></app-dashboard-graphs>
+</section>

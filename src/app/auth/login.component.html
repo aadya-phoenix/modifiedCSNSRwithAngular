@@ -52,11 +52,11 @@
             <div class="form" style="background: #17161273;">
                 <h4 style="color:#fff;margin-top:0">CFS | CUSTOMER FEEDBACK SYSTEM</h4>
                 <form [formGroup]="loginForm" name="LoginForm">
-                    <input type="text" placeholder="UserName" formControlName="userName" required>
+                    <input type="text" placeholder="UserName" formControlName="username" required>
 
                     <input type="password" placeholder="Password" formControlName="password" equired>
 
-                    <button type="submit" class="btn-default" (click)="testLogin()">Login</button>
+                    <button type="submit" class="btn-default" (click)="login()">Login</button>
 
                     <button type="submit" style="margin-top:10px" class="btn-warning" (click)="toggleDiv('forgot')"
                         class="btn-warning">Forgot Password</button>
@@ -80,7 +80,7 @@
                     <h4 style="color:#fff;margin-top:0">CFS | Customer Feedback System</h4>
                     <form [formGroup]="forgotPasswordForm" (ngSubmit)="forgotPassword()">
 
-                        <input type="text" placeholder="Username" formControlName="userName" required />
+                        <input type="text" placeholder="Username" formControlName="username" required />
 
 
                         <button type="submit">Send Password</button>

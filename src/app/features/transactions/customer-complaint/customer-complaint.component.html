@@ -1,0 +1,27 @@
+<div class="box box-warning">
+    <h1 style="text-align:center;color:#005aa9;">
+        <b> {{CCLabel}} </b>
+      </h1>
+      
+      <div class="language-selection pull-right" style="font-size:10px;margin-top:-25px;
+      margin-right:30px;font-size:14px;">
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <section>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label class="control-label">{{SerachText}}</label>
+                        <input type="text" class="form-control" placeholder="{{SerachText}}" [(ngModel)]="VINNumber">
+                    </div>
+                    <div class="col-xs-4">
+                        <label style="width:100%">&nbsp;</label>
+                        <button type="button" class="btn btn-primary" (click)="searchByVIN()">{{SerachTextLabel}}</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </section>
+    </div>
+</div>

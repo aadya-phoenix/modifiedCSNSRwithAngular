@@ -1,0 +1,32 @@
+	/*for counters*/
+	.info-box {
+        min-height: auto;
+    }
+    .info-box span.info-box-icon {
+        width: 35px;
+        padding: 0;
+        line-height: 25px;
+        height: 35px;
+    }
+    .info-box-content {
+       
+        text-align: center;
+        margin-left: 35px;
+        min-height: 35px;
+    }
+    span.info-box-number
+    {
+        font-size: 12px;
+        line-height: 1.7;
+        text-align:center;
+    }
+        /*--./--*/
+        .row.filtered-row>.rest-one {
+        width: calc(100% - 100px);
+    }
+    .row.filtered-row>.rest-one>div {
+        width: calc(100% / 7);
+    }
+    .row.filtered-row>.button-restone{
+        width:60px !important;
+    }

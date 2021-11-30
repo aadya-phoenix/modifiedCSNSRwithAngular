@@ -1,0 +1,31 @@
+<div class="box-body">
+    <div class="row">
+        <div class="form-group has-feedback">
+            <div class="col-xs-3">
+                <label>{{DealerOutletLabel}}</label>
+                <select name="Language" class="form-control selectpicker" ng-change="GetEmployee(Customer.OutletId)" ng-disabled="Role=='DealerAdmin'"
+                        ng-options="DC.Outlet_Id as (DC.OutletCode) for DC in OutletObj"
+                        [(ngModel)]="Customer.OutletId"></select>
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{ComplaintSourceLabel}}</label>
+                <select name="Language" class="form-control selectpicker"
+                        ng-options="DC.ComplaintSource_Id as (DC.Source) for DC in ComplaintSource"
+                        ng-model="Customer.ComplaintSource_Id"></select>
+            </div>
+            <div class="col-xs-3">
+                <label>{{CustomerNameLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="100" ng-disabled="CustomerDisabled==true" placeholder="{{CustomerNameLabel}}" ng-model="Customer.CustomerName" ng-trim="true">
+                <input type="text" style="display:none" placeholder={{CustomerNameLabel}} ng-model="Customer.Customer_Id" ng-trim="true">
+                <input type="text" style="display:none" ng-model="Customer.CreatedBy" ng-trim="true">
+                <input type="text" style="display:none" ng-model="Customer.Distributor" ng-trim="true">
+            </div>
+           
+            <div class="col-xs-3">
+                <label>{{CustomerEmailLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="200" placeholder="{{CustomerEmailLabel}}"  ng-model="Customer.CustomerEmail" ng-trim="true">
+            </div>
+        </div>
+    </div>
+</div>
