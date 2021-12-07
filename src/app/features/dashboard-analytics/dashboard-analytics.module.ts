@@ -6,7 +6,7 @@ import { MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule}  from '@angular/material/dialog';
 import { CountersComponent } from './counters/counters.component';
-import { GraphsComponent } from './graphs/graphs.component';
+
 
 
 
@@ -14,7 +14,7 @@ import { GraphsComponent } from './graphs/graphs.component';
   declarations: [
     FilterComponent,
     CountersComponent,
-    GraphsComponent
+    
   ],
   imports: [
     SharedModule,

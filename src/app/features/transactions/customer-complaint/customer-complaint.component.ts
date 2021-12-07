@@ -4,9 +4,10 @@ import { TransactionConstantsService } from 'src/app/constants/transaction-const
 import { Label } from 'src/app/models/label.model';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import { CommonService } from './common.service';
 
 @Component({
-  selector: 'app-customer-complaint',
+  selector: 'customer-complaint',
   templateUrl: './customer-complaint.component.html',
   styleUrls: ['./customer-complaint.component.css']
 })
@@ -14,6 +15,7 @@ export class CustomerComplaintComponent implements OnInit {
 
   labelObj:Label[]=[];
   defaultLanguage:boolean = true;
+  selectedLanguage: number = this.constantService.selectedLanguage;
   session = this.constantService.takeSession();
   VINNumber:string=this.constants.VINNumber;
 
@@ -44,11 +46,16 @@ export class CustomerComplaintComponent implements OnInit {
     private apiService: ApiService,
     private constants:TransactionConstantsService,
     private constantService: ConstantsService,
+    private common:CommonService
   ) { }
 
   ngOnInit(): void {
     this.apiService.getLabel().subscribe(data=>{
-
+     this.labelObj  = data;
+     console.log("data is",this.labelObj);
+     this.selectLanguage(this.selectedLanguage);
+    },err=>{
+      console.log(err);
     });
   }
 
@@ -209,17 +216,12 @@ export class CustomerComplaintComponent implements OnInit {
   };
 
   searchByVIN():any{
+    this.common.sendCustomerEvent();
     if (this.VINNumber == null || this.VINNumber == '') {
       Swal.fire('Error', 'Please enter VIN Nunmber to continue', 'error');
       return false;
   }
-  this.apiService.getCustomerByVIN(this.VINNumber,this.session.User_Id).subscribe(
-    data=>{
-      if(data != null){
-        console.log("data is..",data);
-      }
-    }
-  )
+
   }
 }
 

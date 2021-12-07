@@ -3,29 +3,170 @@
         <div class="form-group has-feedback">
             <div class="col-xs-3">
                 <label>{{DealerOutletLabel}}</label>
-                <select name="Language" class="form-control selectpicker" ng-change="GetEmployee(Customer.OutletId)" ng-disabled="Role=='DealerAdmin'"
-                        ng-options="DC.Outlet_Id as (DC.OutletCode) for DC in OutletObj"
-                        [(ngModel)]="Customer.OutletId"></select>
+                <select name="Language" class="form-control selectpicker" (change)="getEmployee(Customer.OutletId)"
+                    [disabled]="Role=='DealerAdmin'" [(ngModel)]="Customer.OutletId">
+                    <option *ngFor="let outlet of outletObj" [value]=outlet.Outlet_Id>
+                        {{outlet.OutletCode}}
+                    </option>
+                </select>
             </div>
 
             <div class="col-xs-3">
                 <label>{{ComplaintSourceLabel}}</label>
-                <select name="Language" class="form-control selectpicker"
-                        ng-options="DC.ComplaintSource_Id as (DC.Source) for DC in ComplaintSource"
-                        ng-model="Customer.ComplaintSource_Id"></select>
+                <select name="Language" class="form-control selectpicker" [(ngModel)]="Customer.ComplaintSource_Id">
+                    <option *ngFor="let complaint of complaintSource" [value]="complaint.ComplaintSource_Id">
+                        {{complaint.Source}}</option>
+                </select>
             </div>
             <div class="col-xs-3">
                 <label>{{CustomerNameLabel}}<label style="color:red">*</label> </label>
-                <input type="text" class="form-control" maxlength="100" ng-disabled="CustomerDisabled==true" placeholder="{{CustomerNameLabel}}" ng-model="Customer.CustomerName" ng-trim="true">
-                <input type="text" style="display:none" placeholder={{CustomerNameLabel}} ng-model="Customer.Customer_Id" ng-trim="true">
-                <input type="text" style="display:none" ng-model="Customer.CreatedBy" ng-trim="true">
-                <input type="text" style="display:none" ng-model="Customer.Distributor" ng-trim="true">
+                <input type="text" class="form-control" maxlength="100" [disabled]="CustomerDisabled==true"
+                    placeholder="{{CustomerNameLabel}}" [(ngModel)]="Customer.CustomerName" trim>
+                <input type="text" style="display:none" placeholder={{CustomerNameLabel}}
+                    [(ngModel)]="Customer.Customer_Id" trim>
+                <input type="text" style="display:none" [(ngModel)]="Customer.CreatedBy" trim>
+                <input type="text" style="display:none" [(ngModel)]="Customer.Distributor" trim>
             </div>
-           
+
             <div class="col-xs-3">
                 <label>{{CustomerEmailLabel}}<label style="color:red">*</label> </label>
-                <input type="text" class="form-control" maxlength="200" placeholder="{{CustomerEmailLabel}}"  ng-model="Customer.CustomerEmail" ng-trim="true">
+                <input type="text" class="form-control" maxlength="200" placeholder="{{CustomerEmailLabel}}"
+                    [(ngModel)]="Customer.CustomerEmail" trim>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="form-group has-feedback">
+
+            <div class="col-xs-3">
+                <label>{{CustomerContactLabel}}<label style="color:red">*</label> </label>
+                <input type="text" numbers-only class="form-control" maxlength="15" placeholder={{CustomerContactLabel}}
+                    [(ngModel)]="Customer.CustomerMobile" trim>
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{CustomerContactLabel2}}</label>
+                <input type="text" numbers-only class="form-control" maxlength="10"
+                    placeholder={{CustomerContactLabel2}} [(ngModel)]="Customer.CustomerMobile2" trim>
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{CustomerVINLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="16" [disabled]="CustomerDisabled==true"
+                    placeholder={{CustomerVINLabel}} [(ngModel)]="Customer.VINNumber" trim>
+            </div>
+            <div class="col-xs-3">
+                <label>{{CustomerRegistrationLabel}}<label style="color:red">*</label></label>
+                <input type="text" name="EnableSSL" maxlength="12" [disabled]="CustomerDisabled==true"
+                    class="form-control" placeholder={{CustomerRegistrationLabel}}
+                    [(ngModel)]="Customer.RegistrationNumber" [value]="true">
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group has-feedback">
+
+
+            <div class="col-xs-3">
+                <label>{{CustomerVehicleLabel}}<label style="color:red">*</label> </label>
+                <select name="Language" [disabled]="CustomerDisabled==true" class="form-control selectpicker"
+                    (change)="getServiceList(Customer.Vehicle_Id)" [(ngModel)]="Customer.Vehicle_Id">
+                    <option *ngFor="let vehicle of vehicleObj" [value]="vehicle.Vehicle_Id">
+                        {{vehicle.VehicleName}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{CustomerJCNLabel}}<label style="color:red">*</label></label>
+                <input type="text" [disabled]="CustomerDisabled==true" name="EnableSSL" maxlength="15"
+                    class="form-control" placeholder={{CustomerJCNLabel}} [(ngModel)]="Customer.JOBCardNumber"
+                    [value]="true">
+            </div>
+            <div class="col-xs-3">
+                <label>{{CustomerInvoiceDateLabel}}<label style="color:red">*</label></label>
+
+              <!--   <datepicker date-format=" MMMM dd, yyyy" button-prev="
+                              <i class='fa fa-arrow-circle-left'></i>"
+                    button-next="<i class='fa fa-arrow-circle-right'></i>" class="ng-isolate-scope">
+                    <input [disabled]="CustomerDisabled==true" ng-required class="form-control col-xs-3"
+                        [(ngModel)]="Customer.InvoiceDate" type="text" placeholder={{CustomerInvoiceDateLabel}} />
+
+                </datepicker> -->
+            </div>
+            <div class="col-xs-3">
+                <label>{{CustomerServiceTypeLabel}}<label style="color:red">*</label> </label>
+
+                <select [disabled]="CustomerDisabled==true" name="Language" class="form-control selectpicker"
+                    [(ngModel)]="Customer.ServiceTypeId">
+                    <option *ngFor="let service of serviceTypeObj" [value]="service.ServiceType_Id">
+                        {{service.ServiceType}}
+                    </option>
+                </select>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group has-feedback">
+
+            <div class="col-xs-3">
+                <label>{{CustomerMileageLabel}}</label>
+                <input [disabled]="CustomerDisabled==true" type="text" numbers-only name="EnableSSL"
+                    class="form-control" placeholder={{CustomerMileageLabel}} [(ngModel)]="Customer.Mileage"
+                    [value]="true">
+
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{CustomerSALabel}} </label>
+                <select [disabled]="CustomerDisabled==true" name="Language" class="form-control selectpicker"
+                    [(ngModel)]="Customer.ServiceAdvisorId">
+                    <option *ngFor="let sa of SAObj" [value]="sa.Employee_Id">
+                        {{sa.FirstName}}
+                    </option>
+                </select>
+
+            </div>
+            <div class="col-xs-3">
+                <label>{{CustomerTecLabel}} </label>
+                <select [disabled]="CustomerDisabled==true" name="Language" class="form-control selectpicker"
+                    [(ngModel)]="Customer.TecnicianId">
+                    <option *ngFor="let tec of TecObj" [value]="tec.Employee_Id">
+                        {{tec.FirstName}}
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="col-xs-3">
+                <label>{{RepairDetailsLabel}}<label style="color:red"></label> </label>
+                <textarea class="form-control" trim [(ngModel)]="Customer.RepairDetails"
+                    placeholder="{{RepairDetailsLabel}}" maxlength="1000" [disabled]="true"></textarea>
+
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label>{{CustomerRemarksLabel}}</label><br />
+                    <textarea cols="75" [(ngModel)]="Customer.Remarks" placeholder={{CustomerRemarksLabel}}
+                        name="commentText" rows="5" style="width:520px"></textarea>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" class="btn btn-primary pull-right" (click)="save()">{{ButtonText}}</button>
+                        &nbsp;
 </div>

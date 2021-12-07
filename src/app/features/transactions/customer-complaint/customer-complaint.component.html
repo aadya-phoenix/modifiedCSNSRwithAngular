@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-xs-4">
                         <label class="control-label">{{SerachText}}</label>
-                        <input type="text" class="form-control" placeholder="{{SerachText}}" [(ngModel)]="VINNumber">
+                        <input type="text" class="form-control" placeholder="{{SerachText}}" [(ngModel)]="VINNumber" trim>
                     </div>
                     <div class="col-xs-4">
                         <label style="width:100%">&nbsp;</label>
@@ -22,6 +22,7 @@
                 </div>
             </div>
             <hr />
+            <customer-complaint-form [vinNumber]="VINNumber"></customer-complaint-form>
         </section>
     </div>
 </div>

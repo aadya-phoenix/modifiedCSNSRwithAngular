@@ -233,4 +233,26 @@ export class ApiService {
   getCustomerByVIN(id:string,uid:number){
     return this.httpClient.get(this.appUrl + 'Customer/GetCustomerForComplaint?VIN=' + id + '&UserId=' + uid);
   }
+
+  getSAList(id:number){
+    return this.httpClient.get(this.appUrl + 'Dealer/GetSAList?DealerId=' + id);
+  }
+  getTecnicianList(id:number){
+    return this.httpClient.get(this.appUrl + 'Dealer/GetTecnicianList?DealerId=' + id);
+  }
+
+  getComplaintSource(){
+    return this.httpClient.get(this.appUrl + 'Customer/GetComplaintSource');
+  }
+  saveResponse(obj:any){
+    return this.httpClient.post(this.appUrl+ 'Customer/CreateComplaint/', obj, {});
+  }
+
+  getServiceTypeList(id:number){
+    return this.httpClient.get(this.appUrl + 'Dealer/GetServiceTypeListByVehicleForCC?VehicleId=' + id);
+  }
+  getVehicleList(id:number){
+    return this.httpClient.get(this.appUrl + 'Company/GetVehicleListByCountry?CountryId=' + id);
+  }
+
 }

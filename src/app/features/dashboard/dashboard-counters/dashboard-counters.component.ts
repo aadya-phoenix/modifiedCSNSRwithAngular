@@ -8,8 +8,8 @@ import { Label } from 'src/app/models/label.model';
 import { Search } from 'src/app/models/search.model';
 import { TgtData } from 'src/app/models/tgtData.model';
 import { ApiService } from '../../../services/api.service';
-import { LabelService } from '../dashboard-services/label.service';
-import { RxFunctionService } from '../dashboard-services/rx-function.service';
+import { LabelService } from '../services/label.service';
+import { RxFunctionService } from '../services/rx-function.service';
 
 @Component({
   selector: 'app-dashboard-counters',

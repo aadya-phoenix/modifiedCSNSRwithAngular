@@ -13,6 +13,9 @@ import { DashboardAnalyticsModule } from './features/dashboard-analytics/dashboa
 import { CustomerComplaintDashboardModule } from './features/customer-complaint-dashboard/customer-complaint-dashboard.module';
 import { SettingsModule } from './features/settings/settings.module';
 import { TransactionsModule } from './features/transactions/transactions.module';
+import { CompanyModule } from './features/masters/company/company.module';
+import { LanguageModule } from './features/masters/language/language.module';
+import { CountryModule } from './features/masters/country/country.module';
 
 
 
@@ -32,7 +35,10 @@ import { TransactionsModule } from './features/transactions/transactions.module'
     DashboardAnalyticsModule,
     CustomerComplaintDashboardModule,
     SettingsModule,
-    TransactionsModule
+    TransactionsModule,
+    CompanyModule,
+    LanguageModule,
+    CountryModule
   ],
   providers: [
     DatePipe
