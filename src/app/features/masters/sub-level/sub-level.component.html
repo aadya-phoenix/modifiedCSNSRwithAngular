@@ -1,0 +1,98 @@
+<section class="content-header">
+    <h1>
+        Level Detail Set Up
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Level Detail</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+     <div class="col-xs-12">
+       <div class="box" *ngIf="showSearchGrid">
+         <div class="box-body">
+           <div class="row">
+              <div class="col-sm-12">
+                <div class="box box-primary">
+                  <div class="row">
+                    <div class="col-xs-3" style="margin-left: 11px;">
+                        <label>
+                            Select Level -
+                        </label>
+                        <select class="form-control" [(ngModel)]="levelId"
+                            (change)="getLevelDetails(levelId)">
+                            <option *ngFor="let item of levelObj" [value]="item.Level_Id">
+                                {{item.LevelName}}</option>
+                          </select>
+                          </div>
+                             <div class="col-xs-3" style="margin-left: 11px;">
+                                 <label>Search</label>
+                                   <input type="text" class="form-control" size="100" id="Text17"
+                                          [(ngModel)]="searchText" placeholder="Enter search" trim>
+                                  </div>
+                              </div>
+                                <div class="box-header with-border" style="padding:0px;padding-left:15px;">
+                                </div>
+                                <!--header-->
+
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead style="background:#254287;color:white;">
+                                            <tr>
+                                                <th style="text-align:center;width:10%;">S.No.</th>
+                                                <th style="text-align:center;width:10%;">Level</th>
+                                                <th style="text-align:center;width:20%;">Sub Level</th>
+                                                <th style="text-align:center;width:20%;">Designation</th>
+                                                <th style="text-align:center;width:20%;">User Name</th>
+                                                <th style="text-align:center;width:10%;"><button
+                                                        class="btn btn-primary btn-xs" (click)="add()">+</button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                                <tr *ngFor="let pt of levelDetail ; let i=index;"
+                                                    class="ng-scope">
+                                                    <td style="text-align:center;" class="sorting_1">{{i+1}}</td>
+                                                    <td>
+                                                        <label>{{pt.LevelName}}</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                            [(ngModel)]="pt.LeveldetailName" placeholder="Sub Level">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                            [(ngModel)]="pt.Designation" placeholder="Designation">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" [(ngModel)]="pt.UserName" placeholder="User Name">
+                                                    </td>
+
+                                                    <td style="text-align:center;">
+                                                        <button class="btn btn-danger btn-xs" (click)="deleteTransaction(pt.Leveldetail_Id,i)">-</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                         </div>
+                                    <div class="row">
+                                        <div class="form-group has-feedback">
+                                            <div class="col-xs-12" style="text-align:center;">
+                                                <button class="btn btn-primary btn-xs"
+                                                    (click)="saveForm()">Update</button>
+                                                <button class="btn btn-warning btn-xs" (click)="back()">Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

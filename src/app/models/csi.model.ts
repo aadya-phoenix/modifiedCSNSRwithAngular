@@ -1,14 +1,7 @@
-export class Csi{
-    
-    CSI: number;
-    Outlet_Id: number;
-    TotalCustomer:number;
-    TotalScore: number;
+export interface Csi{
+     Outlet_Id: number;
+     TotalCustomer?:number;
+     TotalScore?: number;
+     CSI?: number;
 
-    constructor(){
-        this.CSI = 0;
-        this.Outlet_Id = 0;
-        this.TotalCustomer = 0;
-        this.TotalScore = 0;
-    }
 }

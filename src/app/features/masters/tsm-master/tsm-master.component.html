@@ -1,0 +1,100 @@
+<section class="content-header">
+    <h1>
+        AM Management
+    </h1>
+    <ol class="breadcrumb">
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17" [(ngModel)]="searchText"
+                            placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>OutLet Code</th>
+                                <th>OutLet Name</th>
+                                <th>Area Manager</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of tsmObj |filter:searchText; let i=index;">
+                                <td class="sorting_1">{{ i+ 1 }}</td>
+                                <td>{{pt.OutletCode}}</td>
+                                <td>{{pt.OutletName}}</td>
+                                <td>{{pt.TSM_Name}} </td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs"
+                                        (click)="editTransaction( pt)">Edit</button>
+
+                                    <button class="btn btn-warning btn-xs" *ngIf="session.RoleName=='HOAdmin'"
+                                        (click)="deleteTransaction(pt)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box" *ngIf="showEditForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>DealerOutlet Name<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="200" placeholder="Dealer Name"
+                                    [(ngModel)]="dealer.DealerName" disabled trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>DealerOutlet Code<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="20" placeholder="Dealer Code"
+                                    [(ngModel)]="dealer.DealerCode" disabled trim>
+                            </div>
+                            <div class="col-xs-4" *ngFor="let lobj of levelInfo" [hidden]="lobj.LevelName== 'Area'">
+                                <label>{{lobj.LevelName}}<label style="color:red">*</label></label>
+                                <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="lobj.Leveldetail_Id" disabled>
+                                    <option *ngFor="let levDtl of lobj.leveldetailInfo" [value]="levDtl.Leveldetail_Id">
+                                        {{levDtl.LeveldetailName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Area Manager<label style="color:red">*</label></label>
+                                <select name="Language" class="form-control selectpicker" [(ngModel)]="dealer.TSM">
+                                    <option *ngFor="let DC of dealerObj" [value]="DC.Employee_Id">
+                                        {{ DC.FirstName +' ' + DC.LastName +' ('+ DC.EmpCode +')'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Submit</button>
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

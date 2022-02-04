@@ -1,0 +1,8 @@
+[hidden] {
+    display: none !important;
+  }
+  .main-header .logo
+.logo-lg img {
+max-width:100% !important;
+background:#fff!important;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstantsService } from 'src/app/constants/constants.service';
 import { MastersApiService } from 'src/app/services/masters-api.service';
+import { Company } from './company.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,55 +13,86 @@ export class CompanyComponent implements OnInit {
 
    session = this.constant.takeSession();
    Role = this.session.RoleName;
-   showsearchgrid:boolean=true;
-   showForm:boolean = true;
+   showSearchGrid:boolean=true;
+   showForm:boolean = false;
    showEditForm:boolean = false;
-   saveSurveyButton  :boolean = false;
-   updateSurveyButton:boolean = true;
   
+   companyObj:Company[]=[];
+   company!:Company;
+   companyLogo:any;
   
+   constructor(
+     private masters:MastersApiService,
+     private constant:ConstantsService
+   ) { }
 
-  companyObj:any;
-  company:any;
+   ngOnInit(): void {
+     this.getFormDetails(); 
+   }
 
-  constructor(
-    private masters:MastersApiService,
-    private constant:ConstantsService
-  ) { }
+   addCompany(){
+     this.company={
+       Company_Id: 0,
+       CompanyName: '',
+       CompanyLogo: '',
+       UrlPath:'',
+       IsActive: true,
+       CreatedBy: this.session.User_Id,
+     };
+     this.showSearchGrid = false;
+     this.showForm = true;
+     this.showEditForm = false;
+   }
 
-  ngOnInit(): void {
-    this.getFormDetails(); 
+  saveForm(){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to continue this process?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Continue",
+      allowOutsideClick:false
+   }).then((result):any=>{
+     if(result.isConfirmed){
+    const formData = new FormData();
+    if (this.company.CompanyName == null || this.company.CompanyName=='')
+    {
+      Swal.fire('error', 'Please enter company name', 'error');
+        return false;
+    }
+    if (this.company.CompanyLogo == null || this.company.CompanyLogo=='')
+    {
+      Swal.fire('error', 'Please select file for Logo', 'error');
+        return false;
+    }
+
+    formData.append('file', this.companyLogo);
+    formData.append('Company', JSON.stringify(this.company));        
+
+    this.masters.addCompany(formData).subscribe( (data:any)=> {
+        console.log(data);
+        Swal.fire('Success', data, 'success');
+        this.init();
+     },(error)=>{
+           console.log(error);
+       });
+      }
+   });
   }
-
-
-  addCompany(){
-    this.company={
-      Company_Id: 0,
-      CompanyName: '',
-      CompanyLogo: '',
-      UrlPath:'',
-      IsActive: true,
-      CreationDate: null,
-      CreatedBy: this.session.User_Id,
-      ModifiedBy: null,
-      ModifiedDate: null,
-    };
-    this.showsearchgrid = false;
-    this.showForm = true;
-    this.showEditForm = false;
-  }
-
-  editTransaction(id:number,cmpny:any){
-    console.log('inside EditTransaction', id);
-    this.showsearchgrid = false;
+  
+  editTransaction(cmpny:any){
+    this.showSearchGrid = false;
     this.showForm = false;
-    this.showEditForm = true;
-    this.saveSurveyButton = false;
-    this.updateSurveyButton = true;
+    this.showEditForm = true; 
     this.company = cmpny;
   }
 
-  deleteTransaction(id:number,cmpny:any){
+  onFileSelected(event:any){
+     this.companyLogo = event.target.files[0];
+  }
+
+  deleteTransaction(cmpny:any){
     Swal.fire({
       title: 'Are you sure?',
       text: "Are you sure you want to continue this process?",
@@ -68,26 +100,27 @@ export class CompanyComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
       confirmButtonText: 'Continue',
-      
-    }).then(() => {
+      allowOutsideClick:false
+    }).then((result) => {
+      if(result.isConfirmed){
       cmpny.ModifiedBy = this.session.User_Id;
       this.masters.deleteCompany(cmpny).subscribe( (data:any) => {
-         // $scope.init();
+         this.init();
          Swal.fire("success", data, "success");
-      }, err => {
+      }, (err:any) => {
           console.log(err);
       });
+     }
     }); 
   }
 
   getFormDetails(){
     this.masters.getCompanyList().subscribe(
-      data=>{
+      (data:any)=>{
        this.companyObj = data;
       },err=>{
         console.log(err);
-      }
-    )
+      });
   }
 
   editSaveTransaction(){
@@ -98,7 +131,10 @@ export class CompanyComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "Continue",
-  }).then(()=>{
+      allowOutsideClick:false
+      
+  }).then((result):any=>{
+    if(result.isConfirmed){
     if (this.company.CompanyName == null || this.company.CompanyName=='')
             {
               Swal.fire('error', 'Please enter company name', 'error');
@@ -108,25 +144,30 @@ export class CompanyComponent implements OnInit {
             {
               Swal.fire('error', 'Please select file for Logo', 'error');
                 return false;
-
             }
-
             this.company.ModifiedBy = this.session.User_Id;
             var formData = new FormData();
-
-
-            formData.append('file', this.CompanyLogo);
+            formData.append('file', this.companyLogo);
             formData.append('Company', JSON.stringify(this.company));
 
-            this.masters.editCompany(fd).subscribe(data=> {
+            this.masters.editCompany(formData).subscribe((data:any)=> {
 
                 console.log(data);
                 Swal.fire('Success', data, 'success');
-               // $scope.init();
-            }, error=> {
+               this.init();
+            }, (error:any)=> {
 
                 console.log(error);
             });
-  });
-}
+          }
+    });
+ }
+
+   init(){
+  this.showSearchGrid = true;
+  this.showForm = false;
+  this.showEditForm = false;
+  this.getFormDetails();
+  this.Role = this.session.RoleName;
+  }
 }

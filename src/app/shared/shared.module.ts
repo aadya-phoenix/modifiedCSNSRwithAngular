@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { HttpClientModule} from '@angular/common/http';
 
 
@@ -13,7 +14,8 @@ import { HttpClientModule} from '@angular/common/http';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxTrimDirectiveModule
   ]
 })
 export class SharedModule { }

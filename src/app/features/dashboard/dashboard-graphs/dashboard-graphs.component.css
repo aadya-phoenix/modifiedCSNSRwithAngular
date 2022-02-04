@@ -1,0 +1,68 @@
+.progress-group .progress-text {
+    max-width: 90% !important;
+display: inline-block;
+}
+.smiley-ul {
+    width: 100%;
+    float: left;
+    padding: 0;
+    background: #fff;
+}
+
+    .smiley-ul > li {
+        list-style: none;
+        float: left;
+        margin-left: 1%;
+        text-align: center;
+        width: 24%;
+    }
+
+     .col-setwidth{
+     width:16.5% !important;}
+
+
+.smiley-bg {
+    background: url(../../../../assets/img/DR0cJr8.png);
+    width: 62px;
+    height: 62px;
+    display: block;
+    margin: 5px auto;
+}
+
+    .smiley-bg.delighted {
+        background-position: 197px -1px;
+    }
+
+.smiley-ul > li > a.selected > .smiley-bg.delighted {
+    background-position: 71px -2px;
+}
+
+.smiley-bg.satisfied {
+    background-position: 678px -1px;
+}
+
+.smiley-ul > li > a.selected > .smiley-bg.satisfied {
+    background-position: 564px -1px;
+}
+
+.smiley-bg.average {
+    background-position: 448px -1px;
+}
+
+.smiley-ul > li > a.selected > .smiley-bg.average {
+    background-position: 338px -1px;
+}
+
+.smiley-bg.poor {
+    background-position: 0px -1px;
+}
+
+.smiley-ul > li > a.selected > .smiley-bg.poor {
+    background-position: -103px -2px;
+}
+
+@media(min-width: 992px){
+    .col-md-for-5{
+        width:25%;
+    }
+}

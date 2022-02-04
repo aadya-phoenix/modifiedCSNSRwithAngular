@@ -1,24 +1,23 @@
 <section class="content-header">
     <h1>
         Company Management
-
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#">Settings</a></li>
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
         <li class="active">Survey Management</li>
     </ol>
 </section>
 
 <section class="content">
-    <div class="box-body" *ngIf="showsearchgrid">
+    <div class="box-body" *ngIf="showSearchGrid">
         <button class="btn btn-primary btn-xs" (click)="addCompany()" [hidden]="companyObj.length>0">Add
             Company</button>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box" *ngIf="showsearchgrid">
+            <div class="box" *ngIf="showSearchGrid">
                 <div class="box-body">
                     <div class="col-xs-1">
                         <label>Search</label>
@@ -47,10 +46,10 @@
                                 <td>{{ cmpny.CreationDate | date : 'dd-MMM -yyyy' }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-xs"
-                                        (click)="editTransaction(cmpny.Company_Id, pt)">Edit</button>
+                                        (click)="editTransaction(cmpny)">Edit</button>
                                     |
                                     <button [disabled]="Role!='SuperAdmin'" class="btn btn-warning btn-xs"
-                                        (click)="deleteTransaction(cmpny.Company_Id,cmpny)">Delete</button>
+                                        (click)="deleteTransaction(cmpny)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -69,7 +68,17 @@
                             </div>
                             <div class="col-xs-4">
                                 <label>Company Logo<label style="color:red">*</label> </label>
-                                <input type="file" class="form-control" (change)="()" file-model="CompanyLogo" />
+                                <input type="file" class="form-control" (change)="onFileSelected($event)"  />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                                
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
                             </div>
                         </div>
                     </div>
@@ -87,7 +96,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <label>Company Logo<label style="color:red">*</label> </label>
-                                <input type="file" class="form-control" file-model="CompanyLogo" />
+                                <input type="file" class="form-control" (change)="onFileSelected($event)" />
                             </div>
                             <div class="col-xs-4">
                                 <a href={{company.UrlPath+company.CompanyLogo}} target=_blank> Logo </a>

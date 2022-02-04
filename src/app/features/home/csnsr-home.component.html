@@ -1,0 +1,388 @@
+<div class="wrapper">
+
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a routerLink="dashboard" class="logo" style="padding:0">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><img class="img-responsive" style="background:#fff;padding:7px" src="../../../assets/img/Suzuki-logo.jpg" /></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><img style="margin-top:-25px;max-height: auto;" class="img-responsive" src="../../../assets/img/Suzuki-logo.jpg" /></span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a routerLink="dashboard" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+        <div class="dealer-name" *ngIf="Role!='HOAdmin'" style="display: inline-block; padding: 10px; font-size: 21px; margin: auto; color: #fff; "> <span>{{DealerName}}</span> </div>
+         <div class="dealer-name" *ngIf="Role=='HOAdmin'" style="display: inline-block; padding: 10px; font-size: 21px; margin: auto; color: #fff; "> <span>Suzuki</span> </div>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user"></i>
+              &nbsp;&nbsp;
+             {{Username}}
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a routerLink="cp">
+                      <h4>
+                        Change Password
+                       <!--  {{ChangePasswordLabel}} -->
+                      </h4>
+                    </a>
+                    <!-- start message -->
+                    <a (click)="signout()">
+                       <h4>
+                         Log Out
+                         <!--  {{LogOutLabel}} -->
+                      </h4>
+                  </a>
+                  </li>
+                  <!-- end message -->
+                  </ul>
+                  </li>
+              <li class="footer"></li>
+            </ul>
+          </li>
+        </ul>
+          </div>
+         <!--  <div class="box-header with-border" style="float:right;margin-right:9px;" ng-show="session.Country_Id == 17  || session.Country_Id == 18   ">
+
+            <div class="language-selection pull-right" style="font-size:14px;margin-top:3px;">
+                <label class="language-radiobtn" ng-repeat="pt in LanguageObj" style="color:white;">
+                    <input (click)="SelectLanguage(pt.Language_Id)" ng-checked="pt.Language_Id==2" type="radio" name="language" ng-value={{pt.Language_Id}}>
+
+                    <span>{{pt.Language}}</span>
+                </label>
+            </div>
+        </div> -->
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu tree" data-widget="tree">
+        <li class="header" style="text-align: center; font-size: medium; color: white">CS & SR System</li>
+        <li (click)=CRElogout() class="active treeview ">
+          <a routerLink="dashboard">
+            <i class="fa fa-dashboard"></i><span>Dashboard</span>
+            <!-- {{DashboardLabel}} -->
+        </a>
+        </li>
+        <li (click)="CRElogout()" class="active treeview">
+          <a routerLink="analytics" *ngIf="Username=='SMCJapan' || Username=='HOAdmin' || Role=='Distributor'">
+              <i class="fa fa-dashboard"></i><span>Dashboard-Analytics</span>
+              <!-- {{DashboardAnalyticsLabel}} -->
+          </a>
+      </li>
+      <li (click)="CRElogout()" class="active treeview">
+        <a routerLink="ccdashboard">
+            <i class="fa fa-dashboard"></i><span>Customer Complaint Tracking</span>
+           <!--  {{CustomerComplaintTrackingLabel}} -->
+        </a>
+    </li>
+     <li class="treeview menu-open" [hidden]="Username=='SMCJapan' || session.User_Id == 342">
+          <a>
+            <i class="fa fa-gears"></i>
+            <span>Settings</span>
+            <!-- {{SettingsLabel}} -->
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="treeview">
+                <a>
+                   <i class="fa fa-gears"></i>
+                    <span>Head Office</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                   <li (click)="CRElogout()"><a routerLink="Company"><i class="fa fa-circle-o"></i>Company Setup</a></li>
+                  <li (click)="CRElogout()"><a routerLink="Language"><i class="fa fa-circle-o"></i>Language Setup </a></li>
+                  <li (click)="CRElogout()"><a routerLink="Country"><i class="fa fa-circle-o"></i>Country Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="State"><i class="fa fa-circle-o"></i>State/Province Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="City"><i class="fa fa-circle-o"></i>City Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="Distributor"><i class="fa fa-circle-o"></i>Distributor Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="Dealer"><i class="fa fa-circle-o"></i>Dealer Group Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="Outlet"><i class="fa fa-circle-o"></i>Dealer Outlet Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="Vehicle"><i class="fa fa-circle-o"></i>Vehicle Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="ServiceType"><i class="fa fa-circle-o"></i>Service Type</a></li>
+                   <li (click)="CRElogout()"><a routerLink="Question"><i class="fa fa-circle-o"></i>Question Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="LabelMaster"><i class="fa fa-circle-o"></i>Form Label Setup</a></li>
+                  <!--  <li (click)="CRElogout()"><a routerLink="#/survey"><i class="fa fa-circle-o"></i>Survey Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="#/EmailSetup"><i class="fa fa-circle-o"></i>Email Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="#/TriggerSurvey"><i class="fa fa-circle-o"></i>Trigger Survey</a></li>
+                   <li (click)="CRElogout()"><a routerLink="#/ServiceBasedOnMilage"><i class="fa fa-circle-o"></i>Service Upload Setup</a></li> -->
+
+                </ul>
+            </li>
+            <li class="treeview" *ngIf="Role=='HOAdmin' || Role=='DealerAdmin'">
+                <a>
+                    <i class="fa fa-gears"></i>
+                    <span>Dealer Outlet</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+              <!--   <ul class="treeview-menu">
+                    <li (click)="CRElogout()"><a routerLink="Employee"><i class="fa fa-circle-o"></i>Dealer Employee Label</a></li>
+                    <li (click)="CRElogout()"><a routerLink="" [hidden]="Role=='HOAdmin'"><i class="fa fa-circle-o"></i>Vehicle Setup</a></li>
+                    <li (click)="CRElogout()" *ngIf="Role=='DealerAdmin'"><a routerLink="#/DlrOutletTrgt"><i class="fa fa-circle-o"></i>Dealer Outlet Target </a></li>
+                </ul> -->
+            </li>
+            <li class="treeview" *ngIf="Role=='Distributor'  || Role=='HOAdmin'">
+
+                <a>
+                    <i class="fa fa-gears"></i>
+                    <span> Distributor  </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li (click)="CRElogout()"><a routerLink="CountryWiseEmployee"><i class="fa fa-circle-o"></i>Employee Master</a></li>
+                    <li (click)="CRElogout()"><a routerLink="TSM"><i class="fa fa-circle-o"></i> AM Mapping </a></li>
+                    <!-- <li (click)="CRElogout()"><a routerLink="#/DealerOutletDis"><i class="fa fa-circle-o"></i>Outlet Mapping</a></li> -->
+
+                </ul>
+            </li>
+        </ul> 
+     </li>
+      
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- <section class="content-header">
+      
+    </section> -->
+
+    <!-- Main content -->
+    <section class="content">
+      <router-outlet></router-outlet>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.18
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+</div>
+<!-- ./wrapper -->

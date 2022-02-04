@@ -1,0 +1,120 @@
+<mat-dialog-content>
+<section class="content-header">
+    <h1>
+        SMS Configuration Setup
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">SMS Configuration Setup</li>
+    </ol>
+</section>
+<section class="content">
+  
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>SMS API </label>
+                                <input type="text" class="form-control" placeholder="SMTP Server"
+                                    [(ngModel)]="sms.SMSApi" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>SMS User Variable Name </label>
+                                <input type="text" class="form-control" placeholder="SMTP Username"
+                                    [(ngModel)]="sms.SMSUserVariableName" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>SMS Username </label>
+                                <input type="text" class="form-control" placeholder="SMTP Password"
+                                    [(ngModel)]="sms.SMSUsername" trim>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-3">
+                                <label>SMS Password Variable Name</label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSPassVariable" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>SMS Password</label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSPassword" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>SMS Type Variable Name </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSTypeVariable" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>SMS Type </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSTypeValue" trim>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-3">
+                                <label>Sender ID variable Name </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSSenderVariable" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>Sender ID </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSSenderValue" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>Mobile Number variable Name </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSMobileVariable" trim>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>Text Variable Name </label>
+                                <input type="text" class="form-control" placeholder="Port Number"
+                                    [(ngModel)]="sms.SMSTextVariable" trim>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-12">
+                                <label>SMS Template</label>
+                                <textarea class="form-control" rows="7" placeholder="Enter SMS Template"
+                                    [(ngModel)]="sms.SMSTemplate"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-12">
+                                <label>* You can place these variables [CustomerName],[OutletName] & [Link] anywhere in
+                                    your SMS Template </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-sm" (click)="updateSMSSetup()">Update SMS
+                                    Setup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+   
+</section>
+</mat-dialog-content>

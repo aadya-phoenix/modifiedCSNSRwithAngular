@@ -1,0 +1,53 @@
+<section class="content-header">
+    <h1>
+        Email Template
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Email Template</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Email Subject </label>
+                            <input type="text" class="form-control" placeholder="Email Subject"
+                                [(ngModel)]="email.EmailSubject" trim>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-12">
+                                <label>Email Template</label>
+                                <div>
+                                     <ckeditor [(ngModel)]="email.EmailTemplate" [editor]="Editor"></ckeditor>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-12">
+                                <label>* You can place these variables [OutletName],[Link],[OutletContactNumber] &
+                                    [OutletEmail] anywhere in your Email Template </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-sm" (click)="updateEmailTemplate()">Update Email
+                                    Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

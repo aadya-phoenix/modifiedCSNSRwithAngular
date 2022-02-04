@@ -1,0 +1,261 @@
+<section class="content-header">
+    <h1>
+        Dealer Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Dealer Group</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addDealer()">Add Dealer</button>
+        <button class="btn btn-primary btn-xs" (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                           [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Distributor</th>
+                            <th>Code</th>
+                            <th>Dealer Name</th>
+                            <th>Address</th>
+                            <th>Country</th>
+                            <th>State/Province</th>
+                            <th>City</th>
+                            <th>Added On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pt of dealerObj | filter:searchText; let i=index;">
+                            <td class="sorting_1">{{ i + 1 }}</td>
+                            <td>{{ pt.DistributorName}}</td>
+                            <td>{{ pt.DealerCode}}</td>
+                            <td>{{ pt.DealerName}}</td>
+                            <td>{{ pt.DealerAddress}}</td>
+                            <td>{{ pt.CountryName }}</td>  
+                            <td>
+                                {{ pt.StateName }}
+                            </td>
+                            <td>{{ pt.CityName }}</td>
+                            <td>{{ pt.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+                                <button class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                            </td>
+                        </tr>
+                 </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Distributor <label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.Distributor_Id">
+                                <option *ngFor="let DC of distributorObj" [value]="DC.Distributor_Id">
+                                    {{DC.DistributorName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Name<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="200" placeholder="Dealer Name" [(ngModel)]="dealer.DealerName" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Code<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Dealer Code" [(ngModel)]="dealer.DealerCode" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Address<label style="color:red">*</label> </label>
+                            <textarea [(ngModel)]="dealer.DealerAddress" placeholder="Dealer Address" class="form-control" trim></textarea>
+                        </div>
+    
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.Country_Id" (change)="getState(dealer.Country_Id)">
+                                <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                    {{country.CountryName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>State/Province<label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.State_Id" (change)="getCity(dealer.State_Id)">
+                                    <option></option>
+                                    <option *ngFor="let state of stateObj" [value]="state.State_Id">
+                                        {{state.StateName}}
+                                    </option></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>City<label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.City_Id">
+                                    <option *ngFor="let city of cityObj" [value]="city.City_Id">
+                                        {{city.CityName}}
+                                    </option></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Logo </label>
+                            <input type="file" class="form-control" (change)="uploadLogo($event)" />
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Contact Person<label style="color:red">*</label> </label>
+                            <input type="text" maxlength="100" class="form-control" placeholder="Contact Person" [(ngModel)]="dealer.DealerContact" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Email <label style="color:red">*</label></label>
+                            <input type="text" maxlength="200" class="form-control" placeholder="Email" 
+                            [(ngModel)]="dealer.DealerEmail" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Contact Number<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" numbers-only maxlength="20" placeholder="Contact Number" [(ngModel)]="dealer.DealerContactNumber" trim>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                            <button class="btn btn-warning btn-xs" (click)="dealerInit()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showEditForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Distributor <label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.Distributor_Id">
+                                <option *ngFor="let DC of distributorObj" [value]="DC.Distributor_Id">
+                                    {{DC.DistributorName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Name<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="200" placeholder="Dealer Name" [(ngModel)]="dealer.DealerName" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Code<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Dealer Code" [(ngModel)]="dealer.DealerCode" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Address<label style="color:red">*</label> </label>
+                            <textarea [(ngModel)]="dealer.DealerAddress" placeholder="Dealer Address" class="form-control" trim></textarea>
+                        </div>
+    
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.Country_Id" (change)="getState(dealer.Country_Id)">
+                                <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                    {{country.CountryName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>State/Province<label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.State_Id" (change)="getCity(dealer.State_Id)">
+                                    <option *ngFor="let state of stateObj" [value]="state.State_Id">
+                                        {{state.StateName}}
+                                    </option></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>City<label style="color:red">*</label></label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="dealer.City_Id">
+                                    <option *ngFor="let city of cityObj" [value]="city.City_Id">
+                                        {{city.CityName}}
+                                    </option></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Dealer Logo </label>
+                            <input type="file" class="form-control" (change)="uploadLogo($event)" />
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Contact Person<label style="color:red">*</label> </label>
+                            <input type="text" maxlength="100" class="form-control" placeholder="Contact Person" [(ngModel)]="dealer.DealerContact" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Email <label style="color:red">*</label></label>
+                            <input type="text" maxlength="200" class="form-control" placeholder="Email" 
+                            [(ngModel)]="dealer.DealerEmail" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Contact Number<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" numbers-only maxlength="20" placeholder="Contact Number" [(ngModel)]="dealer.DealerContactNumber" trim>
+                        </div>
+                    </div>
+                </div>
+    
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+                            <button class="btn btn-warning btn-xs" (click)="dealerInit()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+</section>

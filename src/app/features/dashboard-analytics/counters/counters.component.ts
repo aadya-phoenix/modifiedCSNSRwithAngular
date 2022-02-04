@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsConstantsService } from 'src/app/constants/analytics-constants.service';
+import { CountersDetail } from 'src/app/models/countersDetail.model';
 import { Csi } from 'src/app/models/csi.model';
-import { CsiSurvey } from 'src/app/models/csiSurvey.model';
-import { DashboardCounters } from 'src/app/models/dashCounters.model';
-import { SearchAnalytics } from 'src/app/models/searchAnalytics.model';
+
+
+import { Search } from 'src/app/models/search.model';
+
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from '../services/common.service';
 
@@ -16,10 +18,10 @@ import { CommonService } from '../services/common.service';
 export class CountersComponent implements OnInit {
 
   surveyTypeId: number = this.analyticService.surveyTypeId;
-  searchObj: SearchAnalytics = this.analyticService.takeSearchObject();
-  dashCountersDtl!: DashboardCounters;
-  CSI!: Csi;
-  CSISurvey!: CsiSurvey;
+  searchObj: Search = this.analyticService.takeSearchObject();
+  dashCountersDtl: any;
+  CSI:any;
+  CSISurvey: any;
 
   Instant: boolean = false;
   Survey: boolean = true;
@@ -51,8 +53,7 @@ export class CountersComponent implements OnInit {
       this.Instant = true;
       this.Survey = false;
       this.apiService.getDealerCSIForInstantFeedback(this.searchObj).subscribe((data) => {
-        if (data != null) {
-          console.log("data of CSI", data);
+        if (data) {
           this.CSI = data as Csi;
         }
 
@@ -69,8 +70,8 @@ export class CountersComponent implements OnInit {
 
   changeCountry() {
     if (this.surveyTypeId == 1) {
-      this.apiService.dashboard_bkCounters(this.searchObj).subscribe(data => {
-        this.dashCountersDtl = data as DashboardCounters;
+      this.apiService.dashboard_bkCounters(this.searchObj).subscribe((data:any) => {
+        this.dashCountersDtl = data ;
       }, err => {
         console.log("instant counters error is..", err);
       });
@@ -83,7 +84,7 @@ export class CountersComponent implements OnInit {
     }
     else if (this.surveyTypeId == 2) {
       this.apiService.surveyDashboard_bkCounters(this.searchObj).subscribe(data => {
-        this.dashCountersDtl = data as DashboardCounters;
+        this.dashCountersDtl = data ;
       }, err => {
         console.log("survey counters error is..", err);
       });

@@ -1,0 +1,334 @@
+<section class="content-header">
+    <h1>
+        Dealer Outlets
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Dealer Outlets</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addDealerOutlet()">Add Dealer</button>
+        <button class="btn btn-primary btn-xs" (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid==true">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                           [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Dealer</th>
+                            <th>Code</th>
+                            <th>Outlet Name</th>
+                            <th>Type</th>
+                            <th>Address</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Added On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pt of outletObj | filter:searchText; let i=index;">
+                            <td class="sorting_1">{{ i + 1 }}</td>
+                            <td>{{ pt.DealerName}}</td>
+                            <td>{{ pt.OutletCode}}</td>
+                            <td>{{ pt.OutletName}}</td>
+                            <td>{{ pt.OutletType}}</td>
+                            <td>{{ pt.OutletAddress}}</td>
+                            <td>
+                                {{ pt.StateName }}
+                            </td>
+                            <td>{{ pt.CityName }}</td>
+
+                            <td>{{ pt.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+                                <button class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                            </td>
+                        </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+
+    <div class="box" *ngIf="showForm">
+        <div class="box-body">
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Dealer <label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.Dealer_Id"
+                            (change)="getCountryFromDealer(outlet.Dealer_Id)">
+                        <option *ngFor="let dealer of dealerObj" [value]="dealer.Dealer_Id">
+                            {{dealer.DealerName}}
+                        </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Outlet Code <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="20" placeholder="Outlet Code"
+                            [(ngModel)]="outlet.OutletCode" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Outlet Name <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="200" placeholder="Outlet Name"
+                            [(ngModel)]="outlet.OutletName" trim>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>OutLet Type<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.OutletType_Id">
+                            <option *ngFor="let DC of outletTypeObj" [value]="DC.OutLetType_Id">
+                                {{DC.OutletType}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Address<label style="color:red">*</label> </label>
+                        <textarea [(ngModel)]="outlet.OutletAddress" class="form-control" trim></textarea>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>State<label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.State_Id"
+                            (change)="getCity(outlet.State_Id)">
+                            <option *ngFor="let state of stateObj" [value]="state.State_Id">
+                                {{state.StateName}}
+                            </option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>City<label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                             [(ngModel)]="outlet.City_Id">
+                            <option *ngFor="let city of cityObj" [value]="city.City_Id">
+                                {{city.CityName}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Contact Person<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="100" placeholder="Contact Person"
+                            [(ngModel)]="outlet.OutletContactPerson" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Email<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="200" placeholder="Email"
+                            [(ngModel)]="outlet.OutletEmail" trim>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Contact Number<label style="color:red">*</label> </label>
+                        <input type="text" numbers-only maxlength="20" class="form-control" placeholder="Contact Number"
+                            [(ngModel)]="outlet.OutletContactNumber" trim>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label class="checkbox-inline control-label">
+                            <input type="checkbox" name="IsActive" [(ngModel)]="outlet.IsGeoFencingAllowed" />
+                            Is Geo Fencing Allowed
+                        </label>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row" *ngIf="outlet.IsGeoFencingAllowed">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Lattitude<label style="color:red">*</label> </label>
+                        <input type="text"  maxlength="20" class="form-control" placeholder="Lattitude"
+                            [(ngModel)]="outlet.Lattitude" trim>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Longitude<label style="color:red">*</label> </label>
+                        <input type="text"  maxlength="20" class="form-control" placeholder="Longitude"
+                            [(ngModel)]="outlet.Longitude" trim>
+                    </div>   
+                </div>
+            </div>
+    
+            <div class="row" *ngIf="outlet.IsGeoFencingAllowed">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Proximity Distance (Range In Meters)<label style="color:red">*</label></label>
+                        <input type="text"  maxlength="20" class="form-control"
+                            placeholder="Proximity Distance" [(ngModel)]="outlet.ProximityDistance" trim>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-5">
+                        <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                        <button class="btn btn-warning btn-xs" (click)="outletInit()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box" *ngIf="showEditForm">
+        <div class="box-body">
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Dealer <label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.Dealer_Id"
+                            (change)="getCountryFromDealer(outlet.Dealer_Id)">
+                        <option *ngFor="let dealer of dealerObj" [value]="dealer.Dealer_Id">
+                            {{dealer.DealerName}}
+                        </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Outlet Code <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="20" placeholder="Outlet Code"
+                            [(ngModel)]="outlet.OutletCode" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Outlet Name <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="200" placeholder="Outlet Name"
+                            [(ngModel)]="outlet.OutletName" trim>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>OutLet Type<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.OutletType_Id">
+                            <option *ngFor="let DC of outletTypeObj" [value]="DC.OutLetType_Id">
+                                {{DC.OutletType}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Address<label style="color:red">*</label> </label>
+                        <textarea [(ngModel)]="outlet.OutletAddress" class="form-control" trim></textarea>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>State<label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="outlet.State_Id"
+                            (change)="getCity(outlet.State_Id)">
+                            <option *ngFor="let state of stateObj" [value]="state.State_Id">
+                                {{state.StateName}}
+                            </option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>City<label style="color:red">*</label></label>
+                        <select name="Language" class="form-control selectpicker"
+                             [(ngModel)]="outlet.City_Id">
+                            <option *ngFor="let city of cityObj" [value]="city.City_Id">
+                                {{city.CityName}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Contact Person<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="100" placeholder="Contact Person"
+                            [(ngModel)]="outlet.OutletContactPerson" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Email<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="200" placeholder="Email"
+                            [(ngModel)]="outlet.OutletEmail" trim>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Contact Number<label style="color:red">*</label> </label>
+                        <input type="text" numbers-only maxlength="20" class="form-control" placeholder="Contact Number"
+                            [(ngModel)]="outlet.OutletContactNumber" trim>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label class="checkbox-inline control-label">
+                            <input type="checkbox" name="IsActive" [(ngModel)]="outlet.IsGeoFencingAllowed" />
+                            Is Geo Fencing Allowed
+                        </label>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row" *ngIf="outlet.IsGeoFencingAllowed">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Lattitude<label style="color:red">*</label> </label>
+                        <input type="text"  maxlength="20" class="form-control" placeholder="Lattitude"
+                            [(ngModel)]="outlet.Lattitude" trim>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Longitude<label style="color:red">*</label> </label>
+                        <input type="text"  maxlength="20" class="form-control" placeholder="Longitude"
+                            [(ngModel)]="outlet.Longitude" trim>
+                    </div>   
+                </div>
+            </div>
+    
+            <div class="row" *ngIf="outlet.IsGeoFencingAllowed">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Proximity Distance (Range In Meters)<label style="color:red">*</label></label>
+                        <input type="text"  maxlength="20" class="form-control"
+                            placeholder="Proximity Distance" [(ngModel)]="outlet.ProximityDistance" trim>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-5">
+                        <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Submit</button>
+                        <button class="btn btn-warning btn-xs" (click)="outletInit()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+  </div>
+</section>
+

@@ -7,6 +7,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule}  from '@angular/material/dialog';
+import { QuestionTrendComponent } from './question-trend/question-trend.component';
+import { DashboardGraphsComponent } from './dashboard-graphs/dashboard-graphs.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 
 
@@ -15,7 +18,13 @@ import { MatDialogModule}  from '@angular/material/dialog';
   declarations: [
     DashboardFilterComponent,
     DashboardCountersComponent,
+    DashboardGraphsComponent,
+    QuestionTrendComponent,
+    ChangePasswordComponent,
    
+  ],
+  entryComponents:[
+    QuestionTrendComponent
   ],
   imports: [
     SharedModule,

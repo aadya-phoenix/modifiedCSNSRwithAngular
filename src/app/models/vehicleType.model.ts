@@ -1,6 +1,6 @@
-export class VehicleType{
-    constructor(
-     public VehicleType: string,
-     public VehicleType_Id:number
-    ){}
+export interface VehicleType{
+    
+     VehicleType_Id:number,
+     VehicleType: string
+   
 }

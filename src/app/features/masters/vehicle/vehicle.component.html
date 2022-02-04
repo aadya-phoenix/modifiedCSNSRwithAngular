@@ -1,0 +1,168 @@
+<section class="content-header">
+    <h1>
+        Vehicle
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Vehicle</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" [hidden]="Role=='DealerAdmin'" (click)="addVehicle()">Add Vehicle</button>
+        <button class="btn btn-primary btn-xs" [hidden]="Role=='DealerAdmin'" (click)="addUpload()">Bulk Upload</button>
+    </div>
+
+    <div class="row">
+     <div class="col-xs-12">
+     
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                           [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Vehicle Code</th>
+                            <th>Vehicle Name</th>
+                            <th>Country</th>
+                            <th>Type</th>
+                            <th>Added On</th>
+                            <th>Brand</th>
+                            <th [hidden]="Role=='DealerAdmin'">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pt of vehicleObj |filter:searchText; let i = index;">
+                            <td class="sorting_1">{{ i + 1 }}</td>
+                            <td>{{ pt.VehicleCode}}</td>
+                            <td>{{ pt.VehicleName}}</td>   
+                            <td>{{ pt.CountryName}}</td>   
+                            <td>{{ pt.VehicleType}}</td>  
+                            <td>{{ pt.CreationDate | date : 'dd-MMM-yyyy' }}</td>
+                             <td>{{ pt.BrandTag  }}</td>
+                            <td [hidden]="Role=='DealerAdmin'">
+                                <button   class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+                                <button  class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                            </td>
+                        </tr>
+                   </tbody>
+                </table>
+            </div>
+        </div>
+    <div class="box" *ngIf="showForm">
+        <div class="box-body">
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Vehicle Code<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="50" placeholder="Vehicle Code"
+                            [(ngModel)]="vehicle.VehicleCode" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Vehicle Name <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="100" placeholder="Vehicle Name"
+                            [(ngModel)]="vehicle.VehicleName" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Country<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.Country_Id">
+                            <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                {{country.CountryName}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Vehicle Type<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.VehicleType_Id">
+                            <option *ngFor="let DC of vehicleTypeObj" [value]="DC.VehicleType_Id">
+                                {{DC.VehicleType}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Brand<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.Brand_Id">
+                            <option *ngFor="let pt of vehicleBrandObj" [value]="pt.Brand_Id">
+                                {{pt.BrandTag}}
+                            </option></select>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-5">
+                        <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                        <button class="btn btn-warning btn-xs" (click)="vehicleInit()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box" *ngIf="showEditForm">
+        <div class="box-body">
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-4">
+                        <label>Vehicle Code<label style="color:red">*</label> </label>
+                        <input type="text" class="form-control" maxlength="50" placeholder="Vehicle Code"
+                            [(ngModel)]="vehicle.VehicleCode" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Vehicle Name <label style="color:red">*</label></label>
+                        <input type="text" class="form-control" maxlength="100" placeholder="Vehicle Name"
+                            [(ngModel)]="vehicle.VehicleName" trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Country<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.Country_Id">
+                            <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                {{country.CountryName}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Vehicle Type<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.VehicleType_Id">
+                            <option *ngFor="let DC of vehicleTypeObj" [value]="DC.VehicleType_Id">
+                                {{DC.VehicleType}}
+                            </option></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label>Brand<label style="color:red">*</label> </label>
+                        <select name="Language" class="form-control selectpicker"
+                            [(ngModel)]="vehicle.Brand_Id">
+                            <option *ngFor="let pt of vehicleBrandObj" [value]="pt.Brand_Id">
+                                {{pt.BrandTag}}
+                            </option></select>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group has-feedback">
+                    <div class="col-xs-5">
+                        <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+                        <button class="btn btn-warning btn-xs" (click)="vehicleInit()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     </div>
+    </div>
+</section>

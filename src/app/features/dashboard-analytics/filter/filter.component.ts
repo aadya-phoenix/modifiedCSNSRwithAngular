@@ -4,10 +4,12 @@ import { ConstantsService } from 'src/app/constants/constants.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from '../services/common.service';
 
+import { Search } from 'src/app/models/search.model';
+import { Level } from 'src/app/models/level.model';
 import { Country } from 'src/app/models/country.model';
-import { Csi } from 'src/app/models/csi.model';
+import { LevelSearch } from 'src/app/models/levelSeach.model';
+import { LevelDetailInfo } from 'src/app/models/levelDetailInfo.model';
 import { Outlet } from 'src/app/models/oultet.model';
-import { SearchAnalytics } from 'src/app/models/searchAnalytics.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 
 
@@ -18,16 +20,22 @@ import { VehicleType } from 'src/app/models/vehicleType.model';
 })
 export class FilterComponent implements OnInit {
 
-  outletObj: Outlet[]=[];
-  vehicleTypeObj: VehicleType[]=[];
-  countryObj: Country[]=[];
+  
   surveyTypeId: number = this.analyticService.surveyTypeId;
-  searchObj: SearchAnalytics = this.analyticService.takeSearchObject();
+  searchObj: Search = this.analyticService.takeSearchObject();
   session = this.constantService.takeSession();
   Role = this.session.RoleName;
 
   Instant:boolean = false;
   Survey:boolean = true;
+
+  levelObj: Level[] = [];
+  countryObj:Country[]=[];
+  levelSearchObj!: LevelSearch;
+  levelDetail: LevelDetailInfo[] = [];
+  outObj!: LevelSearch;
+  outletObj: Outlet[] = [];
+  vehicleObj:VehicleType[]=[];
 
   constructor(
     private analyticService:AnalyticsConstantsService,
@@ -37,45 +45,91 @@ export class FilterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getCountryList().subscribe((data:any)=>{
-      console.log("country Obj is",data);
-      this.countryObj=data;
-    }, err=>{
-      console.log("countryObject error",err);
-    });
+    this.apiService.getCountryList().subscribe((data:any)=> {
+      this.countryObj = data;
+    },error=>{
+      console.log(error);
+  });
+  this.getLevelList(this.session.Country_Id);
 
-    this.getDealerByCountry(this.searchObj.Country_Id);
-    this.apiService.getVehicleTypeForDDL().subscribe((data:any)=>{
-      this.vehicleTypeObj = data;
-    },err=>{
-      console.log("vehicle typer error..",err);
-    })
+  this.apiService.getVehicleTypeForDDL().subscribe((data:any)=>{
+    this.vehicleObj = data;
+   },error=>{
+    console.log(error);
+   });
   }
-   
+  
+  getLevelList(id:any){
+    if (this.session.RoleName === 'Zone/Region' || this.session.RoleName === 'LastLeg' ) {
+      this.searchObj.Level_Id = this.session.DealerId;
+      this.searchObj.Leveldetail_Id = this.session.AccountId;
+      this.apiService.getLevelListForZoneRegion(this.session.Country_Id, this.session.DealerId).subscribe((data:any)=> {
+          if (data) {
+              this.levelObj = data;                  
+              this.getLevelDetails(this.searchObj.Level_Id);
+          }
+      },error=>{
+          console.log(error);
+      });
+    }
+  else {
+    this.apiService.getLevelList(id).subscribe((data:any)=> {
+          if (data) {
+              this.levelObj = data;
+              this.searchObj.Level_Id = this.levelObj[0].Level_Id;
+              this.getLevelDetails(this.searchObj.Level_Id);
+              console.log(this.levelObj);
+          }
+      },error=>{
+          console.log(error);
+      });
+   }
+  }
+  getLevelDetails(levelId:any){
+
+    this.levelSearchObj = {
+      Level_Id: levelId,
+      Leveldetail_Id: 0,
+      UserName: this.session.UserName,
+      Country_Id: this.searchObj.Country_Id
+    };
+
+    this.apiService.getLevelDetailListForZoneRegion(this.levelSearchObj).subscribe((data: any) => {
+      this.levelDetail = data;
+      if (this.session.RoleName === 'Zone/Region' || this.session.RoleName === 'LastLeg') {
+        this.searchObj.Leveldetail_Id = this.session.AccountId;
+      }
+      else {
+        this.searchObj.Leveldetail_Id = this.levelDetail[0].Leveldetail_Id;
+      }
+      this.getOutletListBySublevel();
+  },error=>{
+      console.log(error);
+  });
+  }
+
+  getOutletListBySublevel(){
+    this.outObj = {
+      Level_Id: this.searchObj.Level_Id,
+      Leveldetail_Id: this.searchObj.Leveldetail_Id,
+      UserName: this.session.UserName,
+      Country_Id: this.searchObj.Country_Id
+    };
+
+    this.apiService.getOutletListBySublevel(this.outObj).subscribe((data: any) => {
+      this.outletObj = data;
+    },error=>{
+      console.log(error);
+  });
+  }
+
   toggleDashboard(id:number){
-    this.common.sendToggleEvent({id:id,obj:this.searchObj});
-    this.changeCountry();
+   
   }
 
   changeCountry(){
-    this.common.sendCountryEvent({id:this.surveyTypeId,obj:this.searchObj});
-  }
 
-  getDealerByCountry(id:number){
-    if (id == 0) {
-      this.apiService.getDealerOutletList(this.session.User_Id).subscribe((data:any) => {
-        this.outletObj = data;
-      }, (error) => {
-        console.log(error);
-      });
-    }
-    else {
-      this.apiService.getOutLetListByCountry(id).subscribe((data:any) => {
-        this.outletObj = data;
-      }, (error) => {
-        console.log(error);
-      });
-    }
   }
+  
 }
 

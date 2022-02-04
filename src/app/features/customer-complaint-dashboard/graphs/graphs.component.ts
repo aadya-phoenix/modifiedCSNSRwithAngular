@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Label } from 'src/app/models/label.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { Search } from 'src/app/models/search.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from '../services/common.service';
 import { ConstantsService } from 'src/app/constants/constants.service';
 import { Subscription } from 'rxjs';
+import { Chart, registerables } from 'chart.js';
+import { CcDashService } from '../services/cc-dash.service';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-graphs',
@@ -13,171 +16,227 @@ import { Subscription } from 'rxjs';
 })
 export class GraphsComponent implements OnInit {
 
-  labelObj: Label[] = [];
-  searchObj!: Search;
+  @Input()
+  labelObj!: any;
+  myChart: any;
+  myChartPie:any;
+  searchObj= this.constantService.takeSearchAnalytics();
   selectedLanguage: number = this.constantService.selectedLanguage;
   defaultLanguage: boolean = true;
 
-  FromDateLabel: string = '';
-  ToDateLabel: string = '';
-  CountryLabel: string = '';
-  DealerOutletCodeLabel: string = '';
-  VehicleLabel: string = '';
-  CustomerComplaintDashboardLabel: string = '';
-  TOTALCOMPLAINTSLabel: string = '';
-  COMPLAINTSRESOLVEDLabel: string = '';
-  SearchLabel: string = '';
-  ComplaintAttributionLabel: string = '';
-  ComplaintStatusLabel: string = '';
-  ParameterLabel: string = '';
-  ComplaintGeneratedLabel: string = '';
-  COMPLAINTSPENDINGLabel: string = '';
-  DISTRIBUTORCOMPLAINTSLabel: string = '';
-  TotalLabel: string = '';
-  ResolvedLabel: string = '';
-  ComplaintResolutionSourceLabel: string = '';
-  TelephonicLabel: string = '';
-  WorkshopVisitLabel: string = '';
-  HomeVisitLabel: string = '';
-  BrandLabel: string = '';
-  NumbersLabel: string = '';
+  ModeWisecount:any;
 
   countrySubscription!:Subscription;
 
   constructor(
     private apiService: ApiService,
     private constantService:ConstantsService,
-    private common:CommonService
-  ) { }
+    private common:CommonService,
+    private ccDash:CcDashService,
+    private datepipe: DatePipe
+  ) { 
+    Chart.register(...registerables);
+  }
 
   ngOnInit(): void {
-    this.apiService.getLabel().subscribe(data => {
-      this.labelObj = data;
-      this.selectLanguage(this.selectedLanguage);
-    });
-
     this.countrySubscription= this.common.getCountryEvent().subscribe(data=>{
-      this.searchObj =data;
+      this.searchObj =data.obj;
       this.changeCountry();
     });
+     this.getGraphData();
   }
 
-  selectLanguage(id: number) {
-    this.defaultLanguage = true;
-    if (id == 2) {
-      this.defaultLanguage = true;
-      for (var i = 0; i < this.labelObj.length; i++) {
+  changeCountry(){
 
-        if (this.labelObj[i].DefaultLanguage == 'From Date') {
-          this.FromDateLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'To Date') {
-          this.ToDateLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Country') {
-          this.CountryLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Dealer Outlet Code') {
-          this.DealerOutletCodeLabel = this.labelObj[i].DefaultLanguage;
-        }
-        if (this.labelObj[i].DefaultLanguage == 'Vehicle') {
-          this.VehicleLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Customer Complaint Dashboard') {
-          this.CustomerComplaintDashboardLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'TOTAL COMPLAINTS') {
-          this.TOTALCOMPLAINTSLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'COMPLAINTS RESOLVED') {
-          this.COMPLAINTSRESOLVEDLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Search') {
-          this.SearchLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Complaint Attribution') {
-          this.ComplaintAttributionLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Complaint Status') {
-          this.ComplaintStatusLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Parameter') {
-          this.ParameterLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Complaint Generated') {
-          this.ComplaintGeneratedLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'COMPLAINTS PENDING') {
-          this.COMPLAINTSPENDINGLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'DISTRIBUTOR COMPLAINTS') {
-          this.DISTRIBUTORCOMPLAINTSLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Total') {
-          this.TotalLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Resolved') {
-          this.ResolvedLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Complaint Resolution Source') {
-          this.ComplaintResolutionSourceLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Telephonic') {
-          this.TelephonicLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Workshop Visit') {
-          this.WorkshopVisitLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Home Visit') {
-          this.HomeVisitLabel = this.labelObj[i].DefaultLanguage;
-        } if (this.labelObj[i].DefaultLanguage == 'Brand') {
-          this.BrandLabel = this.labelObj[i].DefaultLanguage;
-        }
-        if (this.labelObj[i].DefaultLanguage == 'Numbers') {
-          this.NumbersLabel = this.labelObj[i].DefaultLanguage;
-        }
-      }
-    }
-    if (id > 2) {
-      this.defaultLanguage = false;
-      for (var i = 0; i < this.labelObj.length; i++) {
-        if (this.labelObj[i].Language_Id == id) {
-          if (this.labelObj[i].DefaultLanguage == 'From Date') {
-            this.FromDateLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'To Date') {
-            this.ToDateLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Vehicle') {
-            this.VehicleLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Customer Complaint Dashboard') {
-            this.CustomerComplaintDashboardLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'TOTAL COMPLAINTS') {
-            this.TOTALCOMPLAINTSLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'COMPLAINTS RESOLVED') {
-            this.COMPLAINTSRESOLVEDLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Search') {
-            this.SearchLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Complaint Attribution') {
-            this.ComplaintAttributionLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Complaint Status') {
-            this.ComplaintStatusLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Parameter') {
-            this.ParameterLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Complaint Generated') {
-            this.ComplaintGeneratedLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Country') {
-            this.CountryLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Dealer Outlet Code') {
-            this.DealerOutletCodeLabel = this.labelObj[i].ConvertedLanguage;
-          }
-          if (this.labelObj[i].DefaultLanguage == 'COMPLAINTS PENDING') {
-            this.COMPLAINTSPENDINGLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'DISTRIBUTOR COMPLAINTS') {
-            this.DISTRIBUTORCOMPLAINTSLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Total') {
-            this.TotalLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Resolved') {
-            this.ResolvedLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Complaint Resolution Source') {
-            this.ComplaintResolutionSourceLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Telephonic') {
-            this.TelephonicLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Workshop Visit') {
-            this.WorkshopVisitLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Home Visit') {
-            this.HomeVisitLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'COMPLAINTS PENDING') {
-            this.COMPLAINTSPENDINGLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Numbers') {
-            this.NumbersLabel = this.labelObj[i].ConvertedLanguage;
-          } if (this.labelObj[i].DefaultLanguage == 'Brand') {
-            this.BrandLabel = this.labelObj[i].ConvertedLanguage;
+    
+    this.searchObj.FromDate = this.datepipe.transform(this.searchObj.FromDate, 'MMMM dd, yyyy');
+    this.searchObj.ToDate = this.datepipe.transform(this.searchObj.ToDate, 'MMMM dd, yyyy');
+    
+
+    this.apiService.customerComplaintDashBoardCounters(this.searchObj).subscribe((data:any)=>{
+      console.log("change country api graphs");
+      
+      const totalComplaints = (data.IFC_Complaint + data.Survey_Complaint + 
+        data.PSF_Complaint + data.Direct_Complaint + data.Distributer_Complaint);
+         
+      const resolvedComplaint = (data.IFC_ComplaintResolved + data.Survey_ComplaintResolved 
+        + data.PSF_ComplaintResolved + data.Direct_ComplaintResolved + data.Distributer_ComplaintResolved);
+       
+      const CMP = [totalComplaints,data.IFC_Complaint,data.Survey_Complaint,
+              data.Direct_Complaint,data.PSF_Complaint,data.Distributer_Complaint];
+      
+      const RES = [resolvedComplaint,data.IFC_ComplaintResolved,data.Survey_ComplaintResolved,
+                  data.Direct_ComplaintResolved,data.PSF_ComplaintResolved,data.Distributer_ComplaintResolved];
+
+      const Type =['Total','IFCSurvey','Direct','PSF','Distributor'];
+      this.myChart.destroy();
+         this.myChart = new Chart("myChart", {
+           type: 'bar',
+           data: {
+             labels: Type,
+             datasets: [{
+               label: 'Total',
+               data: CMP,
+               backgroundColor: [
+                 "#dd4b39"
+               ],
+               borderWidth: 1
+             }, {
+               label: 'Resolved',
+               data: RES,
+               backgroundColor: [
+                 "#00a65a"
+               ]
+             }]
+           },
+           options: {
+             scales: {
+               y: {
+                 beginAtZero: true
+               }
+             }
+           }
+         });
+      
+    },error=>{
+      console.log(error);
+    });
+
+    this.ccDash.customerComplaintDashBoardCountersModewise(this.searchObj).subscribe(data=>{
+      this.ModeWisecount =data;
+      console.log("ModeWisecount",this.ModeWisecount);
+      console.log("search object",this.searchObj);
+    },err=>{
+      console.log(err);
+    });
+
+    this.ccDash.getComplaintCategoryCountForDashBoard(this.searchObj).subscribe((data:any)=>{
+
+      const PieLabels = data.map((x:any)=>x.CmplnAttribute);
+
+      const totalAttributecount = data.map((x:any)=>x.TotalCount);
+
+      const PieData =  data.map((x:any)=>((x.TotalCount/x.totalAttributecount) * 100).toFixed(2));
+
+      this.myChart = new Chart("pie", {
+        type: 'pie',
+        data: {
+          labels: PieLabels,
+          datasets: [{
+            data: PieData,
+            backgroundColor: [
+              "#dd4b39"
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    }
+      });
+
+    },err=>{
+      console.log(err);
+    });
+    
   }
 
-  changeCountry(){}
+  getGraphData(){
+
+    this.searchObj.FromDate = this.datepipe.transform(this.searchObj.FromDate, 'MMMM dd, yyyy');
+    this.searchObj.ToDate = this.datepipe.transform(this.searchObj.ToDate, 'MMMM dd, yyyy');
+    this.apiService.customerComplaintDashBoardCounters(this.searchObj).subscribe((data:any)=>{
+         
+      console.log("get graphs callbackify..");
+
+      const totalComplaints = (data.IFC_Complaint + data.Survey_Complaint + 
+        data.PSF_Complaint + data.Direct_Complaint + data.Distributer_Complaint);
+         
+      const resolvedComplaint = (data.IFC_ComplaintResolved + data.Survey_ComplaintResolved 
+        + data.PSF_ComplaintResolved + data.Direct_ComplaintResolved + data.Distributer_ComplaintResolved);
+       
+      const CMP = [totalComplaints,data.IFC_Complaint,data.Survey_Complaint,
+              data.Direct_Complaint,data.PSF_Complaint,data.Distributer_Complaint];
+      
+      const RES = [resolvedComplaint,data.IFC_ComplaintResolved,data.Survey_ComplaintResolved,
+                  data.Direct_ComplaintResolved,data.PSF_ComplaintResolved,data.Distributer_ComplaintResolved];
+
+      const Type =['Total','IFCSurvey','Direct','PSF','Distributor'];
+
+         this.myChart = new Chart("myChart", {
+           type: 'bar',
+           data: {
+             labels: Type,
+             datasets: [{
+               label: 'Total',
+               data: CMP,
+               backgroundColor: [
+                 "#dd4b39"
+               ],
+               borderWidth: 1
+             }, {
+               label: 'Resolved',
+               data: RES,
+               backgroundColor: [
+                 "#00a65a"
+               ]
+             }]
+           },
+           options: {
+             scales: {
+               y: {
+                 beginAtZero: true
+               }
+             }
+           }
+         });
+
+    },error=>{
+      console.log(error);
+    });
+
+    this.ccDash.customerComplaintDashBoardCountersModewise(this.searchObj).subscribe(data=>{
+      this.ModeWisecount =data;
+    },err=>{
+      console.log(err);
+    });
+
+    this.ccDash.getComplaintCategoryCountForDashBoard(this.searchObj).subscribe((data:any)=>{
+
+      const PieLabels = data.map((x:any)=>x.CmplnAttribute);
+
+      const totalAttributecount = data.map((x:any)=>x.TotalCount);
+
+      const PieData =  data.map((x:any)=>((x.TotalCount/x.totalAttributecount) * 100).toFixed(2));
+
+      this.myChartPie = new Chart("pie", {
+        type: 'pie',
+        data: {
+          labels: PieLabels,
+          datasets: [{
+            data: PieData,
+            backgroundColor: [
+              "#dd4b39"
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+    },err=>{
+      console.log(err);
+    });
+  }
 
 }

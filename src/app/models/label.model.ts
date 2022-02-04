@@ -1,8 +1,6 @@
-export class Label{
-    constructor(
-        public DefaultLanguage: string, 
-        public Language_Id: number, 
-        public Language: string,
-        public ConvertedLanguage: string
-    ){}
+export interface Label{
+        DefaultLanguage: string; 
+        Language: string;
+        ConvertedLanguage: string;
+        Language_Id?: number;
 }

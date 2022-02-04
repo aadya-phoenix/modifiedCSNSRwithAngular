@@ -1,47 +1,41 @@
 <div class="row">
-    <div class="row" *ngIf="PERF==true">
+    <div class="row" *ngIf="PERF">
         <div class="clearfix visible-sm-block"></div>
 
         <div class="col-md-for-2 col-sm-2 col-xs-6">
             <div class="info-box">
-                <span *ngIf="((TGTData.SerAch)*100) >=  (TGTData.SerTarget)" class="info-box-icon bg-green">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.SerAch)*100 | number }}%</span>
+                <span *ngIf="((TGTData?.IFCAch)*100) >= (TGTData?.IFCTarget)" class="info-box-icon bg-green">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.IFCAch)*100 | number }}%</span>
                 </span>
-                <span *ngIf="((TGTData.SerAch)*100) < (TGTData.SerTarget)" class="info-box-icon bg-red">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.SerAch)*100 | number }}%</span>
+                <span *ngIf="(TGTData?.IFCTarget)>((TGTData?.IFCAch)*100)" class="info-box-icon bg-red">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.IFCAch)*100 | number }}%</span>
                 </span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text"
-                        style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{UPLOADTARGETLabel}}</span>
-                    <span class="info-box-number">{{TGTData.SerTarget | number }}%</span>
+                    <span class="info-box-text" style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{labelObj.FEEDBACKTARGETLabel}}</span>
+                    <span class="info-box-number">{{TGTData?.IFCTarget | number  }}%</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-
-
         <div class="col-md-for-2 col-sm-2 col-xs-6">
             <div class="info-box">
-                <span *ngIf="((TGTData.IFCAch)*100) >= (TGTData.IFCTarget)" class="info-box-icon bg-green">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.IFCAch)*100 | number }}%</span>
+                <span *ngIf="((TGTData?.SMRAch)*100) >= (TGTData?.SMRTarget)" class="info-box-icon bg-green">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.SMRAch)*100 | number  }}%</span>
                 </span>
 
-                <span *ngIf="((TGTData.IFCAch)*100) < (TGTData.IFCTarget)" class="info-box-icon bg-red">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.IFCAch)*100 | number }}%</span>
+                <span *ngIf="(TGTData?.SMRTarget)>((TGTData?.SMRAch)*100)" class="info-box-icon bg-red">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.SMRAch)*100 | number  }}%</span>
                 </span>
-
-
 
                 <div class="info-box-content">
-                    <span class="info-box-text"
-                        style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{FEEDBACKTARGETLabel}}</span>
-                    <span class="info-box-number">{{TGTData.IFCTarget | number }}%</span>
+                    <span class="info-box-text" style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{labelObj.SMRTARGETLabel}}</span>
+                    <span class="info-box-number">{{TGTData?.SMRTarget | number }}%</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -50,21 +44,19 @@
 
         <div class="col-md-for-2 col-sm-2 col-xs-6">
             <div class="info-box">
-                <span *ngIf="((TGTData.SMRAch)*100) >= (TGTData.SMRTarget)" class="info-box-icon bg-green">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.SMRAch)*100 | number }}%</span>
+                <span *ngIf="((TGTData?.EmailAch)*100) >= (TGTData?.EmailTarget)" class="info-box-icon bg-green">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.EmailAch)*100 | number }}%</span>
                 </span>
 
-                <span *ngIf="((TGTData.SMRAch)*100 )  <  (TGTData.SMRTarget)" class="info-box-icon bg-red">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.SMRAch)*100 | number }}%</span>
+                <span *ngIf="(TGTData?.EmailTarget)>((TGTData?.EmailAch)*100)" class="info-box-icon bg-red">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.EmailAch)*100 | number }}%</span>
                 </span>
-
 
                 <div class="info-box-content">
-                    <span class="info-box-text"
-                        style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{SMRTARGETLabel}}</span>
-                    <span class="info-box-number">{{TGTData.SMRTarget | number }}%</span>
+                    <span class="info-box-text" style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{labelObj.EMAILTARGETLabel}}</span>
+                    <span class="info-box-number">{{TGTData?.EmailTarget | number }}%</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -73,84 +65,192 @@
         <!-- /.col -->
         <div class="col-md-for-2 col-sm-2 col-xs-6">
             <div class="info-box">
-                <span *ngIf="((TGTData.EmailAch)*100) >= (TGTData.EmailTarget)" class="info-box-icon bg-green">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.EmailAch)*100 | number }}%</span>
+                <span *ngIf="((TGTData?.PSFAch)*100 ) >= (TGTData?.PSFTarget)" class="info-box-icon bg-green">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.PSFAch)*100 | number }}%</span>
                 </span>
 
-                <span *ngIf="((TGTData.EmailAch)*100) < (TGTData.EmailTarget)" class="info-box-icon bg-red">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.EmailAch)*100 | number }}%</span>
+                <span *ngIf="(TGTData?.PSFTarget)>((TGTData?.PSFAch)*100 )" class="info-box-icon bg-red">
+                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{labelObj.AchievementLabel}}</h5>
+                    <span style="font-size:18px">{{(TGTData?.PSFAch)*100 | number }}%</span>
                 </span>
-
 
                 <div class="info-box-content">
-                    <span class="info-box-text"
-                        style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{EMAILTARGETLabel}}</span>
-                    <span class="info-box-number">{{TGTData.EmailTarget | number }}%</span>
+                    <span class="info-box-text" style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{labelObj.PSFTARGETLabel}}</span>
+                    <span class="info-box-number">{{TGTData?.PSFTarget | number }}%</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span *ngIf="((TGTData.PSFAch)*100 ) >= (TGTData.PSFTarget)" class="info-box-icon bg-green">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.PSFAch)*100 | number }}%</span>
-                </span>
-                <span *ngIf="((TGTData.PSFAch)*100 ) < (TGTData.PSFTarget)" class="info-box-icon bg-red">
-                    <h5 style="margin-bottom:-25px;font-weight:bold;">{{AchievementLabel}}</h5>
-                    <span style="font-size:18px">{{(TGTData.PSFAch)*100 | number }}%</span>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text"
-                        style="font-weight:bold;font-weight:bold;margin-bottom: 18px;">{{PSFTARGETLabel}}</span>
-                    <span class="info-box-number">{{TGTData.PSFTarget | number }}%</span>
-                </div>
-
-                <!-- /.info-box -->
-            </div>
         </div>
         <!-- /.col -->
     </div>
 
+    <div class="row"  *ngIf="Instant">
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><img src="../../../../assets/img/service.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.SERVICEDONELabel}}</span>
+                    <span class="info-box-number">{{countersDtl.ServiceDone}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/feedback.png" width="60"></span>
 
-    <div class="row" *ngIf="SMR==true">
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.FeedbackCapturedLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.SurveySubmittedInstant}} </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><img src="../../../../assets/img/satisfied.png" width="60"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.SATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.SatisfiedInsFeedback}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><img src="../../../../assets/img/dissatisfied.png" width="60"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.DISSATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.DisSatisfiedInsFeedback}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><img src="../../../../assets/img/csi.png" width="45"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.CSILabel}}</span>
+                    <span class="info-box-number">{{CSI.CSI*100 | number }}</span>
+                </div>
+
+                <!-- /.info-box -->
+            </div>
+            </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <!-- /.col -->
+        <!-- /.col -->
+    </div>
+
+    <div class="row" *ngIf="Survey">
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><img src="../../../../assets/img/service.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.SERVICEDONELabel}}</span>
+                    <span class="info-box-number">{{countersDtl.ServiceDone}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/surveysent.png" width="60"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.SURVEYSENTLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.SurveySentCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/feedback.png" width="60"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.TELEPHONICSURVEYLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.SurveySubmittedTelephonic}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+       
+        <!-- /.col -->
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><img src="../../../../assets/img/surveycompleted.png" width="52"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.SURVEYCOMPLETEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.SurveyCompltedCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><img src="../../../../assets/img/csi.png" width="45"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{labelObj.CSILabel}}</span>
+                    <span class="info-box-number">{{CSISurvey.CSI*100 | number }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+                <!-- /.info-box -->
+            </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <!-- /.col -->
+        <!-- /.col -->
+    </div>
+
+    <div class="row" *ngIf="SMR">
         <div class="clearfix visible-sm-block"></div>
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:233px">
             <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{ServicecalldueLabel}}</span>
-                    <span class="info-box-number">{{FreshLeadCount + FollowUpLeadCount + NonContactLeadCount +
-                        BookingLeadCount}}</span>
+                    <span class="info-box-text">{{labelObj.ServicecalldueLabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.YetToContact + SMRAllCount.Contacted + SMRAllCount.NonContacted + SMRAllCount.Booking}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:250px;padding-left:0px">
             <div class="info-box">
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
                 <div class="info-box-content">
-                    <span class="info-box-text">{{YETTOCONTACTLabel}}</span>
-                    <span class="info-box-number">{{FreshLeadCount}}</span>
+                    <span class="info-box-text">{{labelObj.YETTOCONTACTLabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.YetToContact}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:233px;padding-left:0px">
             <div class="info-box">
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
                 <div class="info-box-content">
-                    <span class="info-box-text">{{CONTACTEDLabel}}</span>
-                    <span class="info-box-number">{{FollowUpLeadCount}}</span>
+                    <span class="info-box-text">{{labelObj.CONTACTEDLabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.Contacted}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -159,10 +259,9 @@
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:250px;padding-left:0px">
             <div class="info-box">
                 <span class="info-box-icon bg-aqua"><i class="fa fa-th"></i></span>
-
                 <div class="info-box-content">
-                    <span class="info-box-text">{{NONCONTACTABLELabel}}</span>
-                    <span class="info-box-number">{{NonContactLeadCount}}</span>
+                    <span class="info-box-text">{{labelObj.NONCONTACTABLELabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.NonContacted}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -172,102 +271,21 @@
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:225px;padding-left:0px">
             <div class="info-box">
                 <span class="info-box-icon bg-red"><i class="ion ion-android-calendar"></i></span>
-
                 <div class="info-box-content">
-                    <span class="info-box-text">{{BOOKINGLabel}}</span>
-                    <span class="info-box-number">{{BookingLeadCount}}</span>
+                    <span class="info-box-text">{{labelObj.BOOKINGLabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.Booking}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-
         <div class="col-md-3 col-sm-6 col-xs-12" style="width:250px;padding-left:0px">
             <div class="info-box">
                 <span class="info-box-icon bg-red"><i class="ion ion-android-calendar"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">{{SERVICECONVERTEDLabel}}</span>
-                    <span class="info-box-number">{{ConvertedLeadCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <!-- /.col -->
-        <!-- fix for small devices only -->
-        <!-- /.col -->
-        <!-- /.col -->
-
-    </div>
-
-
-
-    <div class="row" *ngIf="Survey==true">
-
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><img src="../../../../assets/img/service.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">{{SERVICEDONELabel}}</span>
-                    <span class="info-box-number">{{countersDtl.ServiceDone}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/surveysent.png"
-                        width="60"></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">{{SURVEYSENTLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.SurveySentCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/feedback.png" width="60"></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">{{TELEPHONICSURVEYLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.SurveySubmittedTelephonic}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <!-- /.col -->
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><img src="../../../../assets/img/surveycompleted.png"
-                        width="52"></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">{{SURVEYCOMPLETEDLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.SurveyCompltedCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><img src="../../../../assets/img/csi.png" width="45"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">{{CSILabel}}</span>
-                    <span class="info-box-number">{{CSISurvey.CSI*100 | number}}</span>
+                    <span class="info-box-text">{{labelObj.SERVICECONVERTEDLabel}}</span>
+                    <span class="info-box-number">{{SMRAllCount.ServiceConverted}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -279,247 +297,146 @@
         <!-- /.col -->
     </div>
 
-    <div class="row" *ngIf="Instant==true">
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
+    <div class="row" *ngIf="PSFS">
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><img src="../../../../assets/img/service.png" width="60"></span>
+                <span class="info-box-icon bg-aqua"><img style="margin-top: -15px;" src="../../../../assets/img/psf/due-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{SERVICEDONELabel}}</span>
-                    <span class="info-box-number">{{countersDtl.ServiceDone}}</span>
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.TOTALDUELabel}} </span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalDueCallCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><img src="../../../../assets/img/feedback.png" width="60"></span>
-
+                <span class="info-box-icon bg-blue"><img style="margin-top: -15px;" src="../../../../assets/img/psf/done-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{FeedbackCapturedLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.SurveySubmittedInstant}} </span>
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.CONTACTEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalDoneCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><img src="../../../../assets/img/satisfied.png" width="60"></span>
-
+                <span class="info-box-icon bg-yellow"><img style="margin-top: -15px;" src="../../../../assets/img/psf/pending-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{SATISFIEDLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.SatisfiedInsFeedback}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><img src="../../../../assets/img/dissatisfied.png" width="60"></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">{{DISSATISFIEDLabel}}</span>
-                    <span class="info-box-number">{{countersDtl.DisSatisfiedInsFeedback}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <div class="col-md-for-2 col-sm-2 col-xs-6">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><img src="../../../../assets/img/csi.png" width="45"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">{{CSILabel}}</span>
-                    <span class="info-box-number">{{CSI.CSI*100 | number}}</span>
-                </div>
-
-                <!-- /.info-box -->
-            </div>
-        </div>
-        <!-- /.col -->
-        <!-- fix for small devices only -->
-        <!-- /.col -->
-        <!-- /.col -->
-    </div>
-
-
-    <div class="row" *ngIf="PSFSales==true">
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth  ">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/due-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{TOTALDUELabel}} </span>
-                    <span class="info-box-number ">{{countersDtl.PSFSalesTotalDueCallCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth ">
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/done-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{CONTACTEDLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFSalesTotalDoneCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth  ">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/pending-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{YETTOCONTACTLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFSalesTotalPendingCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{FeedbackCapturedLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFSalesTotalSatisfiedCount +
-                        countersDtl.PSFSalesTotalDisSatisfiedCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth  ">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text " style="white-space: initial;">{{SATISFIEDLabel}}</span>
-                    <span class="info-box-number ng-binding">{{countersDtl.PSFSalesTotalSatisfiedCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-2 col-xs-6 col-setwidth ">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/dissatisfied-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{DISSATISFIEDLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFSalesTotalDisSatisfiedCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-    </div>
-
-
-    <div class="row" *ngIf="PSFS==true">
-
-
-
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/due-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{TOTALDUELabel}} </span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalDueCallCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/done-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{CONTACTEDLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalDoneCount}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/pending-call.png" width="60"></span>
-                <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">
-                        {{YETTOCONTACTLabel}}
+                    <span class="info-box-text"style="white-space: initial;">
+                        {{labelObj.YETTOCONTACTLabel}}
                     </span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalPendingCount}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalPendingCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
+        </div><!--./col-md-for-5-->
+        
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
+                <span class="info-box-icon bg-green"><img style="margin-top: -15px;" src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{FeedbackCapturedLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalSatisfiedCount +
-                        countersDtl.PSFTotalDisSatisfiedCount }}</span>
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.FeedbackCapturedLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalSatisfiedCount + countersDtl.PSFTotalDisSatisfiedCount   }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
         </div>
-
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
+        
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><img style="margin-top: -15px;"
-                        src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
+                <span class="info-box-icon bg-green"><img style="margin-top: -15px;" src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{SATISFIEDLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalSatisfiedCount}}</span>
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.SATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalSatisfiedCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
-        <div class="col-md-for-2 col-sm-3 col-xs-6 col-setwidth">
-
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
+        
             <div class="info-box">
-                <span class="info-box-icon bg-red"><img style="margin-top: -15px;"
-                        src="../../../assets/img/psf/dissatisfied-call.png" width="60"></span>
+                <span class="info-box-icon bg-red"><img style="margin-top: -15px;" src="../../../../assets/img/psf/dissatisfied-call.png" width="60"></span>
                 <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: initial;">{{DISSATISFIEDLabel}}</span>
-                    <span class="info-box-number ">{{countersDtl.PSFTotalDisSatisfiedCount}}</span>
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.DISSATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFTotalDisSatisfiedCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
-        </div>
-        <!--./col-md-for-5-->
+        </div><!--./col-md-for-5-->
     </div>
 
+    <div class="row" *ngIf="PSFSales">
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth  ">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><img style="margin-top: -15px;" src="../../../../assets/img/psf/due-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.TOTALDUELabel}} </span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalDueCallCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth ">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><img style="margin-top: -15px;" src="../../../../assets/img/psf/done-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.CONTACTEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalDoneCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth  ">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><img style="margin-top: -15px;" src="../../../../assets/img/psf/pending-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: initial;" >{{labelObj.YETTOCONTACTLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalPendingCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><img style="margin-top: -15px;" src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.FeedbackCapturedLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalSatisfiedCount + countersDtl.PSFSalesTotalDisSatisfiedCount   }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth  ">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><img style="margin-top: -15px;" src="../../../../assets/img/psf/satisfied-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text " style="white-space: initial;" >{{labelObj.SATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalSatisfiedCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div><!--./col-md-for-5-->
+        <div class="col-md-for-5 col-sm-6 col-xs-12 col-setwidth ">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><img style="margin-top: -15px;" src="../../../../assets/img/psf/dissatisfied-call.png" width="60"></span>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: initial;">{{labelObj.DISSATISFIEDLabel}}</span>
+                    <span class="info-box-number">{{countersDtl.PSFSalesTotalDisSatisfiedCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div><!--./col-md-for-5-->
+    </div>
 </div>

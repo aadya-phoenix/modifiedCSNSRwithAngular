@@ -1,0 +1,111 @@
+<section class="content-header">
+    <h1>
+        Language Setup
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Language Setup</li>
+    </ol>
+</section>
+
+<section class="content">
+   <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs"  (click)="addLanguage()">Add Language</button>
+        <button class="btn btn-primary btn-xs"  (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                       [(ngModel)]="searchLanguage"    placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Language Name</th>
+                            <th>Default Language</th>
+                            <th>Created On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let language of languageObj |filter:searchLanguage;  let i=index;">
+                            <td class="sorting_1">{{i+1}}</td>
+                            <td>{{ language.Language }}</td>
+                            <td><input type="checkbox" [(ngModel)]="language.IsDefault" disabled /></td>
+                            <td>{{ language.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                            <td>
+                                <button [disabled]="i==0" class="btn btn-primary btn-xs" (click)="editTransaction(language)">Edit</button>
+                             
+                                <button [disabled]="i==0" class="btn btn-warning btn-xs" (click)="deleteTransaction(language)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+   <div class="box" *ngIf="showLanguageForm">
+     <div class="box-body">
+        <div class="row">
+            <div class="form-group has-feedback">
+             <div class="col-xs-4">
+                 <label>Language<label style="color:red">*</label> </label>
+                 <input type="text" class="form-control" placeholder="Language" [(ngModel)]="language.Language" trim>
+             </div>
+             <div class="col-xs-4">
+                 <label style="width: 100%;">Default Language</label>
+                <input disabled type="checkbox" name="DefaultLang" [(ngModel)]="language.IsDefault" />
+             </div>
+            </div>
+        </div>
+      <hr>
+    <div class="row">
+       <div class="form-group has-feedback">
+         <div class="col-xs-5">
+            <button class="btn btn-primary btn-xs" (click)="saveLanguageForm()">Submit</button>
+            <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+        </div>
+        </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="box" *ngIf="showEditForm">
+    <div class="box-body">
+       <div class="row">
+           <div class="form-group has-feedback">
+            <div class="col-xs-4">
+                <label>Language<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" placeholder="Language" [(ngModel)]="language.Language" trim>
+            </div>
+            <div class="col-xs-4">
+                <label style="width: 100%;">Default Language</label>
+               <input disabled type="checkbox" name="DefaultLang" [(ngModel)]="language.IsDefault" />
+            </div>
+           </div>
+       </div>
+     <hr>
+   <div class="row">
+      <div class="form-group has-feedback">
+        <div class="col-xs-5">
+           <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+           <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+       </div>
+       </div>
+   </div>
+  </div>
+ </div>
+
+  </div>
+ </div>
+</section>

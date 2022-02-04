@@ -15,4 +15,12 @@ private countrySubject = new Subject<any>();
   getCountryEvent():Observable<any>{
     return this.countrySubject.asObservable();
   }
+
+  sendEvent(obj:any):void{
+    this.countrySubject.next(obj);
+  }
+
+  getEvent():Observable<any>{
+    return this.countrySubject.asObservable();
+  }
 }

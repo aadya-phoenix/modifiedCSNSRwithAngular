@@ -1,0 +1,183 @@
+<section class="content-header">
+    <h1>
+        Service Type
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Service Type</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body"  *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" [hidden]="Role=='DealerAdmin'"  (click)="addServiceType()">Add Service Type</button>
+        <button class="btn btn-primary btn-xs" [hidden]="Role=='DealerAdmin'"  (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                           [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Country</th>
+                            <th>Service Type</th>
+                            <th>Vehicle</th>
+                            <th>Mileage</th>
+                            <th>Service Due From Sale Date (In Months)</th>
+                            <th>Service Due From Service Date (In Months)</th>
+                            <th>Sequence</th>
+                            <th>Added On</th>
+                            <th [hidden]="Role=='DealerAdmin'">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- dir-paginate="let pt of serviceTypeObj; let i=index; | itemsPerPage:500" current-page="currentPage" 
+                         + (currentPage - 1) * 20-->
+                        <tr *ngFor="let pt of serviceTypeObj | filter:searchText; let i=index;">
+                            <td class="sorting_1">{{(i + 1)}}</td>
+                            <td>{{ pt.CountryName}}</td>
+                            <td>{{ pt.ServiceType}}</td>
+                            <td>{{ pt.VehicleName}}</td>
+                            <td>{{ pt.Mileage}}</td>
+                            <td>{{ pt.ServiceDueforSaleDate}}</td>
+                            <td>{{ pt.ServiceDueforServiceDate}}</td>
+                            <td>{{ pt.Sequence}}</td>
+                            <td>{{ pt.CreationDate | date : 'dd-MMM-yyyy' }}</td>
+                            <td [hidden]="Role=='DealerAdmin'">
+                                <button class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+
+                                <button class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                            </td>
+                        </tr>
+                   </tbody>
+                </table>
+                <!--  <dir-pagination-controls max-size="500"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls> -->
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Service Type<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceType" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Vehicle<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                  [(ngModel)]="serviceType.Vehicle_Id">
+                                 <option *ngFor="let vehicle of vehicleObj" [value]="vehicle.Vehicle_Id">
+                                     {{vehicle.VehicleName}}
+                                    </option></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Mileage<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.Mileage" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Service Due From Sale Date (In Months)<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceDueforSaleDate" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Service Due From Service Date (In Months)<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceDueforServiceDate" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Sequence<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.Sequence" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                [(ngModel)]="serviceType.Country_Id">
+                               <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                   {{country.CountryName}}
+                               </option></select>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                            <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <div class="box" *ngIf="showEditForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>Service Type<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceType" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Vehicle<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                  [(ngModel)]="serviceType.Vehicle_Id">
+                                 <option *ngFor="let vehicle of vehicleObj" [value]="vehicle.Vehicle_Id">
+                                     {{vehicle.VehicleName}}
+                                    </option></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Mileage<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.Mileage" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Service Due From Sale Date (In Months)<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceDueforSaleDate" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Service Due From Service Date (In Months)<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.ServiceDueforServiceDate" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Sequence<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="50" placeholder="Service Type" [(ngModel)]="serviceType.Sequence" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                [(ngModel)]="serviceType.Country_Id">
+                               <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                   {{country.CountryName}}
+                               </option></select>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()"> Update</button>
+                            <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+      </div>
+    </div>
+</section>

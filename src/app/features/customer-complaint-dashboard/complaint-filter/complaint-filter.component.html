@@ -1,17 +1,16 @@
 <section class="content-header">
     <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">{{CustomerComplaintDashboardLabel}} </h3>
-
 </section>
+
 <section class="content">
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-xs-2">
         <label>{{FromDateLabel}}</label>
         <mat-form-field style="display: block;">
           <input matInput [matDatepicker]="datepickerFrom" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
           <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
           <mat-datepicker #datepickerTo></mat-datepicker>
         </mat-form-field>
-    
       </div>
 
       <div class="col-sm-2">
@@ -21,36 +20,54 @@
           <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
           <mat-datepicker #datepickerFrom></mat-datepicker>
         </mat-form-field>
-    
       </div>
 
-      <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 ">
+      <div *ngIf="Role=='HOAdmin'" class="col-xs-2 ">
         <label>{{CountryLabel}}</label>
-        <select name="Language" class="form-control selectpicker" (change)="getDealerByCountry(searchObj.Country_Id)"  [(ngModel)]="searchObj.Country_Id">
+        <select name="Language" class="form-control selectpicker" (change)="getLevelList(searchObj.Country_Id)"  [(ngModel)]="searchObj.Country_Id">
                 <option *ngFor="let country of countryObj" [value]="country.Country_Id">
                     {{country.CountryName}}
                   </option>
         </select>
     </div>
 
-    <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 col-sm-2 ">
-        <label>{{DealerOutletCodeLabel}}</label>
-        <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.OutletId">
-          <option *ngFor="let outlet of outletObj" [value]="outlet.Outlet_Id">
-            {{outlet.OutletCode}}
-          </option>
-        </select>
-      </div>
-
-      <div class="col-xs-2 " style="display:none">
-        <label>{{BrandLabel}}</label>
-        <select name="Language" class="form-control selectpicker"
-                [(ngModel)]="searchObj.BrandType">
-                <option *ngFor="let brand of brandTagObj"  [value]="brand.BrandTag">
-                    {{brand.BrandTag}}
-                </option>
-            </select>
+      <div class="col-xs-2" *ngIf="Role=='HOAdmin' || Role=='Zone/Region' || Role=='Distributor' || Role=='LastLeg'">
+        <label>Level</label>
+        <select class="form-control" [(ngModel)]="searchObj.Level_Id"
+                (change)="getLevelDetails(searchObj.Level_Id)">
+           <option *ngFor="let level of levelObj" [value]="level.Level_Id">
+             {{level.LevelName}}
+           </option>   
+              </select>
     </div>
+
+    <div class="col-xs-2" *ngIf="Role=='HOAdmin' || Role=='Zone/Region' || Role=='Distributor' || Role=='LastLeg'   " >
+      <label>Sub Level</label>
+      <select class="form-control" [(ngModel)]="searchObj.Leveldetail_Id" (change)="getOutletListBySublevel()">
+        <option *ngFor="let item of levelDetail" [value]="item.Leveldetail_Id">
+          {{item.LeveldetailName}}
+        </option> 
+      </select>
+  </div>
+
+  <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 col-sm-2 ">
+    <label>{{DealerOutletCodeLabel}}</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.OutletId">
+      <option *ngFor="let outlet of outletObj" [value]="outlet.Outlet_Id">
+        {{outlet.OutletCode}}
+      </option>
+    </select>
+  </div>
+</div>
+  <div class="row">
+<div class="col-xs-2 " style="display:none">
+  <label>{{BrandLabel}}</label>
+  <select name="Language" class="form-control selectpicker"
+          [(ngModel)]="searchObj.BrandType">
+          <option *ngFor="let brand of brandTagObj" [value]="brand.BrandTag">
+            {{brand.BrandTag}}
+          </option></select>
+</div>
 
     <div class="col-xs-2 col-sm-2 ">
         <label>{{VehicleLabel}}</label>
@@ -68,8 +85,8 @@
   </div>
     <br />
 
-    <app-counters></app-counters>
-    <app-graphs></app-graphs>
+    <app-counters [labelObj]="resultLabelObj"></app-counters>
+     <app-graphs [labelObj]="resultLabelObj"></app-graphs> 
 </section>
 
 

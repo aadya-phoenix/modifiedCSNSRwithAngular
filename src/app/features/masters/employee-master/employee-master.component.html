@@ -1,0 +1,124 @@
+<section class="content-header">
+    <h1>
+        Employee Master
+    </h1>
+    <ol class="breadcrumb">
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid==true &&  session.RoleName=='HOAdmin' ">
+        <button class="btn btn-primary btn-xs" (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17" [(ngModel)]="searchText"
+                            placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>EmpCode</th>
+                                <th>FirstName</th>
+                                <th>Last Name</th>
+                                <th>Designation</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>Added On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let employee of employeeObj |filter:searchText ;let i =index;">
+                                <td class="sorting_1">{{i+1}}</td>
+                                <td>{{ employee.EmpCode}}</td>
+                                <td>{{ employee.FirstName}}</td>
+                                <td>{{ employee.LastName}}</td>
+                                <td>{{ employee.Designation}}</td>
+                                <td>{{ employee.Email}}</td>
+                                <td>{{ employee.Country}}</td>
+
+                                <td>{{ employee.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+
+                                <td>
+                                    <button class="btn btn-primary btn-xs"
+                                        (click)="editTransaction(employee)">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showEditForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Emp Code<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="20" disabled placeholder="Emp Code"
+                                    [(ngModel)]="Employee.EmpCode" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>First Name<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="First Name"
+                                    [(ngModel)]="Employee.FirstName" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Last Name<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="Last Name"
+                                    [(ngModel)]="Employee.LastName" trim>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Email<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="200" placeholder="Email"
+                                    [(ngModel)]="Employee.Email"  trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Mobile<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" numbers-only placeholder="Mobile" maxlength="20"
+                                    [(ngModel)]="Employee.MobileNumber" trim>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Designation<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="Employee.Designation_Id">
+                                    <option *ngFor="let DC of designationObj" [value]="DC.Designation_Id">
+                                    
+                                    {{DC.Designation}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+
+                                <button class="btn btn-warning btn-xs" (click)="empInit()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

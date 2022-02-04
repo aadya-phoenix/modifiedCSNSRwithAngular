@@ -1,0 +1,197 @@
+<section class="content-header">
+    <h1>
+        Question Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Question Management</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addQuestion()">Add Question</button>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17"
+                               [(ngModel)]="searchText" placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Question</th>
+                                <th>Answer Type</th>
+                                <th>Question Type</th>
+                                <th>Created On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of questionObj |filter:searchText | paginate: { itemsPerPage: 20, currentPage: p }; let i =index;">
+                                <td class="sorting_1">{{ (i + 1) }}</td>
+                                <td>{{ pt.Question}}</td>
+                                <td>{{ pt.TypeName}}</td>
+                                <td *ngIf="pt.Mode==2">Mail/SMS Survey</td>
+                                <td *ngIf="pt.Mode==1">Instant Feedback</td>
+                                <td *ngIf="pt.Mode==0">Unassigned</td>
+                                <td>{{ pt.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+                                
+                                    <button class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                                </td>
+                            </tr>
+                     </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Question<label style="color:red">*</label> </label>
+                                <textarea [(ngModel)]="question.Question" class="form-control"
+                                    placeholder="Enter Quesion"> </textarea>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Question Type<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="question.QuestionType"  (change)="getAnswers(question.QuestionType)">
+                                    <option *ngFor="let DC of questionTypeObj" [value]="DC.QuestionTypeId">
+                                        {{DC.QuestionType}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>Survey Type<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker" [(ngModel)]="question.Mode">
+                                    <option *ngFor="let DC of surveyTypeObj" [value]="DC.SurveyType_Id">
+                                        {{DC.SurveyType}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <label *ngIf="answers.length>0">Answers:</label>
+                    <div class="row" *ngFor="let pt of answers; let i=index;">
+                        <div class="form-group has-feedback" *ngIf="pt.IsActive">
+                            <div class="col-xs-1">
+                                <label>{{i + 1}} </label>
+                            </div>
+                            <div class="col-xs-3">
+
+                                <input [(ngModel)]="pt.Answer" class="form-control" placeholder="Enter Answer" />
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <input [(ngModel)]="pt.DisplayOrder" digitOnly class="form-control"
+                                    placeholder="Enter Order" />
+
+                            </div>
+                            <div class="col-xs-4" *ngIf="pt.IsActive">
+                                <button class="btn btn-primary btn-xs" *ngIf="optionsRequired"
+                                    (click)="addRow()">+</button>
+                                <button class="btn btn-primary btn-xs" *ngIf="optionsRequired"
+                                    (click)="removeRow(pt)">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showEditForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Question<label style="color:red">*</label> </label>
+                                <textarea [(ngModel)]="question.Question" class="form-control"
+                                    placeholder="Enter Quesion"> </textarea>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Question Type<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="question.QuestionType"  (change)="getAnswers(question.QuestionType)">
+                                    <option *ngFor="let DC of questionTypeObj" [value]="DC.QuestionTypeId">
+                                        {{DC.QuestionType}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>Survey Type<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker" [(ngModel)]="question.Mode">
+                                    <option *ngFor="let DC of surveyTypeObj" [value]="DC.SurveyType_Id">
+                                        {{DC.SurveyType}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <label *ngIf="answers.length>0">Answers:</label>
+                    <div class="row" *ngFor="let pt of answers; let i=index;">
+                        <div class="form-group has-feedback" *ngIf="pt.IsActive">
+                            <div class="col-xs-1">
+                                <label>{{i + 1}} </label>
+                            </div>
+                            <div class="col-xs-3">
+
+                                <input [(ngModel)]="pt.Answer" class="form-control" placeholder="Enter Answer" />
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <input [(ngModel)]="pt.DisplayOrder" digitOnly class="form-control"
+                                    placeholder="Enter Order" />
+
+                            </div>
+                            <div class="col-xs-4" *ngIf="pt.IsActive">
+                                <button class="btn btn-primary btn-xs" *ngIf="optionsRequired"
+                                    (click)="addRow()">+</button>
+                                <button class="btn btn-primary btn-xs" *ngIf="optionsRequired"
+                                    (click)="removeRow(pt)">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

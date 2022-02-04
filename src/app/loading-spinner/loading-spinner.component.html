@@ -1,0 +1,6 @@
+<mat-toolbar color="primary"></mat-toolbar>
+
+<ng-container *ngIf="loading$ |async">
+<div class="overlay"></div>
+<mat-progress-spinner [mode]="'indeterminate'" ></mat-progress-spinner>
+</ng-container>

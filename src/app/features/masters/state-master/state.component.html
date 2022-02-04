@@ -1,0 +1,122 @@
+<section class="content-header">
+    <h1>
+        State/Province Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">State/Province Management</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addState()">Add State</button>
+        <button class="btn btn-primary btn-xs" (click)="addUpload()">Bulk Upload</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                           [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>State/Province</th>
+                            <th>Country</th>
+                            <th>Added On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let state of stateObj | filter:searchText; let i=index;">
+                            <td class="sorting_1">{{ i + 1 }}</td>
+                            <td>{{ state.StateName}}</td>
+                            <td>{{ state.CountryName }}</td>
+                            <td>{{ state.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="editTransaction(state)">Edit</button>
+                                <button class="btn btn-warning btn-xs" (click)="deleteTransaction(state)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>State/Province<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="100" placeholder="State/Province" [(ngModel)]="state.StateName" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="state.Country_Id">
+                                    <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+                                        {{country.CountryName}}
+                                    </option>
+                                </select>
+                        </div>
+                     
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                            <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showEditForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>State/Province<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="100" placeholder="State/Province" [(ngModel)]="state.StateName" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Country<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="state.Country_Id" >
+                                    <option *ngFor="let country of countryObj" [value]="country.Country_Id"S>
+                                        {{country.CountryName}}
+                                    </option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+
+                            <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>

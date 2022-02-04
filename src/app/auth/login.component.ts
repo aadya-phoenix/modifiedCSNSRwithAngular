@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { Login } from './models/login.model';
-import { SetPassword } from './models/setPassword.model';
+import { SetPassword } from '../models/setPassword.model';
 import { UserDetails } from './models/userDetails.model';
 import { GeoFence } from './models/geoFence.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { CryptService } from './login-services/crypt.service';
-import { AuthService } from './login-services/auth.service';
+import { CryptService } from '../essentials/crypt.service';
+import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
 
@@ -35,12 +35,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    $(function () {
+   /*  $(function () {
       function toggleClass() {
         $("#helpdesk").toggleClass("main");
       }
       $("#help-btn").on("click",toggleClass);
-   });
+   }); */
     this.initializeForm();
    }
 
@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
        console.log("Customer Login Data...",data);
        this.userData= data;
        if (data != null && data.ErrorMessage == null){
-        if(data.Country_Id != 15){
          if (!data.IsGeoFencing) {
           sessionStorage.setItem("app",JSON.stringify(data));
           const session = sessionStorage.getItem("app");
@@ -87,7 +86,7 @@ export class LoginComponent implements OnInit {
            }
          else{
             if (this.userData.RoleName != 'TabletLogIn') {
-            this.router.navigateByUrl('/csnsr');
+            this.router.navigateByUrl('/index/dashboard');
                   }
              else {
                window.location.href = './partial/CustomerFeedbackTB.html';
@@ -98,11 +97,8 @@ export class LoginComponent implements OnInit {
             this.precedeGeofencing();
           }
         }
-        else{
-          alert("Please use new link to login  http://smipl.suzukifeedback.com/login.html");
-          window.location.href = 'http://smipl.suzukifeedback.com/login.html';
-        }
-      }
+        
+      
       else
                  {
                   Swal.fire(data.ErrorMessage);
@@ -169,9 +165,9 @@ export class LoginComponent implements OnInit {
           var NewPassword = CryptoJS.SHA1(newPassword).toString();
       
           const setPasswordObj:SetPassword = {
-              userId: userdetails.User_Id,
-              currentPassword: CurrPassword,
-              newPassword: NewPassword,
+            UserId: userdetails.User_Id,
+            CurrentPassword: CurrPassword,
+            NewPassword: NewPassword,
           };
       
           this.authService.saveForm(setPasswordObj).subscribe(success=>{

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h3 class="modal-title">Status report</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-inverse">
+            <tr style="text-align:center;">
+                <th style="text-align:center;">Total</th>
+                <th style="text-align:center;">ProcessedNow</th>
+                <th style="text-align:center;">NotProcessed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center;">
+                <!-- ng-if="Data.IsSuccessful!=1" -->
+                <td>{{reportDetails.Total}}</td>
+                <td>{{reportDetails.ProcessedNow}}</td>
+                <td>{{reportDetails.NotProcessed}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+<div class="modal-footer">
+    <button *ngIf="errorButtonVisible" class="btn btn-success btn-xs" type="button" (click)="exportErrorReport()">
+        Download error report
+    </button>
+    <button class="btn btn-success btn-xs" type="button" (click)="cancelReport()">
+        Ok
+    </button>
+</div>
