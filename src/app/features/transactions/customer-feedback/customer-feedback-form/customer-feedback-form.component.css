@@ -1,0 +1,101 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+form {
+    color: black;
+    font-size: 18px;
+}
+
+
+
+.language-radiobtn {
+    margin-right: 5px;
+    position: relative;
+    padding-left: 18px;
+}
+
+    .language-radiobtn > input {
+        top: -3.5px;
+        position: absolute;
+        left: 0;
+    }
+
+label.question-no.ng-binding.ng-scope {
+    padding-left: 20px;
+    position: relative;
+}
+
+    label.question-no.ng-binding.ng-scope > span {
+        position: absolute;
+        left: 0;
+    }
+
+span.scale-rating {
+    margin: 0px 0 10px;
+    display: inline-block;
+    /*border: 1px solid grey;*/
+    width: 100%;
+    /*border-radius: 2px;*/
+    /*background: linear-gradient(to right,red 70%,green 30%);*/
+}
+
+span.scale-rating input[type=radio] {
+        position: absolute;
+        -webkit-appearance: none;
+        /*outline: 0 !important;*/
+        /*border-right: 6px solid #fff;*/
+        opacity:0;
+        height: 33px;
+        margin: 0 5px 0 0;
+        width: 100%;
+        float: left;
+        cursor: pointer;
+        z-index:3;
+    }
+    span.scale-rating>label {
+        position: relative;
+        
+        border: 1px solid #000;
+        -webkit-border:1px solid #000 !important;
+        -moz-border:1px solid #000 !important;
+        border-style:solid;
+        border-width:1px;
+        border-radius:0;
+        height: 33px !important;
+        margin: 0 5px 0 0;
+        width: calc(10% - 5px);
+        float: left;
+        cursor: pointer;
+    }
+    span.scale-rating label {
+        position: relative;
+        
+        height: 31px;
+        margin: 0 5px 0 0;
+        width: calc(10% - 5px);
+        float: left;
+        cursor: pointer;
+        z-index:1;
+    }
+    span.scale-rating label:hover {
+        background: #025aa8;
+        /*outline: 1px solid #000;
+        outline-offset: 1px;*/
+    }
+
+        span.scale-rating input[type=radio]:hover ~ label:before {
+            color: #fff;
+        }
+
+    span.scale-rating input[type=radio].ng-valid-parse ~ label,
+    span.scale-rating input[type=radio].ng-valid-parse:hover ~ label {
+        background: #025aa8;
+        outline: 1px solid #000;
+    }
+
+        span.scale-rating input[type=radio].ng-valid-parse ~ label:before,
+        span.scale-rating input[type=radio].ng-valid-parse:hover ~ label:before {
+            color: #fff;
+        }

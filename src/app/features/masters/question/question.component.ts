@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantsService } from 'src/app/constants/constants.service';
-import { MastersApiService } from 'src/app/services/masters-api.service';
+
 import { CommonApiService } from '../services/common-api.service';
-import { Question } from './models/question.model';
-import { QuestionType } from './models/questionType.model';
+import { Question } from '../models/question.model';
+import { QuestionType } from '../models/questionType.model';
 import { SurveyType } from './models/surveyType.model';
 import { QuestionService } from './question.service';
 import * as cloneDeep from 'lodash';
 import Swal from 'sweetalert2';
 import { QuestionAnswerInfo } from './models/questionAnswerInfo.model';
-import { Answer } from './models/answer.model';
+import { Answer } from '../../../models/answer.model';
 
 
 @Component({
@@ -45,7 +45,6 @@ export class QuestionComponent implements OnInit {
     private apiService:CommonApiService,
     private constant:ConstantsService,
     private queService:QuestionService,
-    private masterService:MastersApiService,
     public dialog:MatDialog
     ) { }
 
@@ -62,12 +61,12 @@ export class QuestionComponent implements OnInit {
         },error=>{
           console.log(error);
       });
-     this.queService.getQuestionType().subscribe((data:any)=>{
+     this.apiService.getQuestionType().subscribe((data:any)=>{
          this.questionTypeObj = data;
         },error=>{
           console.log(error);
       });
-     this.queService.getSurveyType().subscribe((data:any)=>{
+     this.apiService.getSurveyType().subscribe((data:any)=>{
          this.surveyTypeObj = data;
         },error=>{
           console.log(error);
@@ -201,7 +200,7 @@ export class QuestionComponent implements OnInit {
 
      this.question = pt;
      this.savedTypeId = pt.QuestionType;
-      this.queService.getAnswerList(pt.Question_Id).subscribe((data:any)=>{
+      this.apiService.getAnswerList(pt.Question_Id).subscribe((data:any)=>{
             this.answers = data;
             this.savedAnswer = [...this.answers];
         },error=>{

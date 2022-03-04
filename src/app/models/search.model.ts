@@ -1,34 +1,22 @@
-export class Search{
-    public SerachType ?: number;
-    public FromDate ?: any;
-    public ToDate ?: any;
-    public OutletId ?: number;
-    public Country_Id ?: number;
-    public VehicleType ?: number;
-    public UserID ?: number;
-    public SatisfactionType ?: string ;
-    public VehicleId ?: number;
-    public LeadCategory ?: number;
-    public LeadStatus ?: number;
-    public SourceType ?: number;
-    public CallType ?: string;
-    public BrandType ?: string;
-    public Source ?: string;
-    public ContactedCRE_id ?: number;
-    public Level_Id ?: number;
-    public Leveldetail_Id ?: number;
-    public PageNo ?: number;
+export interface Search{
+     SerachType ?: number;
+     FromDate ?: any;
+     ToDate ?: any;
+     OutletId ?: number;
+     Country_Id ?: number;
+     VehicleType ?: number;
+     UserID ?: number;
+     SatisfactionType ?: string ;
+     VehicleId ?: number;
+     LeadCategory ?: number;
+     LeadStatus ?: number;
+     SourceType ?: number;
+     CallType ?: string;
+     BrandType ?: string;
+     Source ?: string;
+     ContactedCRE_id ?: number;
+     Level_Id ?: number;
+     Leveldetail_Id ?: number;
+     PageNo ?: number;
 
-    constructor(){
-     
-    this.UserID = 0;
-    this.SatisfactionType = '';
-    this.VehicleId = 0;
-    this.CallType = '';
-    this.BrandType = '';
-    this.Source = '';
-    this.Level_Id = 0;
-    this.Leveldetail_Id = 0;
-        
-    }
 }

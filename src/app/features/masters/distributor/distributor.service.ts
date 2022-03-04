@@ -7,7 +7,7 @@ import { Distributor } from '../models/distributor.model';
 })
 export class DistributorService {
 
-  //appUrl = this.constant.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
 
   constructor(
     private http: HttpClient
@@ -15,18 +15,18 @@ export class DistributorService {
 
 
   addDistributor(data:Distributor) {
-    return this.http.post('/api/Distributor/AddDistributor/', data, {});
+    return this.http.post(this.AppUrl +'/api/Distributor/AddDistributor/', data, {});
    }
 
    uploadExcel(fd:FormData){
-    return this.http.post("/api/Distributor/PostData", fd, {});
+    return this.http.post(this.AppUrl +"/api/Distributor/PostData", fd, {});
    }
 
    deleteDistributor(data:Distributor) {
-    return this.http.post('/api/Distributor/DeleteDistributor/', data, {});
+    return this.http.post(this.AppUrl +'/api/Distributor/DeleteDistributor/', data, {});
    }
    editDistributor(data:Distributor){
-    return this.http.post('/api/Distributor/EditDistributor/', data, {});
+    return this.http.post(this.AppUrl +'/api/Distributor/EditDistributor/', data, {});
    }
 
 }

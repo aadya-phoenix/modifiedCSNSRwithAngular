@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Outlet } from 'src/app/models/oultet.model';
 import { DealerLi } from '../dealer-group/dealerLi.model';
-import { OutletType } from './outletType.model';
+import { OutletType } from '../models/outletType.model';
 import { CommonApiService } from '../services/common-api.service';
 import { DealerOutletService } from './dealer-outlet.service';
 import { ConstantsService } from 'src/app/constants/constants.service';
@@ -9,7 +9,7 @@ import { State } from '../models/state.model';
 import { City } from '../models/city.model';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
-import { DealerEmployeeUploadComponent } from '../employee-master/dealer-employee-upload/dealer-employee-upload.component';
+import { DealerOutletUploadComponent } from './dealer-outlet-upload/dealer-outlet-upload.component';
 
 
 @Component({
@@ -76,7 +76,7 @@ export class DealerOutletComponent implements OnInit {
   }
 
   addUpload(){
-    this.dialog.open(DealerEmployeeUploadComponent,{
+    this.dialog.open(DealerOutletUploadComponent,{
       disableClose: true,
       panelClass: 'custom-dialog-container',
       width:'550px',
@@ -96,7 +96,7 @@ export class DealerOutletComponent implements OnInit {
         console.log(error);
     });
 
-    this.outletService.getOutletTypeList().subscribe((data:any)=>{
+    this.apiService.getOutletTypeList().subscribe((data:any)=>{
         this.outletTypeObj = data;
       },error=>{
         console.log(error);

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Search } from '../models/search.model';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,11 @@ export class ConstantsService {
   sess:any;
   session:any;
   searchObj!: Search;
+  checkAccess:boolean=false;
 
   constructor(
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private auth:AuthService
   ) { }
   takeSession():any{
     
@@ -80,6 +83,20 @@ export class ConstantsService {
     Leveldetail_Id: 0
     };
   }
+
+  takecheckAcess():boolean{
+  const sesn =  this.takeSession();
+  if(sesn.RoleName === 'DealerAdmin'){
+    this.auth.checkAutoDialerAccess(sesn.AccountId).subscribe((data:any)=>{
+        if (data != null){
+            this.checkAccess = data;
+         }
+       },(error)=>{
+        console.log(error);
+      });
+   }
+   return this.checkAccess;
+ }
 
 
 }

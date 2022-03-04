@@ -7,17 +7,17 @@ import { Country } from 'src/app/models/country.model';
 })
 export class CountryService {
 
- // appUrl = this.constant.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
 
   constructor(
     private http: HttpClient
   ){}
   
   deleteCountry(data:Country){
-    return this.http.post('/api/Country/DeleteCountry/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/DeleteCountry/', data, {});
   }
 
   editCountry(data:Country){ 
-    return this.http.post('/api/Country/EditCountry/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/EditCountry/', data, {});
   }
 }

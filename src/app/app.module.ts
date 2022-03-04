@@ -33,6 +33,23 @@ import { TsmModule } from './features/masters/tsm-master/tsm.module';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './essentials/network.interceptor';
+import { LabelModule } from './features/masters/label/label.module';
+import { SurveyModule } from './features/masters/survey/survey.module';
+import { EmailSetupModule } from './features/masters/email-setup/email-setup.module';
+import { AutomatedSurveyModule } from './features/masters/automated-survey/automated-survey.module';
+import { ServiceBasedOnMileageModule } from './features/masters/service-based-on-mileage/service-based-on-mileage.module';
+import { DealerEmployeeModule } from './features/masters/dealer-employee/dealer-employee.module';
+import { DealerOutletMapModule } from './features/masters/dealer-outlet-map/dealer-outlet-map.module';
+import { ServiceUploadModule } from './features/transactions/service-upload/service-upload.module';
+import { SalesUploadModule } from './features/transactions/sales-upload/sales-upload.module';
+import { CustomerFeedbackModule } from './features/transactions/customer-feedback/customer-feedback.module';
+import { PsfModule } from './features/transactions/psf/psf.module';
+import { PendingSurveyModule } from './features/transactions/pending-survey/pending-survey.module';
+import { DirectBookingModule } from './features/transactions/direct-booking/direct-booking.module';
+import { DissatisfiedCustomersModule } from './features/transactions/dissatisfied-customers/dissatisfied-customers.module';
+import { CustomerComplaintModule } from './features/transactions/customer-complaint/customer-complaint.module';
+import { CustomerServiceHistoryModule } from './features/transactions/customer-service-history/customer-service-history.module';
+
 
 
 
@@ -42,6 +59,7 @@ import { NetworkInterceptor } from './essentials/network.interceptor';
   declarations: [
     AppComponent,
     LoadingSpinnerComponent,
+    
    
     //SearchPipe
   ],
@@ -74,7 +92,24 @@ import { NetworkInterceptor } from './essentials/network.interceptor';
     VehicleModule,
     ServiceTypeModule,
     QuestionModule,
-    TsmModule
+    TsmModule,
+    LabelModule,
+    SurveyModule,
+    EmailSetupModule,
+    AutomatedSurveyModule,
+    ServiceBasedOnMileageModule,
+    DealerEmployeeModule,
+    DealerOutletMapModule,
+    ServiceUploadModule,
+    SalesUploadModule,
+    CustomerFeedbackModule,
+    PsfModule,
+    PendingSurveyModule,
+    DirectBookingModule,
+    DissatisfiedCustomersModule,
+    CustomerComplaintModule,
+    CustomerServiceHistoryModule
+   
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

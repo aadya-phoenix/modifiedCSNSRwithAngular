@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DealerEmployee } from '../models/dealerEmployee.model';
+import { DealerEmployee } from '../../../models/dealerEmployee.model';
 import { DesignationInfo } from '../models/designationInfo.model';
 import { CommonApiService } from '../services/common-api.service';
 import { ConstantsService } from 'src/app/constants/constants.service';

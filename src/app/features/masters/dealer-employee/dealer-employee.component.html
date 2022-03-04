@@ -1,0 +1,204 @@
+<section class="content-header">
+    <h1>
+        {{DealerEmployeeLabel}}
+    </h1> 
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addEmployee()">{{AddEmployeeLabel}}</button>
+        <button class="btn btn-primary btn-xs" (click)="addUpload()">{{BulkUploadLabel}}</button>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>{{SearchLabel}}</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17"
+                               [(ngModel)]="searchText" placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>{{EmployeeCodeLabel}}</th>
+                                <th>{{FirstNameLabel}}</th>
+                                <th>{{LastNameLabel}}</th>
+                                <th>{{DesignationLabel}}</th>
+                                <th>{{EmailLabel}}</th>
+                                <th>{{OutletLabel}}</th>
+                                <th>{{AddedOnLabel}}</th>     
+                                <th>{{ActionsLabel}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of employeeObj | filter:searchText; let i=index; ">
+                                <td class="sorting_1">{{ i + 1 }}</td>
+                                <td>{{ pt.EmpCode}}</td>
+                                <td>{{ pt.FirstName}}</td>
+                                <td>{{ pt.LastName}}</td>
+                                <td>{{ pt.Designation}}</td>
+                                <td>{{ pt.Email}}</td>
+                                <td>{{ pt.OutletName}}</td>
+                                <td>{{ pt.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs"(click)="editTransaction(pt)">{{EditLabel}}</button>
+                                
+                            </tr>
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+       
+            <div class="box" *ngIf="showForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{EmployeeCodeLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="20" placeholder="Emp Code" [(ngModel)]="employee.EmpCode" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{FirstNameLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="First Name" [(ngModel)]="employee.FirstName" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{LastNameLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="Last Name" [(ngModel)]="employee.LastName" trim>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{EmailLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="200" placeholder="Email" [(ngModel)]="employee.Email" trim>
+
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{MobileLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" digitOnly placeholder="Mobile" maxlength="20" [(ngModel)]="employee.MobileNumber" trim>
+
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{OutletLabel}}<label style="color:red">*</label> </label>
+                                <select name="Language" [disabled]="Role!='HOAdmin'" class="form-control selectpicker"  [(ngModel)]="employee.DealerOutlet_Id">
+                                <option *ngFor="let DC of outletObj" [value]="DC.Outlet_Id">
+                                    {{DC.OutletName}}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{DesignationLabel}}<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="employee.Designation_Id"> 
+                                        <option *ngFor="let DC of designationObj" [value]="DC.Designation_Id">
+                                            {{DC.Designation}}</option> 
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{ReportingPersonLabel}}</label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="employee.ReportingPerson_Id">
+                                        <option *ngFor="let DC of RPObj" [value]="DC.Employee_Id">
+                                            {{DC.FirstName}}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="saveForm()">{{SubmitLabel}}</button>
+                                <button class="btn btn-warning btn-xs" (click)="init()">{{BackLabel}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showEditForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{EmployeeCodeLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="20" placeholder="Emp Code" [(ngModel)]="employee.EmpCode" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{FirstNameLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="First Name" [(ngModel)]="employee.FirstName" trim>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{LastNameLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="100" placeholder="Last Name" [(ngModel)]="employee.LastName" trim>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{EmailLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" maxlength="200" placeholder="Email" [(ngModel)]="employee.Email" trim>
+
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{MobileLabel}}<label style="color:red">*</label> </label>
+                                <input type="text" class="form-control" digitOnly placeholder="Mobile" maxlength="20" [(ngModel)]="employee.MobileNumber" trim>
+
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{OutletLabel}}<label style="color:red">*</label> </label>
+                                <select name="Language" disabled class="form-control selectpicker"  [(ngModel)]="employee.DealerOutlet_Id">
+                                <option *ngFor="let DC of outletObj" [value]="DC.Outlet_Id">
+                                    {{DC.OutletName}}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>{{DesignationLabel}}<label style="color:red">*</label> </label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="employee.Designation_Id"> 
+                                        <option *ngFor="let DC of designationObj" [value]="DC.Designation_Id">
+                                            {{DC.Designation}}</option> 
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>{{ReportingPersonLabel}}</label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="employee.ReportingPerson_Id">
+                                        <option *ngFor="let DC of RPObj" [value]="DC.Employee_Id">
+                                            {{DC.FirstName}}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">{{UpdateLabel}}}</button>
+                                <button class="btn btn-warning btn-xs" (click)="init()">{{BackLabel}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

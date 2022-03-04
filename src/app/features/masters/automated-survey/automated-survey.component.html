@@ -1,0 +1,71 @@
+<section class="content-header">
+    <h1>
+        Automated Survey Engine
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Automated Survey Engine</li>
+    </ol>
+</section>
+<section class="content">
+    
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17"
+                             placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Survey Title</th>
+                                <th>Survey Type</th>
+                                <th>Country</th>
+                                <th>Language</th>
+                                <th>1st Survey (In Days)</th>
+                                <th>Subsequent Survey (In Days)</th>
+                                <th>Total Attempts</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of tasksObj; let i=index;">
+                                <td class="sorting_1">{{ i + 1 }}</td>
+                                <td>{{ pt.SurveyTitle }}</td>
+                                <td>{{ pt.SurveyType }}</td>
+                                <td>{{ pt.Country }}</td>
+                                <td>{{ pt.Language }}</td>
+                                <td><input [(ngModel)]="pt.FirstTriggerFrequency" digitOnly class="form-control" /></td>
+                                <td><input [(ngModel)]="pt.SubsequentTriggerFrequency" digitOnly class="form-control" /></td>
+                                <td><input [(ngModel)]="pt.SurveyCount" digitOnly class="form-control" /></td>
+                                <td *ngIf="pt.Status==1"><a class="btn btn-success btn-xs">Started</a></td>
+                                <td *ngIf="pt.Status!=1"><a class="btn btn-danger btn-xs">Stopped</a></td>
+                              
+                                <td>
+                                    <button  *ngIf="pt.Status!=1" class="btn btn-success btn-xs" (click)="startService(pt)">Start</button>
+                                    <button  *ngIf="pt.Status==1" class="btn btn-info btn-xs" (click)="stopService(pt)">Stop</button>
+                                   
+                                </td>
+                            </tr>
+                      </tbody>
+                    </table>
+                  
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+

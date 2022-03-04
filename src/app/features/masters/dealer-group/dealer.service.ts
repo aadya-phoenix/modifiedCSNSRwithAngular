@@ -7,7 +7,7 @@ import { DealerLi } from './dealerLi.model';
 })
 export class DealerService {
 
- // appUrl = this.constant.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
   
   constructor(
     private http: HttpClient
@@ -16,18 +16,18 @@ export class DealerService {
  
 
    addDealer(fd:FormData){
-    return this.http.post('/api/Dealer/AddDealer/', fd, {});
+    return this.http.post(this.AppUrl +'/api/Dealer/AddDealer/', fd, {});
    }
 
    uploadExcel(fd:FormData){
-    return this.http.post("/api/Dealer/PostData", fd, {});
+    return this.http.post(this.AppUrl +"/api/Dealer/PostData", fd, {});
    }
 
    editDealer(fd:FormData){
-    return this.http.post('/api/Dealer/EditDealer/', fd, {});
+    return this.http.post(this.AppUrl +'/api/Dealer/EditDealer/', fd, {});
    } 
 
    deleteDealer(data:DealerLi){
-    return this.http.post('/api/Dealer/DeleteDealer/', data, {});
+    return this.http.post(this.AppUrl +'/api/Dealer/DeleteDealer/', data, {});
    }
 }

@@ -7,21 +7,21 @@ import { Search } from 'src/app/models/search.model';
 })
 export class DashboardApiService {
 
-  //appUrl = this.constantService.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
 
   constructor(
     private http:HttpClient
   ) { }
 
   InstantSatisfactionTrend(obj: Search) {
-    return this.http.post('/api/Customer/InstantSatisfactionTrend', obj, {});
+    return this.http.post(this.AppUrl +'/api/Customer/InstantSatisfactionTrend', obj, {});
   }
 
  getServiceReminderAllCountForDashboard(obj:Search){
-  return this.http.post('/api/CustomerSMR/GetServiceReminderAllCountForDashboard', obj, {});
+  return this.http.post(this.AppUrl +'/api/CustomerSMR/GetServiceReminderAllCountForDashboard', obj, {});
   }
 
   questionFeedbackWiseTrend(obj:Search){
-    return this.http.post('/api/Customer/QuestionFeedbackWiseTrend', obj, {});
+    return this.http.post(this.AppUrl +'/api/Customer/QuestionFeedbackWiseTrend', obj, {});
   }
 }

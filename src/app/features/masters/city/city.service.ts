@@ -7,25 +7,25 @@ import { City } from '../models/city.model';
 })
 export class CityService {
 
- // appUrl = this.constantService.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
   
   constructor(
     private http: HttpClient
   ) { }
   
   getCityAll(){
-    return this.http.get('/api/Country/GetCityAll');
+    return this.http.get(this.AppUrl +'/api/Country/GetCityAll');
   }
   addCity(data:City) {
-    return this.http.post('/api/Country/AddCity/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/AddCity/', data, {});
  }
   
  uploadCity(fd:FormData){
-  return this.http.post("/api/Country/UploadCity", fd, {});
+  return this.http.post(this.AppUrl +"/api/Country/UploadCity", fd, {});
   }
 
   deleteCity(data:City) {
-    return this.http.post('/api/Country/DeleteCity/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/DeleteCity/', data, {});
  }
  
 }

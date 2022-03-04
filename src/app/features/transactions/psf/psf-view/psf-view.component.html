@@ -1,0 +1,305 @@
+<!--SEco0nd PAge--===2== Fresh Lead-->
+<div class="row" *ngIf="view2">
+    <div class="col-md-6">
+        <!-- About Me Box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{labelObj.CustomerDetailsLabel}}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="profile-username">
+                            <b style=" font-weight: 600;"><i class="fa fa-user margin-r-5"></i></b>
+                            {{CustomerDetail.CustomerName}}
+                        </h3>
+                        <p>
+                            <b style=" font-weight: 600;"><i class="fa fa-phone margin-r-5"></i></b>
+                            {{CustomerDetail.CustomerMobile}} &nbsp; &nbsp;
+                            <button class="btn btn-primary btn-xs" *ngIf="session.Country_Id == 15   && showAutoDialer == true"[disabled]="!CustomerDetail.CustomerMobile" (click)="automaticCall(customerDetailID,CustomerDetail.CustomerName,CustomerDetail.CustomerMobile,contactedCREid,callLogId)"><i class="fa fa-fw fa-phone"></i> Call</button>
+                        </p>
+                        <p>
+                            <b style=" font-weight: 600;"><i class="fa fa-envelope margin-r-5"></i></b>
+                            {{CustomerDetail.CustomerEmail}}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="profile-username">
+                            <b style=" font-weight: 600;"><i class="fa fa-car margin-r-5"></i></b>
+                            {{CustomerDetail.VehicleName}}
+                        </h3>
+                        <p>
+                            <b style=" font-weight: 600;"><i class="fa fa-file margin-r-5"></i> Reg No :</b>
+                            {{CustomerDetail.RegistrationNumber}}
+                        </p>
+                        <p>
+                            <b style=" font-weight: 600;"><i class="fa fa-file margin-r-5"></i> VIN No :</b>
+                            {{CustomerDetail.VINNumber}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+        <!-- About Me Box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{labelObj.ServiceVisitHistoryLabel}}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>{{labelObj.ServiceDateLabel}}</th>
+                            <th>{{labelObj.ServiceTypeLabel}}</th>
+                            <th>{{labelObj.MileageLabel}}</th>
+                            <th>{{labelObj.JobCardNumberLabel}}</th>
+                            <th>{{labelObj.RepairDetailsLabel}}</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let pt of serviceHistory;let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{pt.BillDate| date : 'dd-MM-yyyy'}}</td>
+                            <td>{{pt.ServiceType}}</td>
+                            <td>{{pt.Mileage}}</td>
+                            <th>{{pt.JobCardNumber}}</th>
+                            <td>{{pt.RepairDetail}}</td>
+                            <th><button class="btn btn-primary btn-xs" (click)="openCustomerFeedback()"><i class="fa fa-fw fa-eye"></i> Feedback</button></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{labelObj.CallHistoryLabel}}</h3>          
+                <button style="margin-left:13px;margin-bottom:5px;" *ngIf="session.Country_Id == 15  && showAutoDialer == true " (click)="viewCallDetail(customerDetailID,CustomerDetail.CustomerMobile)" class="btn btn-primary btn-xs">
+                    <i class="fa fa-fw fa-phone"></i>View Call Record
+                </button>
+            </div>
+            <div class="box-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>{{labelObj.StatusLabel}}</th>
+                            <th>{{labelObj.StatusDetailLabel}}</th>
+                            <th>{{labelObj.FollowUpDateLabel}}</th>
+                            <th>{{labelObj.FollowUpTimeLabel}}</th>
+                            <th>{{labelObj.RemarksLabel}}</th>
+                            <th>Follow Up Done</th>
+                            <th>Follow Up Due</th>
+                        </tr>
+                        <tr *ngFor="let pt of callHistory;let i=index;" 
+                        [ngStyle]="{'background-color':i==0 ? 'aqua':''}">
+                            <td>{{i+1}}</td>
+                            <td>{{pt.StatusName| date : 'dd-MM-yyyy'}}</td>
+                            <td>{{pt.CallStatus}}</td>
+                            <td>{{pt.FollowUpDate| date : 'dd-MM-yyyy'}}</td>
+                            <th>{{pt.FollowUpTime | date : 'hh:mm a'}}</th>
+                            <th>{{pt.Remarks}}</th>
+                            <td>{{pt.FollowUpDone| date : 'dd-MM-yyyy'}}</td>
+                            <td>{{pt.FollowUpDue| date : 'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <!-- <tr *ngFor="let pt of callHistory;let i=index;" *ngIf="i!=0">
+                            <td>{{i+1}}</td>
+                            <td>{{pt.StatusName| date : 'dd-MM-yyyy'}}</td>
+                            <td>{{pt.CallStatus}}</td>
+                            <td>{{pt.FollowUpDate| date : 'dd-MM-yyyy'}}</td>
+                            <th>{{pt.FollowUpTime | date : 'hh:mm a'}}</th>
+                            <th>{{pt.Remarks}}</th>
+                            <td>{{pt.FollowUpDone| date : 'dd-MM-yyyy'}}</td>
+                            <td>{{pt.FollowUpDue| date : 'dd-MM-yyyy'}}</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{labelObj.CallActivityLabel}}</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nav nav-tabs" style="border:0">
+                    <li class="col-xs-6 contacteddiv active">
+                        <div class="box-header with-border">
+                            <h3 style="font-size:26px" class="box-title">Contacted</h3>
+                        </div>
+                        <div class="form-group">
+                            <div class="radio maruti" *ngFor="let item of contactStatus;let i =index;" >
+                                <input id="Freshradio-{{i+1}}" name="Freshradio" type="radio" [(ngModel)]="item.IsSelected" [value]="true" (click)="selectRadioButton(item)" />
+                                <label for="Freshradio-{{i+1}}" class="radio-label">{{item.CallStatus}}</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="col-xs-6 contacteddiv">
+                        <div class="box-header with-border">
+                            <h3 style="font-size:26px" class="box-title">Non Contacted</h3>
+                        </div>
+                         <div class="form-group">
+                            <div class="radio maruti" *ngFor="let item of noContactStatus;let i=index;">
+                                <input id="NoContactFreshradio-{{i+1}}" name="Freshradio" type="radio" [(ngModel)]="item.IsSelected" [value]="true" (click)="selectNonRadioButton(item)" />
+                                <label for="NoContactFreshradio-{{i+1}}" class="radio-label">{{item.CallStatus}}</label>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                <hr />
+                <div class="form-group row" *ngIf="booking">
+                    <div class="col-xs-3">
+                       <label>{{labelObj.DateLabel}}</label>
+                        <mat-form-field >
+                          <input matInput [matDatepicker]="datepicker" [(ngModel)]="ContactDate" placeholder="Enter from date" required>
+                          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                          <mat-datepicker #datepicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-3">
+                        <label>{{labelObj.TIMELabel}}</label>
+                        <input type="time" [(ngModel)]="ContactTime" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="ShowRemarks">
+                    <div class="col-xs-6">
+                        <label>{{labelObj.RemarksLabel}}</label>
+                        <textarea class="form-control" rows="3" [(ngModel)]="ContactRemarks" placeholder="Enter ..."></textarea>
+                    </div>
+                </div> 
+                 <div class="form-group row" *ngIf="ShowCloseFollowUp" >
+                   <div class="col-xs-3">
+                        <input type="checkbox" [(ngModel)]="CloseFollowUp" style="width: 22px;height: 27px;float: left;margin-right: 10px;" class="valid dirty valid-parse empty touched">
+                      <h4 style="margin-top: 9px;font-weight: bold;font-size: 15px;">Close Follow-Up</h4>
+                       
+                    </div>
+                </div>
+                <ng-template *ngIf="Feedback">
+                <div class="row" *ngFor="let item of surveyObj.QuestionArray">
+                    <div width="100%" style="text-align:center;"><h3>Customer Response</h3></div>
+                    {{item.QuestionCategory}}
+                    <div class="row" *ngFor="let pt of item.Data;let i=index;">
+                        <div class="col-sm-12  col-design  ">
+                            <div class="col-sm-6">
+                                <label class="question-no" *ngIf="defaultLanguage==true"><span>{{i+1}}.</span>{{pt.Question}}</label>
+                               <!--  <label class="question-no" *ngIf="defaultLanguage==false"><span>{{i+1}}.</span>{{pt.LanguageOption.QuestionOption}}</label> -->
+                            </div>
+                            <div class="col-sm-3 col-yesnode  " *ngIf="pt.QuestionType == 1">
+                                <div class="col-sm-10" style="padding: 0">
+                                    <input type="radio" name="YesNoAnswer{{i}}" [(ngModel)]="pt.YesNoAnswere" value="1" style="width:24px;height:21px;" /><span>Yes</span>
+                                    <input type="radio" name="YesNoAnswer{{i}}" [(ngModel)]="pt.YesNoAnswere" value="0" style="margin-left:19px;width:24px;height:21px;" /><span>No</span>
+                                </div>
+                            </div>        
+                            <div class="col-sm-3 col-yesnode" style="margin-left:-95px;" *ngIf="pt.QuestionType == 1   ">
+                                <textarea class="form-control" style="width:365px;" name="YesNoAnswer{{i}}" rows="1" [(ngModel)]="pt.RemarksForAns" placeholder="Enter Remarks..."></textarea>
+
+                            </div>                             
+                            <div class="col-sm-6" *ngIf="pt.QuestionType == 2">
+                                <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.SelectOptionArray">
+                                    <input type="radio" name="RadioSelect" [(ngModel)]="pt.SelectAnswer" />{{option.Text}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="pt.QuestionType == 3">
+                                <select class="form-control" multiple="true" [(ngModel)]="pt.MultiSelectAnswer">
+                                <option *ngFor="let option of pt.MultiSelectOptionArray" [value]="option.Id"></option></select>
+                            </div>
+                            <div class="col-sm-6" *ngIf="pt.QuestionType == 4">
+                                <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.CheckOptionArray">
+                                    <input type="checkbox" [(ngModel)]="CheckOptionAnswer"/>{{ option.Text }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="pt.QuestionType == 5">
+                                <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.CheckOptionArray">
+                                    <input type="checkbox" />{{ option.Text }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="pt.QuestionType == 6">
+                                <textarea cols="75" [(ngModel)]="pt.TextBoxAnswere" name="commentText" rows="5" style="width:520px"></textarea>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="star-rating" *ngIf="pt.QuestionType == 7">
+                                    <select [(ngModel)]="pt.RangeAnswere" class="form-control">
+                                        <option [value]="1">1</option>
+                                        <option [value]="2">2</option>
+                                        <option [value]="3">3</option>
+                                        <option [value]="4">4</option>
+                                        <option [value]="5">5</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="col-sm-5">
+                                <span *ngIf="pt.QuestionType == 8">
+                                    <span class="scale-rating">
+                                        <label value="1">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="1">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="2">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="2">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="3">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="3">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="4">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="4">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="5">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="5">
+                                            <label style="width:100%"></label>
+                                        </label>
+
+                                        <label value="6">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="6">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="7">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="7">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="8">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="8">
+                                            <label style="width:100%"></label>
+                                        </label>
+
+                                        <label value="9">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="9">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                        <label value="10">
+                                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="10">
+                                            <label style="width:100%"></label>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+             </ng-template>
+            </div>
+            <div class="box-footer text-left">
+                <button type="submit" class="btn btn-primary" (click)="saveSMRCallLog(1,'S1')">{{labelObj.SubmitLabel}}</button>
+                <button class="btn btn-primary" (click)="getCurrentWindow('S1')">{{labelObj.BackLabel}}</button>
+            </div>
+        </div><!--./boxx-->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->

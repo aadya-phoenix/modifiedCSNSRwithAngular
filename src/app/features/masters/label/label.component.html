@@ -1,0 +1,58 @@
+<section class="content-header">
+    <h1>Label Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Label Management</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17" [(ngModel)]="searchText"
+                            placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div *ngFor="let pt of labelArray | filter:searchText">
+                        <table class="table table-borderd">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="form-group has-feedback">
+                                                <div class="col-xs-4">
+                                                    <label>Label : </label>
+                                                    {{ pt.Label }}
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <label>Language : </label>
+                                                    {{ pt.LanguageName }}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4" (click)="editTransaction(pt)">
+                                                <span style="cursor : pointer" class="fa fa-pencil-square-o"
+                                                    title="Edit"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

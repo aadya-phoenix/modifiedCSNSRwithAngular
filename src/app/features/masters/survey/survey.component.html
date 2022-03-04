@@ -1,0 +1,191 @@
+<section class="content-header">
+    <h1>Survey Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="index/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="index/dashboard">Settings</a></li>
+        <li class="active">Survey Management</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="createSurvey()">Add Survey</button>
+    </div>
+    <div class="row">
+       <div class="col-xs-12">
+
+        <div class="box" *ngIf="showSearchGrid">
+            <div class="box-body">
+                <div class="col-xs-1">
+                    <label>Search</label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" size="100" id="Text17"
+                        [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Survey</th>
+                            <th>Survey Description</th>
+                            <th>Country</th>
+                            <th>Created On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pt of savedFormArray; let i =index;">
+                            <td class="sorting_1">{{ i + 1 }}</td>
+                            <td>{{ pt.SurveyTitle }}</td>
+                            <td>{{ pt.SurveyDescription }}</td>
+                            <td>{{ pt.CountryName }}</td>
+                            <td>{{ pt.CreatedDate | date : 'dd - MM -yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="editTransaction(pt.Id , pt)">Edit</button>
+                            
+                                <button class="btn btn-warning btn-xs" [disabled]="Role!='SuperAdmin'" (click)="deleteTransaction(pt.Id)">Delete</button>
+                            </td>
+                        </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showForm">
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-3">
+                            <label>Survey Title* </label>
+                            <input type="text" class="form-control" placeholder="Survey Title" [(ngModel)]="surveyTitle" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>Survey Description* </label>
+                            <input type="text" class="form-control" placeholder="Survey Description"
+                                [(ngModel)]="surveyDescription" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>Survey Type* </label>
+                            <select name="Language" class="form-control selectpicker" [(ngModel)]="surveyTypeId"
+                                (change)="populateQuestion(surveyTypeId)">
+                                <option *ngFor="let DC of surveyTypeObj" [value]="DC.SurveyType_Id">
+                                    {{DC.SurveyType}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>Country </label>
+                            <select name="Country" class="form-control selectpicker" [(ngModel)]="countryDetails"
+                                (change)="populateLanguage(countryDetails)">
+                                <option *ngFor="let DC of countryObj" [value]="DC.Country_Id">
+                                    {{DC.CountryName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-10">
+                            <label>Thank You Message* </label>
+                            <div>
+                                <ckeditor [(ngModel)]="surveyThankyouText" [editor]="Editor"></ckeditor>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-10">
+                            <label>Thank you Message({{questionArray[0].Data[0].LanguageOption?.Language}})* </label>
+                            <div>
+                                <ckeditor [(ngModel)]="surveyThankyouLanguage" [editor]="Editor"></ckeditor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row" *ngFor=" let item of questionArray; let i =index;">
+                    <div class="col-xs-12" *ngIf="item.IsActive==true">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <label>Question Category*</label>
+                                <input type="text" class="form-control" placeholder="Survey Category"
+                                    [(ngModel)]="item.QuestionCategory" trim>
+                            </div>
+                            <div class="col-xs-4 pull-right">
+                                <label style="width:100%"></label>
+                                <button class="btn btn-warning pull-right btn-xs" style="margin-left:5px;"
+                                    (click)="deleteCategory(item)">Delete Category</button>
+                                <button class="btn btn-success pull-right btn-xs" (click)="addCategory()">Add Category</button>
+                            </div>
+                        </div>
+                        <br />
+                        <table id="Table1" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:10px">S.No.</th>
+                                    <th style="width:400px">Questions</th>
+                                    <th style="width:150px">Answer</th>
+                                    <th style="width:10px">Order</th>
+                                    <th style="width:10px">Weightage(%)</th>
+                                    <th style="width:50px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pt of item.Data;index as i;">
+                                    <ng-container *ngIf="pt.IsActive==true">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        <select class="form-control" name="Year" [(ngModel)]="pt.Question_Id"  (change)="populateAnswers(pt.Question_Id,pt)">
+                                            <option *ngFor="let option of questionObj" [value]="option.Question_Id">{{option.Question}}</option>
+                                        </select>
+        
+                                        <div [hidden]="pt.LanguageOption==null">
+                                            <label> {{pt.LanguageOption?.Language}}</label>
+                                            <textarea class="form-control col-xs-4" placeholder="Question"
+                                                [(ngModel)]="pt.LanguageOption" trim></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngFor="let Ans of pt.QuestionTypeOptions;index as j;">
+                                            <label>{{j+1}}. {{Ans.Answer}}</label>
+                                            <input [(ngModel)]="Ans.AnswerText" class="form-control" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" digitOnly [(ngModel)]="pt.DisplayOrder" />
+                                    </td>
+                                    <td>
+                                        <input type="number"
+                                        [hidden]="(surveyTypeId == 2 && (i==0 || pt.QuestionType==6))"
+                                            class="form-control" [(ngModel)]="pt.Weightage" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success btn-xs" (click)="addNewQuestion(item,pt)">+</button>
+                                        <button class="btn btn-danger btn-xs" (click)="deleteQuestion(pt)">-</button>
+                                    </td>
+                                </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-5">
+                            <button class="btn btn-primary btn-xs" *ngIf="saveSurveyButton" (click)="saveForm()">Save
+                                Survey</button>
+                            <button class="btn btn-primary btn-xs" *ngIf="updateSurveyButton" (click)="editForm()">Update
+                                Survey</button>
+                            <button class="btn btn-warning btn-xs" (click)="init()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+       </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">{{PendingSurveysLabel}}</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-6 form-inline">
+                <label>{{SearchLabel}}
+                         <input type="text" class="form-control input-sm" id="Text17"
+                       [(ngModel)]="searchText" placeholder="Enter search" trim>
+                </label>
+            </div>
+        </div>
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color:cornflowerblue;color:white">
+                    <th>S.No.</th>
+                    <th>{{CustomerNameLabel}}</th>
+                    <th>{{MobileLabel}}#</th>
+                    <th>{{EmailLabel}}</th>
+                    <th>{{RegistrationNoLabel}}</th>
+                    <th>{{VINLabel}}</th>
+                    <th>{{VehicleModelLabel}}</th>
+                    <th>{{SurveySentDateLabel}}</th>
+                    <th>{{SentonMailLabel}}</th>
+                    <th>{{SentonMobileLabel}}</th>
+                    <th style="width:196px">{{ActionLabel}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pt of savedFormArray; let i=index;">
+                    <td>{{(i + 1)}}</td><!-- + (currentPage - 1) * 200 -->
+                    <td>{{pt.CustomerName}}</td>
+                    <td>{{pt.CustomerMobile}}</td>
+                    <td>{{pt.CustomerEmail}}</td>
+                    <td>{{pt.RegistrationNumber}}</td>
+                    <td>{{pt.VINNumber}}</td>
+                    <td>{{pt.VehicleName}}</td>
+                    <td>{{pt.SurveySentDate | date : 'dd-MMM-yyyy'}}</td>
+                    <td *ngIf="pt.SurveySentOnMail==true"> Yes</td>
+                    <td *ngIf="pt.SurveySentOnMail!=true"> No</td>
+                    <td *ngIf="pt.SurveySentOnMobile==true"> Yes</td>
+                    <td *ngIf="pt.SurveySentOnMobile!=true"> No</td>
+                    <td>
+                    <button class="btn btn-primary btn-xs" (click)="resendSurvey(pt.CustomerDetail_Id,pt.CustomerEmail)" >{{ResendSurveyLabel}}</button>
+                    <button class="btn btn-warning btn-xs" (click)="openSurvey(pt.CustomerDetail_Id,pt.Survey_Id)" >{{CaptureSurveyLabel}}</button></td>
+                </tr>
+            </tbody>
+        </table>
+       <!--  <dir-pagination-controls max-size="200"
+                                 direction-links="true"
+                                 boundary-links="true">
+        </dir-pagination-controls> -->
+    </div>
+</div>

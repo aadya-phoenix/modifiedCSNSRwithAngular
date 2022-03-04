@@ -1,0 +1,40 @@
+<div class="box box-warning">
+    <div class="box-header with-border">
+
+        <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">{{UploadServiceLabel}}</h3>
+		<div class="language-selection pull-right" style="font-size:10px;margin-top:-25px;margin-right:30px;font-size:14px;">
+        </div>
+        
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <input type="file" accept=".xlsx" class="form-control" (change)="uploadFile($event)" />        
+            </div>
+			<div class="col-sm-6">
+                <button (click)="uploadCustomer()" type="button" class="btn btn-primary">
+                    {{UploadCustomerDataLabel}}
+                </button>
+            </div>
+        </div>
+
+		<a href="../../../../../assets/Templates/Sample Service Data - Final.xlsx" class="btn btn-success ">{{ExampleFileLabel}}</a>
+		<a href="../../../../../assets/Templates/Sample Service Data - Template.xlsx" class="btn btn-warning ">{{DownloadTemplateLabel}}</a>
+		
+        <div class="form-group">
+            <h3> {{ImportantPointsLabel}}</h3>
+            <p> 1. {{ColoumMarkedLabel}}</p>
+            <p> 2. {{ColoumMandatryLabel}} <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.1 {{CustomerNameLabel}}<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.2 {{RegNoLabel}}<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.3 {{CustomerVINLabel}}<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.4 {{VehicleModelLabel}} <button class="btn btn-success btn-xs" (click)="vehicle()">{{CustomerVehicleLabel}}</button><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.5 {{ServiceTpeReferLabel}} <button class="btn btn-success btn-xs" (click)="serviceType(session.Country_Id)">{{CustomerServiceTypeLabel}}</button><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;2.6 {{BillDateExamLabel}}
+            </p>
+        </div>
+    </div>
+</div>
+
+

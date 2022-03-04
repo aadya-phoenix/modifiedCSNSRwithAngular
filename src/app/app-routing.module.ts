@@ -22,6 +22,20 @@ import { VehicleComponent } from './features/masters/vehicle/vehicle.component';
 import { ServiceTypeComponent } from './features/masters/service-type/service-type.component';
 import { QuestionComponent } from './features/masters/question/question.component';
 import { ChangePasswordComponent } from './features/change-password/change-password.component';
+import { LabelComponent } from './features/masters/label/label.component';
+import { EmailSetupComponent } from './features/masters/email-setup/email-setup.component';
+import { AutomatedSurveyComponent } from './features/masters/automated-survey/automated-survey.component';
+import { ServiceBasedOnMileageComponent } from './features/masters/service-based-on-mileage/service-based-on-mileage.component';
+import { DealerEmployeeComponent } from './features/masters/dealer-employee/dealer-employee.component';
+import { DealerOutletMapComponent } from './features/masters/dealer-outlet-map/dealer-outlet-map.component';
+import { ServiceUploadComponent } from './features/transactions/service-upload/service-upload.component';
+import { SalesUploadComponent } from './features/transactions/sales-upload/sales-upload.component';
+import { CustomerFeedbackComponent } from './features/transactions/customer-feedback/customer-feedback.component';
+import { PsfComponent } from './features/transactions/psf/psf.component';
+import { DirectBookingComponent } from './features/transactions/direct-booking/direct-booking.component';
+import { CustomerServiceHistoryComponent } from './features/transactions/customer-service-history/customer-service-history.component';
+import { SurveyComponent } from './features/masters/survey/survey.component';
+import { PendingSurveyComponent } from './features/transactions/pending-survey/pending-survey.component';
 const routes: Routes = [
   
   {
@@ -77,6 +91,36 @@ const routes: Routes = [
     },
     {
       path:'Question', component:QuestionComponent
+    },{
+      path:'LabelMaster',component:LabelComponent
+    },{
+      path:'survey',component:SurveyComponent
+    },{
+      path:'EmailSetup',component:EmailSetupComponent
+    },{
+      path:'TriggerSurvey',component:AutomatedSurveyComponent
+    },{
+      path:'ServiceBasedOnMileage',component:ServiceBasedOnMileageComponent
+    },
+    {
+      path:'Employee', component:DealerEmployeeComponent
+    },{
+      path:'DealerOutletDis',component:DealerOutletMapComponent
+    },{
+      path:'ServiceUpload',component:ServiceUploadComponent
+    },{
+      path:'SalesUpload',component:SalesUploadComponent
+    },
+    {
+      path:'IFC',component:CustomerFeedbackComponent
+    },{
+      path:'PSF',component:PsfComponent
+    },{
+      path:'DB',component:DirectBookingComponent
+    },{
+      path:'CSH',component:CustomerServiceHistoryComponent
+    },{
+      path:'PendingSurvey',component:PendingSurveyComponent
     }
   ]
   },

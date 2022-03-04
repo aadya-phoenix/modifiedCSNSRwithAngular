@@ -7,23 +7,23 @@ import { Injectable } from '@angular/core';
 })
 export class MastersApiService {
 
-  //appUrl = this.constant.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
   
   constructor(
     private httpClient: HttpClient
   ) { }
 
   getCompanyList() {
-    return this.httpClient.get('/api/Company/GetCompanyList');
+    return this.httpClient.get(this.AppUrl +'/api/Company/GetCompanyList');
   }
 
   deleteCompany(data: any) {
-    return this.httpClient.post('/api/Company/DeleteCompany/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Company/DeleteCompany/', data, {});
 
   }
 
   editCompany(fd: FormData) {
-    return this.httpClient.post('/api/Company/EditCompany/', fd, {
+    return this.httpClient.post(this.AppUrl +'/api/Company/EditCompany/', fd, {
       headers: new HttpHeaders({
         'content-type': 'undefined'
       })
@@ -31,7 +31,7 @@ export class MastersApiService {
   }
 
   addCompany(fd: FormData) {
-    return this.httpClient.post('/api/Company/AddCompany/', fd, {
+    return this.httpClient.post(this.AppUrl +'/api/Company/AddCompany/', fd, {
       headers: new HttpHeaders({
         'content-type': 'undefined'
       })
@@ -39,15 +39,15 @@ export class MastersApiService {
   }
 
   addLanguage(data: any) {
-    return this.httpClient.post('/api/Language/AddLanguage/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Language/AddLanguage/', data, {});
   }
 
   getLanguageList() {
-    return this.httpClient.get('/api/Language/GetLanguageList');
+    return this.httpClient.get(this.AppUrl +'/api/Language/GetLanguageList');
   }
 
   uploadExcel(fd: FormData) {
-    return this.httpClient.post("/api/Language/PostData", fd, {
+    return this.httpClient.post(this.AppUrl +"/api/Language/PostData", fd, {
       headers: new HttpHeaders({
         'content-type': 'undefined'
       })
@@ -55,20 +55,23 @@ export class MastersApiService {
   }
 
   getCountryList() {
-    return this.httpClient.get('/api/Country/GetCountryList');
+    return this.httpClient.get(this.AppUrl +'/api/Country/GetCountryList');
   }
 
   addCountry(data: any) {
-    return this.httpClient.post('/api/Country/AddCountry/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Country/AddCountry/', data, {});
   }
 
   uploadCountryExcel(fd: FormData) {
-    return this.httpClient.post("/api/Country/PostData", fd, {
+    return this.httpClient.post(this.AppUrl +"/api/Country/PostData", fd, {
     });
   }
 
   getStateAll() {
-    return this.httpClient.get('/api/Country/GetStateAll');
+    return this.httpClient.get(this.AppUrl +'/api/Country/GetStateAll');
   }
   
+  getVehicleList(){
+    return this.httpClient.get(this.AppUrl +'/api/Company/GetVehicleList');
+   }
 }

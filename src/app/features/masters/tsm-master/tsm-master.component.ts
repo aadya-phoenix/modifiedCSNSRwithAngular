@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OutletTsm } from '../models/outletTsm.model';
-import { DealerEmployee } from '../models/dealerEmployee.model';
+import { DealerEmployee } from '../../../models/dealerEmployee.model';
 import { LevelInfo } from '../../../models/levelInfo.model';
 import { ConstantsService } from 'src/app/constants/constants.service';
 import { CommonApiService } from '../services/common-api.service';

@@ -1,0 +1,48 @@
+<section class="content-header">
+    <h1 style="text-align:center;color:#005aa9;">
+              {{TodaysCallingPlanPostServiceFollowupLabel}}
+    </h1>
+	<div class="language-selection pull-right" style="font-size:10px;margin-top:-25px;margin-right:30px;font-size:14px;">
+    </div>
+</section>
+<section class="content">
+
+    <div *ngIf="view1==true">
+
+        <ul class="row nav nav-tabs" style="padding: 0;list-style: none;border: 0;">
+            <li class="col-md-for-5 col-sm-6 col-xs-12" style="width:345px" [ngClass]="{'active': S1 == true }">
+                <a data-toggle="tab" (click)="getCurrentWindow('S1')" aria-expanded="true">
+                    <div class="info-box ">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-calendar-plus-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text" style="height: 45px;font-size:17px;font-weight: 700;white-space: unset;">{{GeneratedfortodayLabel}}</span>
+                            <span class="info-box-number" style="font-size:21px">{{freshLead.length}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </a>
+                <!-- /.info-box -->
+            </li>
+            <!-- /.col -->
+            <li class="col-md-for-5 col-sm-6 col-xs-12" style="width:345px" [ngClass]="{'active': S2 == true }">
+                <a data-toggle="tab" (click)="getCurrentWindow('S2')" aria-expanded="true">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text" style="height: 45px;font-size:17px;font-weight: 700;white-space: unset;">{{NoActionLeadsLabel}}</span>
+                            <span class="info-box-number" style="font-size:21px">{{pendingLead.length}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </a>
+            </li>
+            <!-- /.col -->
+            <!-- /.col -->
+            <!-- /.col -->
+        </ul>
+        <app-psf-counters [labelObj]="resultObj" [searchObj]="searchObj"></app-psf-counters>
+        <app-psf-view [labelObj]="resultObj"  [showAutoDialer]="showAutoDialer"></app-psf-view>
+    </div>
+    
+</section>

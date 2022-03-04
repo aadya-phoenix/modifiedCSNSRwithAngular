@@ -8,7 +8,7 @@ import { Outlet } from 'src/app/models/oultet.model';
 })
 export class DealerOutletService {
 
-  //appUrl = this.constant.AppUrl;
+  AppUrl ="https://demo2.suzuki-feedback.com";
   
   constructor(
     private http: HttpClient
@@ -16,26 +16,22 @@ export class DealerOutletService {
 
 
   getDealerOutletList() {
-    return this.http.get('/api/Dealer/GetOutletList');
+    return this.http.get(this.AppUrl +'/api/Dealer/GetOutletList');
   }
 
-getOutletTypeList(){
-  return this.http.get('/api/Dealer/GetOutletTypeList');
- }
-
  addOutlet(data:Outlet){
-  return this.http.post('/api/Dealer/AddOutlet/', data, {});
+  return this.http.post(this.AppUrl +'/api/Dealer/AddOutlet/', data, {});
  }
 
  uploadExcel(fd:FormData){
-  return this.http.post("/api/Dealer/PostDataDealerOutlet", fd, {});
+  return this.http.post(this.AppUrl +"/api/Dealer/PostDataDealerOutlet", fd, {});
  }
 
  editOutlet(data:Outlet){
-  return this.http.post('/api/Dealer/EditOutlet/', data, {});
+  return this.http.post(this.AppUrl +'/api/Dealer/EditOutlet/', data, {});
  }
 
  deleteOutlet(data:Outlet) {
-  return this.http.post('/api/Dealer/DeleteOutlet/', data, {});
+  return this.http.post(this.AppUrl +'/api/Dealer/DeleteOutlet/', data, {});
  }
 }

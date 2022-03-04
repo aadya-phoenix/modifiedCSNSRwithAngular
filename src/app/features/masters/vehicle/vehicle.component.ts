@@ -5,7 +5,7 @@ import { Country } from 'src/app/models/country.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { MastersApiService } from 'src/app/services/masters-api.service';
 import { CommonApiService } from '../services/common-api.service';
-import { Vehicle } from '../models/vehicle.model';
+import { Vehicle } from '../../../models/vehicle.model';
 import { VehicleService } from './vehicle.service';
 import Swal from 'sweetalert2';
 import { VehicleUploadComponent } from './vehicle-upload/vehicle-upload.component';
@@ -48,7 +48,7 @@ export class VehicleComponent implements OnInit {
   }
 
   getFormDetails(){
-    this.apiService.getVehicleList().subscribe((data:any)=>{
+    this.masterService.getVehicleList().subscribe((data:any)=>{
      this.vehicleObj = data;
     },error=>{
       console.log(error);

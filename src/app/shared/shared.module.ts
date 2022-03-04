@@ -12,9 +12,9 @@ import { HttpClientModule} from '@angular/common/http';
   ],
   exports:[
     CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     NgxTrimDirectiveModule
   ]
 })

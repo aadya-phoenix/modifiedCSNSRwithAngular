@@ -1,0 +1,46 @@
+import { RptBaseDataInfo } from "./rptBaseDataInfo.model";
+
+export interface CustomerRptInfo{
+      Id : number ;
+      CarNumber : string ;
+      VehicleName : string ;
+      JobCardNumber : string ;
+      SurveySentDate ?: Date ;
+      ResponseDate ?: Date ;
+      Source : string ;
+      AnswerSum : number ;
+      AnswerAvg : number ;
+      info : RptBaseDataInfo[] ;
+      CustomerName : string ;
+      BillDate ?: Date ;
+      Mileage ?: number ;
+      ServiceType : string ;
+      VehicleSaleDate ?: Date ;
+      CustomerMobile : string ;
+      CustomerEmail : string ;
+      SatisfactionType : string ;
+      OutletCode : string ;
+      OutletName : string ;
+      Checked ?: boolean ;
+      ConversionType : string ;
+      Remarks : string ;
+      Date ?: Date;
+      ExcelPath : string ;
+      ServiceAdvisor : string ;
+      Technician : string ;
+      ComplaintId ?: number ;
+      ComplaintRemarks : string ;
+      ComplaintNumber : string ;
+      RegistrationNumber : string ;
+      VinNumber : string ;
+      CustomerDetailID ?: number ;
+      PenCustomerName : string ;
+      PenCustomerMobile : string ;
+      PenCustomerMobile2 : string ;
+      PenVIN : string ;
+      FromDate ?: Date ;
+      ComplaintAttribution : string ;
+      Customer_Id ?: number ;
+      LevelName : string ;
+      SubLevelName : string ;
+}

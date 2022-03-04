@@ -1,0 +1,123 @@
+<section class="content-header">
+    <h1>
+        Service Upload Management
+    </h1>
+    <ol class="breadcrumb">
+    </ol>
+</section>
+<section class="content">
+    <div class="box-body" *ngIf="showSearchGrid">
+        <button class="btn btn-primary btn-xs" (click)="addService()">Add </button>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box" *ngIf="showSearchGrid">
+                <div class="box-body">
+                    <div class="col-xs-1">
+                        <label>Search</label>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" size="100" id="Text17" placeholder="Enter search" trim>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Country Name</th>
+                                <th>Based On Milage</th>
+                                <th>Added On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of myObj; let i = index;">
+                                <td class="sorting_1">{{ i + 1 }}</td>
+                                <td>{{pt.CountryName}}</td>
+                                <td *ngIf="pt.IsTrue == true">Periodic SMR Logic</td>
+                                <td *ngIf="pt.IsTrue == false">Defalut SMR Logic</td>
+                                <td>{{pt.CreationDate | date : 'dd-MMM -yyyy' }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs" (click)="editTransaction(pt)">Edit</button>
+                                    <button class="btn btn-warning btn-xs" (click)="deleteTransaction(pt)">Delete</button>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Defalut SMR/Periodic SMR <label style="color:red">*</label> </label>
+                                <div>
+                                    <select name="Language" class="form-control selectpicker"           
+                                            [(ngModel)]="service.IsTrue">
+                                        <option *ngFor="let x of YesNoDropDown" [value]="0">{{x}}</option>
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="col-xs-2">
+                                <label>Country <label style="color:red">*</label></label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="service.Country_Id">
+                                    <option *ngFor="let country of countryObj" [value]="country.Country_Id">{{country.CountryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="saveForm()">Submit</button>
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" *ngIf="showEditForm">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-4">
+                                <label>Defalut SMR/Periodic SMR <label style="color:red">*</label> </label>
+                                <div>
+                                    <select name="Language" class="form-control selectpicker"           
+                                            [(ngModel)]="service.IsTrue">
+                                        <option *ngFor="let x of YesNoDropDown" [value]="0">{{x}}</option>
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="col-xs-2">
+                                <label>Country <label style="color:red">*</label></label>
+                                <select name="Language" class="form-control selectpicker"
+                                        [(ngModel)]="service.Country_Id">
+                                    <option *ngFor="let country of countryObj" [value]="country.Country_Id">{{country.CountryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-xs" (click)="editSaveTransaction()">Update</button>
+                                <button class="btn btn-warning btn-xs" (click)="init()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>     

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Question } from './models/question.model';
+import { Question } from '../models/question.model';
 import { QuestionAnswerInfo } from './models/questionAnswerInfo.model';
 
 @Injectable({
@@ -8,29 +8,18 @@ import { QuestionAnswerInfo } from './models/questionAnswerInfo.model';
 })
 export class QuestionService {
 
-  //appUrl = this.constant.AppUrl;
-
+  AppUrl ="https://demo2.suzuki-feedback.com";
   constructor(
     private http: HttpClient
   ) { }
 
   getQuestionList(){
-    return this.http.get('/api/Quetsion/GetQuestionList');
-  }
-  getQuestionType(){
-    return this.http.get('/api/QuestionType/GetQuestionType/');
-  }
-
-  getSurveyType(){
-    return this.http.get('/api/Form/GetSurveyType');
+    return this.http.get(this.AppUrl +'/api/Quetsion/GetQuestionList');
   }
   addQuestion(data:QuestionAnswerInfo){
-    return this.http.post('/api/Quetsion/AddQuestion/', data, {});
-  }
-  getAnswerList(id:number) {
-    return this.http.get('/api/Quetsion/GetAnswerList?QuestionId=' + id);
+    return this.http.post(this.AppUrl +'/api/Quetsion/AddQuestion/', data, {});
   }
   deleteQuestion(data:Question){
-    return this.http.post('/api/Quetsion/DeleteQuestion/', data, {});
+    return this.http.post(this.AppUrl +'/api/Quetsion/DeleteQuestion/', data, {});
   }
 }

@@ -45,8 +45,8 @@ export class DashboardCountersComponent implements OnInit {
   PSFSales: boolean = false;
 
   
-  toggleEventSubscription: Subscription = new Subscription;
-  changeCountrySubscription: Subscription = new Subscription;
+  toggleEventSubscription!: Subscription;
+  changeCountrySubscription!: Subscription;
 
   constructor(
     private apiService: ApiService,

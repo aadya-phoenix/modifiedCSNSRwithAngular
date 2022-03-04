@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
          if (!data.IsGeoFencing) {
           sessionStorage.setItem("app",JSON.stringify(data));
           const session = sessionStorage.getItem("app");
-         /*  console.log("mydata",JSON.parse("session")); */
           console.log("session..",session);
 
           if (data.IsFirstLogin == true){

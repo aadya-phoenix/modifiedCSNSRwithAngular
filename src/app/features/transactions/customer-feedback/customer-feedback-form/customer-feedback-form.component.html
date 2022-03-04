@@ -1,0 +1,200 @@
+<div class="box-body">
+
+    <div class="row">
+        <div class="form-group has-feedback">
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerNameLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="100" [disabled]="CustomerDisabled==true" placeholder="Customer Name" [(ngModel)]="Customer.CustomerName" trim>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerContactLabel}}<label style="color:red">*</label> </label>
+                <input type="text" digitOnly class="form-control" maxlength="10" placeholder={{labelObj.CustomerContactLabel}} [(ngModel)]="Customer.CustomerMobile" trim>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerContactLabel2}}</label>
+                <input type="text" digitOnly class="form-control" maxlength="10" placeholder={{labelObj.CustomerContactLabel2}} [(ngModel)]="Customer.CustomerMobile2" trim>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group has-feedback">
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerVINLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="16" [disabled]="CustomerDisabled==true" placeholder={{labelObj.CustomerVINLabel}} [(ngModel)]="Customer.VINNumber" trim>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerRegistrationLabel}}<label style="color:red">*</label></label>
+                <input type="text" name="EnableSSL" maxlength="12" [disabled]="CustomerDisabled==true" class="form-control" placeholder={{labelObj.CustomerRegistrationLabel}} [(ngModel)]="Customer.RegistrationNumber" [value]="true">
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerVehicleLabel}}<label style="color:red">*</label> </label>
+                <select name="Language" [disabled]="CustomerDisabled==true" class="form-control selectpicker"   [(ngModel)]="Customer.Vehicle_Id">
+                    <option *ngFor="let DC of vehicleObj" [value]="DC.Vehicle_Id">
+                        {{DC.VehicleName}}
+                    </option></select>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerJCNLabel}}<label style="color:red">*</label></label>
+                <input type="text" [disabled]="CustomerDisabled==true" name="EnableSSL" maxlength="15" class="form-control" placeholder={{labelObj.CustomerJCNLabel}} [(ngModel)]="Customer.JOBCardNumber" [value]="true">
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerInvoiceDateLabel}}<label style="color:red">*</label></label>
+                <mat-form-field>
+                    <input type="text" matInput [matDatepicker]="datepicker" [disabled]="CustomerDisabled==true" [(ngModel)]="Customer.InvoiceDate" placeholder="{{labelObj.CustomerInvoiceDateLabel}}"  required class="form-control col-xs-3" >
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerServiceTypeLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="16" [disabled]="CustomerDisabled==true" [(ngModel)]="Customer.ServiceType" placeholder="{{labelObj.CustomerServiceTypeLabel}}" trim>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerMileageLabel}}</label>
+                <input [disabled]="CustomerDisabled==true" type="text" digitOnly name="EnableSSL" class="form-control" placeholder={{labelObj.CustomerMileageLabel}} [(ngModel)]="Customer.Mileage" [value]="true">
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerSALabel}} </label>
+                <select [disabled]="CustomerDisabled==true" name="Language" class="form-control selectpicker"  [(ngModel)]="Customer.ServiceAdvisorId">
+                        <option *ngFor="let DC of SAObj" [value]="DC.Employee_Id">
+                            {{DC.FirstName}}
+                        </option></select>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerTecLabel}} </label>
+                <select [disabled]="CustomerDisabled==true" name="Language" class="form-control selectpicker"   [(ngModel)]="Customer.TecnicianId">
+                        <option *ngFor="let DC of TecObj" [value]="DC.Employee_Id">
+                            {{DC.FirstName}}
+                        </option></select>
+            </div>
+            <div class="col-xs-4">
+                <label>{{labelObj.CustomerEmailLabel}}<label style="color:red">*</label> </label>
+                <input type="text" class="form-control" maxlength="200" placeholder="{{labelObj.CustomerEmailLabel}}" [(ngModel)]="Customer.CustomerEmail" trim>
+            </div>            
+            <div class="col-xs-4">
+                <label>{{labelObj.RepairDetailsLabel}}<label style="color:red"></label> </label>
+                <textarea class="form-control"  trim [(ngModel)]="Customer.RepairDetails"  placeholder="{{labelObj.RepairDetailsLabel}}"   maxlength="1000" [disabled]="true"></textarea>            
+            </div>         
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row" *ngFor="let item of surveyObj.QuestionArray">
+        {{item.QuestionCategory}}
+        <div class="row" *ngFor="let pt of item.Data;let i=index;">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="question-no" *ngIf="defaultLanguage==true"><span>{{i+1}}.</span>{{pt.Question}}</label>
+                   <!--  <label class="question-no" *ngIf="defaultLanguage==false"><span>{{i+1}}.</span>{{pt.LanguageOption.QuestionOption}}</label> -->
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 1">
+                    <div class="col-sm-10" style="padding: 0">
+                        <input type="radio" name="YesNoAnswer" [(ngModel)]="pt.YesNoAnswere" value="1" />Yes
+                        <input type="radio" name="YesNoAnswer" [(ngModel)]="pt.YesNoAnswere" value="0" />No
+                    </div>
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 2">
+                    <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.SelectOptionArray">
+                        <input type="radio" name="RadioSelect" [(ngModel)]="pt.SelectAnswer" />{{option.Text}}
+                    </div>
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 3">
+                    <select class="form-control" multiple="true" [(ngModel)]="pt.MultiSelectAnswer"  (change)="multiSelectSelected()">
+                        <option *ngFor="let option of pt.MultiSelectOptionArray" [value]="option.Id">
+                            {{option.Text}}
+                        </option></select>
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 4">
+                    <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.CheckOptionArray">
+                        <input type="checkbox"/>{{ option.Text }}
+                    </div>
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 5">
+                    <div class="col-sm-10" style="padding: 0" *ngFor="let option of pt.CheckOptionArray">
+                        <input type="checkbox"  (change)="checkboxSeleted()" />{{ option.Text }}
+                    </div>
+                </div>
+                <div class="col-sm-6" *ngIf="pt.QuestionType == 6">
+
+                    <textarea cols="75" [(ngModel)]="pt.TextBoxAnswere" name="commentText" rows="5" style="width:520px"></textarea>
+                </div>
+
+                <div class="col-sm-6">
+                    <span class="star-rating" *ngIf="pt.QuestionType == 7">
+                        <select [(ngModel)]="pt.RangeAnswere" class="form-control">
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+
+                        </select>
+                    </span>
+                </div>
+                <div class="col-sm-5">
+                    <span *ngIf="pt.QuestionType == 8">
+                        <span class="scale-rating">
+                            <label value="1">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="1">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="2">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="2">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="3">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="3">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="4">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="4">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="5">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="5">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="6">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="6">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="7">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="7">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="8">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="8">
+                            <label style="width:100%"></label>
+                            </label>
+                            
+                            <label value="9">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="9">
+                            <label style="width:100%"></label>
+                            </label>
+
+                            <label value="10">
+                            <input type="radio" name="scale{{i}}" [(ngModel)]="pt.RangeAnswere" [value]="10">
+                            <label style="width:100%"></label>
+                            </label>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <br>
+
+    <button type="button" class="btn btn-primary pull-right" (click)="save()">{{labelObj.ButtonText}}</button>
+    &nbsp;
+
+</div>

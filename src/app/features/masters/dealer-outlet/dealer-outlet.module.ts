@@ -14,6 +14,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     DealerOutletUploadComponent,
     OutletReportComponent
   ],
+  entryComponents:[ DealerOutletUploadComponent],
   imports: [
     SharedModule,
     MatDialogModule,

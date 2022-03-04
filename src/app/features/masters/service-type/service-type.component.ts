@@ -3,9 +3,9 @@ import { ConstantsService } from 'src/app/constants/constants.service';
 import { Country } from 'src/app/models/country.model';
 import { MastersApiService } from 'src/app/services/masters-api.service';
 import { CommonApiService } from '../services/common-api.service';
-import { Vehicle } from '../models/vehicle.model';
+import { Vehicle } from '../../../models/vehicle.model';
 import { ServiceTypeService } from './service-type.service';
-import { ServiceType } from './serviceType.model';
+import { ServiceType } from '../../../models/serviceType.model';
 import Swal from 'sweetalert2';
 import { ServiceTypeUploadComponent } from './service-type-upload/service-type-upload.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,7 +56,7 @@ export class ServiceTypeComponent implements OnInit {
       },error=>{
         console.log(error);
     });
-    this.apiService.getVehicleList().subscribe((data:any)=>{
+    this.masters.getVehicleList().subscribe((data:any)=>{
        this.vehicleObj = data;
       },error=>{
         console.log(error);

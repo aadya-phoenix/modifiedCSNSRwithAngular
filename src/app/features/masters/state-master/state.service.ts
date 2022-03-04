@@ -7,27 +7,29 @@ import { State } from '../models/state.model';
 })
 export class StateService {
 
+  AppUrl ="https://demo2.suzuki-feedback.com";
+
   constructor(
     private http: HttpClient
   ) { }
 
   getCountryList() {
-    return this.http.get('/api/Country/GetCountryList');
+    return this.http.get(this.AppUrl +'/api/Country/GetCountryList');
   }
 
   addState(data:State){
-    return  this.http.post('/api/Country/AddState/', data, {});
+    return  this.http.post(this.AppUrl +'/api/Country/AddState/', data, {});
  }
 
   uploadState(fd:FormData) {
-  return this.http.post("/api/Country/UploadSate", fd, {});
+  return this.http.post(this.AppUrl +"/api/Country/UploadSate", fd, {});
   }
 
   deleteState(data:State) {
-    return this.http.post('/api/Country/DeleteState/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/DeleteState/', data, {});
   }
 
   editState(data:State){
-    return this.http.post('/api/Country/EditState/', data, {});
+    return this.http.post(this.AppUrl +'/api/Country/EditState/', data, {});
   }
 }

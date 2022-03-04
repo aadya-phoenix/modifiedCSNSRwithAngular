@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h3 class="modal-title">Detail</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="form-group has-feedback">
+            <div class="col-xs-4">
+                <label>Label :  </label>
+                {{ labelObj.Label }}
+            </div>
+            <div class="col-xs-4">
+                <label>Language  :  </label>
+                {{ labelObj.LanguageName }}
+            </div>
+        </div>
+    </div>
+
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Label Name</th>
+                <th>Language</th>
+                 <th>
+                    <button class="btn btn-primary btn-xs" (click)="addNewLanguage()">Add </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of labelObj.LabelInDifferentLangArray;index as i;">
+                <td>{{ i + 1 }}</td>
+                <td>
+                <input type="text" class="form-control" [(ngModel)]="item.Label"/>
+                </td>
+                <td>
+                  <select class="form-control" 
+                             [(ngModel)]="item.Language_Id" >
+                           <option *ngFor="let pt of item.LanguageArray" [value]="pt.Language_Id">{{pt.Language}}</option>
+                        </select>
+                </td>
+               <td>
+                <button class="btn btn-warning btn-xs" (click)="removeDiffLanguage(i)">Delete</button>
+                </td>
+            </tr>
+     </tbody>
+    </table>
+</div>
+<br />
+
+<div class="modal-footer">
+    <button class="btn btn-success btn-xs" type="button" (click)="updateLabel()">
+        Update
+    </button>
+    <button class="btn btn-danger btn-xs" type="button" mat-dialog-close (click)="cancel()">
+        Cancel
+    </button>
+</div>

@@ -1,0 +1,245 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="tab-content">
+
+                <div *ngIf="S1" id="s1" class="tab-pane in active">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{labelObj.GeneratedfortodayLabel}}</h3>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 330px;">
+                                <input type="text" name="table_search" class="form-control pull-right" [(ngModel)]="searchText" placeholder="{{labelObj.SearchText}}">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                                <button type="button" class="btn btn-xs btn-warning pull-right" (click)="export('FreshTable')">
+                                    {{labelObj.DownloadReportLabel}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-xs-6">
+                                <a  (click)="filterData('')" [ngClass]="{'active': searchCategory == '' }">
+                                    <!-- small box -->
+                                    <div class="small-box " style="border:1px solid">
+                                        <div class="inner">
+                                            <h4 class="text-center">{{labelObj.AllLeadsLabel}}: {{freshLeadCount+freshFollowUp+freshNonContacted}}</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>                          
+                            <div class="col-lg-2 col-md-2 col-xs-6">
+                                <a  (click)="filterData('Fresh')" [ngClass]="{'active': searchCategory == 'Fresh' }">
+                                    <!-- small box -->
+                                    <div class="small-box " style="border:1px solid">
+                                        <div class="inner">
+                                            <h4 class="text-center">{{labelObj.FreshLeadsLabel}} : {{freshLeadCount}}</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-2 col-md-2 col-xs-6">
+                                <!-- small box -->
+                                <a  (click)="filterData('Contacted')" [ngClass]="{'active': searchCategory == 'Contacted' }">
+                                    <div class="small-box " style="border:1px solid">
+                                        <div class="inner">
+                                            <h4 class="text-center">{{labelObj.FollowsUpLabel}}: {{freshFollowUp}}</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-2 col-md-2 col-xs-6" style="width:264px">
+                                <!-- small box -->
+                                <a  (click)="filterData('Not Contacted')" [ngClass]="{'active': searchCategory == 'Not Contacted' }">
+                                    <div class="small-box " style="border:1px solid">
+                                        <div class="inner">
+                                            <h4 class="text-center">{{labelObj.NonCountableLabel}} : {{freshNonContacted}}</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover" id="FreshTable">
+                            <thead>
+                                <tr style="background-color:cornflowerblue;color:white">
+                                    <th>S.No.</th>
+                                    <th>{{labelObj.CustomerNameLabel}}</th>
+                                    <th>{{labelObj.MobileLabel}}#</th>
+                                    <th>{{labelObj.VehicleModelLabel}}</th>
+                                    <th>{{labelObj.VehicleSaleDateLabel}}</th>
+                                    <th>{{labelObj.ServiceDateLabel}}</th>
+                                    <th>{{labelObj.LastServiceLabel}}</th>
+                                    <th>{{labelObj.MileageLabel}}</th>
+                                    <th>{{labelObj.FollowUpDateLabel}}</th>
+                                    <th>{{labelObj.FollowUpTimeLabel}}</th>
+                                    <th>{{labelObj.StatusLabel}}</th>
+                                    <th>{{labelObj.ActionLabel}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pt of freshLead| filter:searchText ;let i=index;" [ngClass]="{'bg-aqua': i == 0,'bg-blue':pt.HighlightRow==true }">
+                                    <td>{{(i + 1)}}</td>
+                                    <td>{{pt.CustomerName}}</td>
+                                    <td>{{pt.CustomerMobile}}</td>
+                                    <td>{{pt.VehicleName}}</td>
+                                    <td>{{pt.VehicleSaleDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.LastServiceDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.LastService}}</td>
+                                    <td>{{pt.Mileage}}</td>
+                                    <td *ngIf="pt.LeadStatus=='Fresh'">{{pt.ReminderDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td *ngIf="pt.LeadStatus!='Fresh'">{{pt.FollowUpDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.ReminderTime}}</td>
+                                    <td><span class="label label-success">{{pt.LeadStatus}}</span></td>
+                                    <td><button class="btn btn-primary btn-xs" (click)="openSMRView('view2',pt.Customer_id,pt.CustomerDetail_Id,pt.CallLog_Id,pt.ServiceType_Id)"><i class="fa fa-fw fa-eye"></i> View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div><!--./tab Fresh Lead-pane-->
+
+                <div *ngIf="S2" id="s2" class="tab-pane in active">
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{labelObj.PendingCasesLabel}} </h3><br /><br />
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-xs-6">
+                                    <!-- small box -->
+                                    <a  (click)="filterPendingData('')" [ngClass]="{'active': pendingSearch == '' }">
+                                        <div class="small-box" style="border:1px solid">
+                                            <div class="inner">
+                                                <h4 class="text-center"> {{labelObj.AllLeadsLabel}}: {{pendingLeadCount + pendingFollowUp + pendingNonContacted}}</h4>
+
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-6">
+                                    <!-- small box -->
+                                    <a  (click)="filterPendingData('Pending')" [ngClass]="{'active': pendingSearch == 'Pending' }">
+                                        <div class="small-box" style="border:1px solid">
+                                            <div class="inner">
+                                                <h4 class="text-center"> {{labelObj.NoActionLeadsLabel}} : {{pendingLeadCount}}</h4>
+
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-lg-2 col-md-2 col-xs-6">
+                                    <!-- small box -->
+                                    <a  (click)="filterPendingData('Contacted')" [ngClass]="{'active': pendingSearch == 'Contacted' }">
+                                        <div class="small-box" style="border:1px solid">
+                                            <div class="inner">
+                                                <h4 class="text-center"> {{labelObj.Followupleadslabel}} : {{pendingFollowUp}}</h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-lg-2 col-md-2 col-xs-6">
+                                    <!-- small box -->
+                                    <a  (click)="filterPendingData('Not Contacted')" [ngClass]="{'active': pendingSearch == 'Not Contacted' }">
+                                        <div class="small-box" style="border:1px solid">
+                                            <div class="inner">
+                                                <h4 class="text-center"> {{labelObj.NonContactedLeadlabel}}  :{{pendingNonContacted}}</h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- ./col -->
+                            </div>
+                        </div>
+
+                        <div class="input-group input-group-sm" style="width: 150px;display: inline-block;">
+                            {{labelObj.FromDateLabel}}
+                            <mat-form-field style="display: block;">
+                                <input matInput [matDatepicker]="datepickerTo" [(ngModel)]="pendingSearchObj.FromDate" placeholder="Select Date">
+                                <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+                                <mat-datepicker #datepickerTo></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                        <div class="input-group input-group-sm" style="width: 213px;display: inline-block;">
+                            {{labelObj.ToDateLabel}}
+                            <mat-form-field style="display: block;">
+                                <input matInput [matDatepicker]="datepickerTo" [(ngModel)]="pendingSearchObj.ToDate" placeholder="Select Date">
+                                <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+                                <mat-datepicker #datepickerTo></mat-datepicker>
+                              </mat-form-field>
+                            <div class="input-group-btn" style="float:left">
+                                <button type="submit" style="height:34px" class="btn btn-default" (click)="searchPending()"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 350px;">
+                                <input type="text" name="table_search" class="form-control pull-right" [(ngModel)]="SePendingSearch" placeholder="Search">
+
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                                <button type="button" class="btn btn-xs btn-warning pull-right" (click)="export('PendingTable')">
+                                    {{labelObj.DownloadReportLabel}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover" id="PendingTable">
+                            <thead>
+                                <tr style="background-color:cornflowerblue;color:white">
+                                    <th>S.No.</th>
+                                    <th>{{labelObj.CustomerNameLabel}}</th>
+                                    <th>{{labelObj.MobileLabel}}#</th>
+                                    <th>{{labelObj.VehicleModelLabel}}</th>
+                                    <th>{{labelObj.VehicleSaleDateLabel}}</th>
+                                    <th>{{labelObj.LastServiceDateLabel}}</th>
+                                    <th>{{labelObj.LastServiceLabel}}</th>
+                                    <th>{{labelObj.MileageLabel}}</th>
+                                    <th>{{labelObj.FollowUpDateLabel}}</th>
+                                    <th>{{labelObj.FollowUpTimeLabel}}</th>
+                                    <th>{{labelObj.StatusLabel}}</th>
+                                    <th>{{labelObj.ActionLabel}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pt of pendingLead| filter:SePendingSearch; let i =index;" [ngClass]="{'bg-aqua': i == 0,'bg-blue':pt.HighlightRow==true }">
+                                    <td>{{(i + 1)}}</td>
+                                    <td>{{pt.CustomerName}}</td>
+                                    <td>{{pt.CustomerMobile}}</td>
+                                    <td>{{pt.VehicleName}}</td>
+                                    <td>{{pt.VehicleSaleDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.LastServiceDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.LastService}}</td>
+                                    <td>{{pt.Mileage}}</td>
+                                    <td *ngIf="pt.LeadStatus=='Pending'">{{pt.ReminderDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td *ngIf="pt.LeadStatus!='Pending'">{{pt.FollowUpDate | date : 'dd-MM-yyyy'}}</td>
+                                    <td>{{pt.ReminderTime }}</td>
+                                    <td><span class="label label-success">{{pt.LeadStatus}}</span></td>
+                                    <td><button class="btn btn-primary btn-xs" (click)="openSMRView('view3',pt.Customer_id,pt.CustomerDetail_Id,pt.CallLog_Id,pt.ServiceType_Id)"><i class="fa fa-fw fa-eye"></i> View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--./.box-body-->
+
+                </div>
+
+             </div><!--./tab-content-->
+          </div>
+      
+          <!-- /.box -->
+     </div>
+</div>
+

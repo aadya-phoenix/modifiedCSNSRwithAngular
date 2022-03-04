@@ -12,40 +12,44 @@ import { SetPassword } from '../models/setPassword.model';
 export class AuthService {
 
   /* appUrl = this.constant.AppUrl; */
+  AppUrl ="https://demo2.suzuki-feedback.com";
 
   constructor(
    private httpClient:HttpClient
    ) { }
   
   authincateLogin(login:Login){
-    return this.httpClient.get( '/api/Login/Login/?UserName=' + login.username + '&Password=' + login.password);
+    return this.httpClient.get( this.AppUrl +'/api/Login/Login/?UserName=' + login.username + '&Password=' + login.password);
    };
     
    loginLog(data:any){
-    return this.httpClient.post( '/api/Login/LoginLog/', data, {});
+    return this.httpClient.post( this.AppUrl +'/api/Login/LoginLog/', data, {});
    };
 
    fortgotPassword(username:string){
-    return this.httpClient.get('/api/Login/FortgotPassword/?UserName=' + username);
+    return this.httpClient.get(this.AppUrl +'/api/Login/FortgotPassword/?UserName=' + username);
    };
 
    saveForm(data:SetPassword){
-    return this.httpClient.post('/api/Login/FreshLogin/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Login/FreshLogin/', data, {});
    }
 
     authenticateLoginWithCoordinates(geoFenceObj:GeoFence){
-    return this.httpClient.get('/api/Login/LoginWithCoordinates/?UserName=' + geoFenceObj.username + '&Password=' + geoFenceObj.password + '&lat=' + geoFenceObj.lat + '&lan=' + geoFenceObj.lan);
+    return this.httpClient.get(this.AppUrl +'/api/Login/LoginWithCoordinates/?UserName=' + geoFenceObj.username + '&Password=' + geoFenceObj.password + '&lat=' + geoFenceObj.lat + '&lan=' + geoFenceObj.lan);
    }
 
    changePassword(data:SetPassword){
-    return this.httpClient.post('/api/Login/ChangePassword/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Login/ChangePassword/', data, {});
    }
 
    CRELogOut(obj:LogObj) {
-    return this.httpClient.post('/api/SMSReceiver/CRELogOut', obj, {});
+    return this.httpClient.post(this.AppUrl +'/api/SMSReceiver/CRELogOut', obj, {});
    }
    
    logOut(data:UserInfor) {
-    return this.httpClient.post('/api/Login/LogOut/', data, {});
+    return this.httpClient.post(this.AppUrl +'/api/Login/LogOut/', data, {});
+  }
+   checkAutoDialerAccess(id:number){
+    return this.httpClient.get(this.AppUrl +'/api/CRECallDeatail/CheckAutoDialerAccess/?outledId=' + id);
   }
 }

@@ -4,7 +4,7 @@ import { ConstantsService } from 'src/app/constants/constants.service';
 import { MastersApiService } from 'src/app/services/masters-api.service';
 import { MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { Language } from '../models/language.model';
+import { Language } from '../../../models/language.model';
 import { CommonService } from './common.service';
 
 @Component({

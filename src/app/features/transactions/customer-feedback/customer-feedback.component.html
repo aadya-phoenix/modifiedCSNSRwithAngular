@@ -1,0 +1,29 @@
+<div class="box box-warning">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">{{PageTitle}}</h3>
+        <div class="language-selection pull-right" style="font-size:10px;margin-top:-25px;margin-right:30px;font-size:14px;">
+        </div>
+    </div>
+
+     <!-- /.box-header -->
+     <div class="box-body">
+        <section>
+
+            <div class="box-body">
+                <div class="row">                  
+                        <div class="col-xs-4">
+							<label class="control-label">{{SerachText}}</label>
+							<input type="text" class="form-control"  placeholder={{SerachText}} [(ngModel)]="VINNumber" trim>
+						</div>
+						<div class="col-xs-4">
+							<label style="width:100%">&nbsp;</label>
+							<button type="button" class="btn btn-primary" (click)="searchByVIN()">{{SerachTextLabel}}</button>
+						</div>
+                </div>               
+            </div>
+            <hr/>
+          <app-customer-feedback-form [labelObj]="resultObj" ></app-customer-feedback-form>
+        </section>
+    </div>
+</div>

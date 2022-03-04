@@ -10,7 +10,7 @@ import { SmsSetupComponent } from './sms-setup/sms-setup.component';
 import { MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { EmailTemplateComponent } from './email-template/email-template.component';
-import { Language } from '../models/language.model';
+import { Language } from '../../../models/language.model';
 import { RxService } from './rx.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';

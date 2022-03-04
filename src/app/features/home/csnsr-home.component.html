@@ -72,7 +72,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu tree" data-widget="tree">
+      <ul class="sidebar-menu " data-widget="tree">
         <li class="header" style="text-align: center; font-size: medium; color: white">CS & SR System</li>
         <li (click)=CRElogout() class="active treeview ">
           <a routerLink="dashboard">
@@ -92,7 +92,7 @@
            <!--  {{CustomerComplaintTrackingLabel}} -->
         </a>
     </li>
-     <li class="treeview menu-open" [hidden]="Username=='SMCJapan' || session.User_Id == 342">
+     <li class="treeview" [hidden]="Username=='SMCJapan' || session.User_Id == 342">
           <a>
             <i class="fa fa-gears"></i>
             <span>Settings</span>
@@ -112,8 +112,8 @@
                 </a>
                 <ul class="treeview-menu">
                    <li (click)="CRElogout()"><a routerLink="Company"><i class="fa fa-circle-o"></i>Company Setup</a></li>
-                  <li (click)="CRElogout()"><a routerLink="Language"><i class="fa fa-circle-o"></i>Language Setup </a></li>
-                  <li (click)="CRElogout()"><a routerLink="Country"><i class="fa fa-circle-o"></i>Country Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="Language"><i class="fa fa-circle-o"></i>Language Setup </a></li>
+                   <li (click)="CRElogout()"><a routerLink="Country"><i class="fa fa-circle-o"></i>Country Setup </a></li>
                    <li (click)="CRElogout()"><a routerLink="State"><i class="fa fa-circle-o"></i>State/Province Setup </a></li>
                    <li (click)="CRElogout()"><a routerLink="City"><i class="fa fa-circle-o"></i>City Setup </a></li>
                    <li (click)="CRElogout()"><a routerLink="Distributor"><i class="fa fa-circle-o"></i>Distributor Setup </a></li>
@@ -123,10 +123,10 @@
                    <li (click)="CRElogout()"><a routerLink="ServiceType"><i class="fa fa-circle-o"></i>Service Type</a></li>
                    <li (click)="CRElogout()"><a routerLink="Question"><i class="fa fa-circle-o"></i>Question Setup</a></li>
                    <li (click)="CRElogout()"><a routerLink="LabelMaster"><i class="fa fa-circle-o"></i>Form Label Setup</a></li>
-                  <!--  <li (click)="CRElogout()"><a routerLink="#/survey"><i class="fa fa-circle-o"></i>Survey Setup</a></li>
-                   <li (click)="CRElogout()"><a routerLink="#/EmailSetup"><i class="fa fa-circle-o"></i>Email Setup</a></li>
-                   <li (click)="CRElogout()"><a routerLink="#/TriggerSurvey"><i class="fa fa-circle-o"></i>Trigger Survey</a></li>
-                   <li (click)="CRElogout()"><a routerLink="#/ServiceBasedOnMilage"><i class="fa fa-circle-o"></i>Service Upload Setup</a></li> -->
+                   <li (click)="CRElogout()"><a routerLink="survey"><i class="fa fa-circle-o"></i>Survey Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="EmailSetup"><i class="fa fa-circle-o"></i>Email Setup</a></li>
+                   <li (click)="CRElogout()"><a routerLink="TriggerSurvey"><i class="fa fa-circle-o"></i>Trigger Survey</a></li>
+                   <li (click)="CRElogout()"><a routerLink="ServiceBasedOnMileage"><i class="fa fa-circle-o"></i>Service Upload Setup</a></li> 
 
                 </ul>
             </li>
@@ -138,11 +138,11 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-              <!--   <ul class="treeview-menu">
-                    <li (click)="CRElogout()"><a routerLink="Employee"><i class="fa fa-circle-o"></i>Dealer Employee Label</a></li>
-                    <li (click)="CRElogout()"><a routerLink="" [hidden]="Role=='HOAdmin'"><i class="fa fa-circle-o"></i>Vehicle Setup</a></li>
-                    <li (click)="CRElogout()" *ngIf="Role=='DealerAdmin'"><a routerLink="#/DlrOutletTrgt"><i class="fa fa-circle-o"></i>Dealer Outlet Target </a></li>
-                </ul> -->
+                 <ul class="treeview-menu">
+                    <li (click)="CRElogout()"><a routerLink="Employee"><i class="fa fa-circle-o"></i>Dealer Employee</a></li>
+                   <!-- <li (click)="CRElogout()"><a routerLink="" [hidden]="Role=='HOAdmin'"><i class="fa fa-circle-o"></i>Vehicle Setup</a></li>
+                     <li (click)="CRElogout()" *ngIf="Role=='DealerAdmin'"><a routerLink="#/DlrOutletTrgt"><i class="fa fa-circle-o"></i>Dealer Outlet Target </a></li> -->
+                </ul> 
             </li>
             <li class="treeview" *ngIf="Role=='Distributor'  || Role=='HOAdmin'">
 
@@ -156,11 +156,36 @@
                 <ul class="treeview-menu">
                     <li (click)="CRElogout()"><a routerLink="CountryWiseEmployee"><i class="fa fa-circle-o"></i>Employee Master</a></li>
                     <li (click)="CRElogout()"><a routerLink="TSM"><i class="fa fa-circle-o"></i> AM Mapping </a></li>
-                    <!-- <li (click)="CRElogout()"><a routerLink="#/DealerOutletDis"><i class="fa fa-circle-o"></i>Outlet Mapping</a></li> -->
+                    <li (click)="CRElogout()"><a routerLink="DealerOutletDis"><i class="fa fa-circle-o"></i>Outlet Mapping</a></li> 
 
                 </ul>
             </li>
         </ul> 
+     </li>
+
+     <li class="treeview"  *ngIf="Role!='Distributor' && Role!='DealerReport' && Role!='Zone/Region'  && Role!='LastLeg'" [hidden]="Username=='SMCJapan' ">
+        <a>
+          <i class="fa fa-user"></i>
+          <span>Transactions</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+      <ul class="treeview-menu">
+        <li (click)="CRElogout()"><a routerLink="ServiceUpload"><i class="fa fa-circle-o"></i>Upload Service Data</a></li>
+        <li (click)="CRElogout()"><a routerLink="SalesUpload"><i class="fa fa-circle-o"></i>Upload Sales Data</a></li>
+        <!-- <li (click)="CRElogout()"><a routerLink="#/CustomerList" *ngIf="(Username=='HOService' || Username=='HOReport')"><i class="fa fa-circle-o"></i>View Customers</a></li> -->
+        <!-- <li (click)="CRElogout()"><a routerLink="IFC"><i class="fa fa-circle-o"></i>Instant Feedback Card</a></li> -->
+        <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="PSF"><i class="fa fa-circle-o"></i>Post Service Follow-up </a></li>
+        <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="SalesSF"><i class="fa fa-circle-o"></i>Post Sales Follow-up</a></li>
+        <li (click)="CRElogout()"><a routerLink="PendingSurvey"><i class="fa fa-circle-o"></i>Pending Surveys</a></li>
+        <!-- <li (click)="CRElogout()"><a routerLink="SMR"><i class="fa fa-circle-o"></i>Service Reminders</a></li> -->
+        <li (click)="CRElogout()"><a routerLink="DB"><i class="fa fa-circle-o"></i>Direct Booking</a></li>
+        <!-- <li (click)="CRElogout()"><a routerLink="DIS"><i class="fa fa-circle-o"></i>Dissatisfied Customers</a></li> -->
+       <!--  <li (click)="CRElogout()"><a routerLink="CC"><i class="fa fa-circle-o"></i>Customer Complaint</a></li> -->
+        <li (click)="CRElogout()"><a routerLink="CSH"><i class="fa fa-circle-o"></i>Service History</a></li>
+        <!-- <li (click)="CRElogout()" ng-show="false"><a routerLink="#/VR"><i class="fa fa-circle-o"></i>Vehicle Receipt</a></li> -->
+    </ul>
      </li>
       
       </ul>

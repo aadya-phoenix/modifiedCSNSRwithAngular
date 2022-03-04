@@ -1,0 +1,126 @@
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">
+            {{CSHLabel}}</h3>
+        <div class="language-selection pull-right"
+            style="font-size:10px;margin-top:-25px;margin-right:30px;font-size:14px;">
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <section>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label class="control-label">{{SearchText}}</label>
+                        <input type="text" class="form-control" placeholder="{{SearchText}}" [(ngModel)]="VINNumber"
+                            trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label style="width:100%">&nbsp;</label>
+                        <button type="button" class="btn btn-primary"
+                            (click)="searchByVIN()">{{SearchTextLabel}}</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-3">
+                            <label>Dealer Outlet</label>
+                            <select name="Language" class="form-control selectpicker"
+                                [disabled]="CustomerDisabled==true" (change)="getEmployee(Customer.DealerOutletId)"  [(ngModel)]="Customer.OutletId">
+                            <option *ngFor="let DC of outletObj" [value]="DC.Outlet_Id">
+                                {{DC.OutletCode}}
+                            </option></select>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerNameLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="100" [disabled]="CustomerDisabled==true"
+                                placeholder={{CustomerNameLabel}} [(ngModel)]="Customer.CustomerName" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerContactLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" digitOnly class="form-control" maxlength="10"
+                                [disabled]="CustomerDisabled==true" placeholder={{CustomerContactLabel}}
+                                [(ngModel)]="Customer.CustomerMobile" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerEmailLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="200" [disabled]="CustomerDisabled==true"
+                                placeholder={{CustomerEmailLabel}} [(ngModel)]="Customer.CustomerEmail" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-4">
+                            <label>{{CustomerVINLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="16" [disabled]="CustomerDisabled==true"
+                                placeholder={{CustomerVINLabel}} [(ngModel)]="Customer.VINNumber" trim>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>{{CustomerRegistrationLabel}}<label style="color:red">*</label></label>
+                            <input type="text" name="EnableSSL" maxlength="12" [disabled]="CustomerDisabled==true"
+                                class="form-control" placeholder={{CustomerRegistrationLabel}}
+                                [(ngModel)]="Customer.RegistrationNumber" [value]="true">
+                        </div>
+                        <div class="col-xs-4">
+                            <label>{{CustomerVehicleLabel}}<label style="color:red">*</label> </label>
+                            <select name="Language" [disabled]="CustomerDisabled==true"
+                                class="form-control selectpicker" (change)="getServiceList(Customer.Vehicle_Id)"   [(ngModel)]="Customer.Vehicle_Id">
+                                <option *ngFor="let DC of vehicleObj" [value]="DC.Vehicle_Id">
+                                    {{DC.VehicleName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- About Me Box -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">{{SVHLabel}}</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body no-padding">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>{{OutletLabel}}</th>
+                                                <th>{{ServiceDateLabel}}</th>
+                                                <th>{{ServiceTypeLabel}}</th>
+                                                <th>{{MileageLabel}}</th>
+                                                <th>{{JobCardNumberLabel}}</th>
+                                                <th>{{RepairDetailsLabel}}</th>
+                                            </tr>
+                                            <tr *ngFor="let pt of serviceHistory; let i=index;">
+                                                <td>{{i+1}}</td>
+                                                <td>{{pt.OutletName}}</td>
+                                                <td>{{pt.BillDate| date : 'dd-MM-yyyy'}}</td>
+                                                <td>{{pt.ServiceType}}</td>
+                                                <td>{{pt.Mileage}}</td>
+                                                <th>{{pt.JobCardNumber}}</th>
+                                                <td>{{pt.RepairDetail}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+                <br>
+                &nbsp;
+            </div>
+        </section>
+    </div>
+</div>

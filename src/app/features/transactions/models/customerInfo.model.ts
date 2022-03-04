@@ -1,0 +1,36 @@
+export interface CustomerInfo{
+          CustomerName : string ;
+          CustomerMobile : string ;
+          CustomerMobile2 : string ;
+          CustomerEmail : string ;
+          VINNumber : string ;
+          RegistrationNumber : string ;
+          Vehicle_Id : number ;
+          VehicleName : string ;
+          VehicleCode : string ;
+          DealerCode : string ;
+          JOBCardNumber : string ;
+          ServiceAdvisorEmpCde : string ;
+          TecnicianEmpCde : string ;
+          InvoiceDate ?: any ;
+          Mileage ?: number ;
+          ServiceTypeId : number ;
+          ServiceAdvisorId : number ;
+          TecnicianId : number ;
+          OutletId ?: number ;
+          Customer_Id ?: number ;
+          ServiceType : string ;
+          DealerOutletId ?: number ;
+          Remarks : string ;
+          CreatedBy ?: number ;
+          UserId ?: number ;
+          SaleDate ?: Date ;
+          ComplaintSource_Id ?: number ;
+          Distributor ?: boolean ;
+          ComplaintId ?: number ;
+          DateOfConfirmation ?: Date ;
+          ComplaintStatus ?: number ;
+          CmplnAttribute : string ;
+          RepairDetails : string ;
+          IsDND ?: boolean ;
+}

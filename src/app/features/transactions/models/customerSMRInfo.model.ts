@@ -1,0 +1,32 @@
+export interface CustomerSMRInfo{
+      Customer_id : number ;
+      CustomerDetail_Id ?: number ;
+      OutletCode : string ;
+      OutletName : string ;
+      CustomerName : string ;
+      CustomerMobile : string ;
+      VehicleName : string ;
+      VehicleSaleDate ?: Date ;
+      LastServiceDate ?: Date ;
+      LastService : string ;
+      LeadStatus : string ;
+      ReminderDate ?: Date ;
+      ReminderTime ?: any ;
+      Mileage ?: number ;
+      ServiceDue : string ;
+      ServiceDueDate ?: Date ;
+      FollowUpDate ?: Date ;
+      CallLog_Id ?: number ;
+      ServiceType_Id ?: number ;
+      HighlightRow ?: boolean ;
+      LeadCategory : string ;
+      BookingDate ?: Date ;
+      BookingTime ?: any ;
+      Remarks : string ;
+      ServiceAdvisior : string ;
+      Tecnician : string ;
+      BookingSource : string ;
+      RegistrationNumber : string ;
+      LevelName : string ;
+      SubLevelName : string ;
+}

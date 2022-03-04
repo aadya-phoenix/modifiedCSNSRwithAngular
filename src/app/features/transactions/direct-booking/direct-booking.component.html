@@ -1,0 +1,122 @@
+<div class="box box-warning">
+    <h1 style="text-align:center;color:#005aa9;">
+        <b>{{DirectServiceLabel}}</b>
+    </h1>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <section>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label class="control-label">{{SearchText}}</label>
+                        <input type="text" class="form-control" placeholder="{{SearchText}}" [(ngModel)]="VINNumber"
+                            trim>
+                    </div>
+                    <div class="col-xs-4">
+                        <label style="width:100%">&nbsp;</label>
+                        <button type="button" class="btn btn-primary"
+                            (click)="searchByVIN()">{{SearchTextLabel}}</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-3">
+                            <label>{{CustomerNameLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="100" [disabled]="CustomerDisabled==true"
+                                placeholder="{{CustomerNameLabel}}" [(ngModel)]="Customer.CustomerName" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerContactLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="15" placeholder={{CustomerContactLabel}}
+                                [(ngModel)]="Customer.CustomerMobile" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerContactLabel2}}</label>
+                            <input type="text" class="form-control" maxlength="10" placeholder={{CustomerContactLabel2}}
+                                [(ngModel)]="Customer.CustomerMobile2" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerEmailLabel}}<label style="color:red">*</label> </label>
+                            <input type="text" class="form-control" maxlength="200" placeholder="{{CustomerEmailLabel}}"
+                                [(ngModel)]="Customer.CustomerEmail" trim>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-3">
+                            <label>{{CustomerVINLabel}} </label>
+                            <input type="text" class="form-control" maxlength="20" [disabled]="CustomerDisabled==true"
+                                placeholder={{CustomerVINLabel}} [(ngModel)]="Customer.VINNumber" trim>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerRegistrationLabel}}<label style="color:red">*</label></label>
+                            <input type="text" name="EnableSSL" maxlength="12" [disabled]="CustomerDisabled==true"
+                                class="form-control" placeholder={{CustomerRegistrationLabel}}
+                                [(ngModel)]="Customer.RegistrationNumber" [value]="true">
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{BookingDateLabel}}<label style="color:red">*</label></label>
+                            <mat-form-field style="display: block;">
+                                <input required matInput [matDatepicker]="datepicker" [(ngModel)]="Customer.BookingDate" placeholder="{{BookingDateLabel}}">
+                                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{BookingTimeLabel}}</label>
+                            <input type="time" [(ngModel)]="Customer.BookingTime" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group has-feedback">
+                        <div class="col-xs-3">
+                            <label>{{CustomerVehicleLabel}}<label style="color:red">*</label> </label>
+                            <select name="Language" [disabled]="CustomerDisabled==true"
+                                class="form-control selectpicker" (change)="getServiceList(Customer.Vehicle_Id)"   [(ngModel)]="Customer.Vehicle_Id">
+                                <option *ngFor="let DC of vehicleObj" [value]="DC.Vehicle_Id">
+                                    {{DC.VehicleName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerServiceTypeLabel}}<label style="color:red">*</label> </label>
+                            <select name="Language" class="form-control selectpicker"
+                                [(ngModel)]="Customer.ServiceType_Id">
+                                <option *ngFor="let DC of serviceTypeObj" [value]="DC.ServiceType_Id">
+                                    {{DC.ServiceType}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>{{CustomerMileageLabel}}</label>
+                            <input type="text" digitOnly name="EnableSSL" class="form-control"
+                                placeholder={{CustomerMileageLabel}} [(ngModel)]="Customer.Mileage" [value]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <label>{{CustomerRemarksLabel}}</label><br />
+                            <textarea cols="75" [(ngModel)]="Customer.Remarks" placeholder={{CustomerRemarksLabel}}
+                                name="commentText" rows="5" style="width:520px"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary pull-right" (click)="save()">{{ButtonText}}</button>
+            &nbsp;
+   
+    </section>
+</div>
+</div>

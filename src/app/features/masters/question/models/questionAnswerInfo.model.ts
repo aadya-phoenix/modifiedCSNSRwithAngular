@@ -1,5 +1,5 @@
-import { Answer } from "./answer.model";
-import { Question } from "./question.model";
+import { Answer } from "../../../../models/answer.model";
+import { Question } from "../../models/question.model";
 
 export interface QuestionAnswerInfo{
    Question : Question;
