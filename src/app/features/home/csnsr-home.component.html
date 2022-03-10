@@ -92,7 +92,7 @@
            <!--  {{CustomerComplaintTrackingLabel}} -->
         </a>
     </li>
-     <li class="treeview" [hidden]="Username=='SMCJapan' || session.User_Id == 342">
+     <li class="active treeview" [hidden]="Username=='SMCJapan' || session.User_Id == 342">
           <a>
             <i class="fa fa-gears"></i>
             <span>Settings</span>
@@ -163,7 +163,7 @@
         </ul> 
      </li>
 
-     <li class="treeview"  *ngIf="Role!='Distributor' && Role!='DealerReport' && Role!='Zone/Region'  && Role!='LastLeg'" [hidden]="Username=='SMCJapan' ">
+     <li class="active treeview"  *ngIf="Role!='Distributor' && Role!='DealerReport' && Role!='Zone/Region'  && Role!='LastLeg'" [hidden]="Username=='SMCJapan' ">
         <a>
           <i class="fa fa-user"></i>
           <span>Transactions</span>
@@ -176,8 +176,8 @@
         <li (click)="CRElogout()"><a routerLink="SalesUpload"><i class="fa fa-circle-o"></i>Upload Sales Data</a></li>
         <!-- <li (click)="CRElogout()"><a routerLink="#/CustomerList" *ngIf="(Username=='HOService' || Username=='HOReport')"><i class="fa fa-circle-o"></i>View Customers</a></li> -->
         <!-- <li (click)="CRElogout()"><a routerLink="IFC"><i class="fa fa-circle-o"></i>Instant Feedback Card</a></li> -->
-        <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="PSF"><i class="fa fa-circle-o"></i>Post Service Follow-up </a></li>
-        <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="SalesSF"><i class="fa fa-circle-o"></i>Post Sales Follow-up</a></li>
+       <!--  <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="PSF"><i class="fa fa-circle-o"></i>Post Service Follow-up </a></li>
+        <li (click)="CRElogout()" *ngIf="session.Country_Id !=13 "><a routerLink="SalesSF"><i class="fa fa-circle-o"></i>Post Sales Follow-up</a></li> -->
         <li (click)="CRElogout()"><a routerLink="PendingSurvey"><i class="fa fa-circle-o"></i>Pending Surveys</a></li>
         <!-- <li (click)="CRElogout()"><a routerLink="SMR"><i class="fa fa-circle-o"></i>Service Reminders</a></li> -->
         <li (click)="CRElogout()"><a routerLink="DB"><i class="fa fa-circle-o"></i>Direct Booking</a></li>

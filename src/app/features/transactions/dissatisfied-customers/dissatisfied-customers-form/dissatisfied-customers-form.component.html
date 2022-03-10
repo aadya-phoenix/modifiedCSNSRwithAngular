@@ -1,0 +1,93 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-6 form-inline">
+                <label>
+                    {{labelObj.SearchTextLabel}}
+                    <input type="text" class="form-control input-sm" id="Text17" [(ngModel)]="searchText"
+                        placeholder="{{labelObj.SearchTextLabel}}" trim>
+                </label>
+            </div>
+            <div class="col-xs-6">
+            </div>
+        </div>
+    </div>
+    <!--panel heading-->
+    <div class="panel-body">
+        <div class="table-responsive" style="max-height:430px;">
+            <table id="example2" class="table table-bordered table-hover" style="width:100%;">
+                <thead>
+                    <tr style="background-color:cornflowerblue;color:white;white-space:nowrap;">
+                        <th>S.No.</th>
+                        <th>{{labelObj.OutletLabel}}</th>
+                        <th>{{labelObj.CustomerNameLabel}}</th>
+                        <th>{{labelObj.MobileLabel}}#</th>
+                        <th>{{labelObj.EmailLabel}}</th>
+                        <th>{{labelObj.RegistrationNoLabel}}</th>
+                        <th>{{labelObj.VehicleModelLabel}}</th>
+                        <th>{{labelObj.BillDateLabel}}</th>
+                        <th>{{labelObj.ServiceTypeLabel}}</th>
+                        <th>{{labelObj.ResponseDateLabel}}</th>
+                        <th>{{labelObj.RemarksLabel}}</th>
+                        <th>{{labelObj.DetailsLabel}}</th>
+                        <th>{{labelObj.ConvertedtoSatisfyLabel}}</th>
+                        <th>{{labelObj.ConversionDateLabel}}</th>
+                        <th>{{labelObj.ConversionModeLabel}}</th>
+                        <th>{{labelObj.ActionTakenRemarksLabel}}</th>
+                        <th>{{labelObj.ComplaintCategoryLabel}}</th>
+                        <th>{{labelObj.ActionLabel}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pt of savedFormArray| filter:searchText | paginate: { itemsPerPage: 20, currentPage: currentPage };let i=index;">
+                        <td>{{ (i + 1)+(currentPage - 1) * 20}}</td>
+                        <td>{{pt.OutletCode}}-{{pt.OutletName}}</td>
+                        <td>{{pt.CustomerName}}</td>
+                        <td>{{pt.CustomerMobile}}</td>
+                        <td>{{pt.CustomerEmail}}</td>
+                        <td>{{pt.CarNumber}}</td>
+                        <td>{{pt.VehicleName}}</td>
+                        <td>{{pt.BillDate | date : 'dd-MMM-yyyy'}}</td>
+                        <td>{{pt.ServiceType}}</td>
+                        <td>{{pt.ResponseDate| date : 'dd-MMM-yyyy'}}</td>
+                        <td>{{pt.ComplaintRemarks}}</td>
+                        <td><button type="button" class="btn btn-sm btn-warning pull-right"
+                                (click)="openCustomerFeedback(pt.Customer_Id,pt.CustomerDetailID)"
+                                [disabled]="pt.Customer_Id==null || pt.CustomerDetailID == null">{{labelObj.DetailsLabel}}</button>
+                        </td>
+                        <td><input type="checkbox" [(ngModel)]="pt.Checked" name="ChkConfirm" /></td>
+                        <td>
+                            <mat-form-field>
+                                <input [disabled]="pt.Checked==false" matInput [matDatepicker]="datepickerFrom" [(ngModel)]="pt.Date" placeholder="Select Date">
+                                <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #datepickerFrom></mat-datepicker>
+                              </mat-form-field>
+                        </td>
+                        <td>
+                            <select [(ngModel)]="pt.ConversionType" class="form-control" [disabled]="pt.Checked==false">
+                                <option [value]="1">Telephonic Conversation</option>
+                                <option [value]="2">Workshop Visit</option>
+                                <option [value]="3">Home Visit</option>
+                            </select>
+                        </td>
+                        <td><input type="text" [(ngModel)]="pt.Remarks" [disabled]="pt.   Checked==false"        name="ChkConfirm"
+                                class="form-control" placeholder="Enter Remarks" />
+                        </td>
+                        <td>
+                            <select name="Language" [disabled]="pt.Checked==false" class="form-control selectpicker"  [(ngModel)]="pt.ComplaintAttribution">
+                                <option *ngFor="let X of complaintAttr" [value]="X.CmplnAttribute"
+                                >{{X.CmplnAttribute}}</option>
+                            </select></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-warning pull-right"
+                                [disabled]="pt.Checked==false" (click)="update(pt)">{{labelObj.UpdateLabel}}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+        <!--table responsive-->
+    </div>
+    <!--panel body-->
+</div>

@@ -40,7 +40,7 @@
   <div class="col-sm-2">
     <label>{{FromDateLabel}}</label>
     <mat-form-field style="display: block;">
-      <input matInput [matDatepicker]="datepickerFrom" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
+      <input matInput readonly [matDatepicker]="datepickerFrom" (dateChange)="onDateChangeFrom($event)"  placeholder="Select Date">
       <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
       <mat-datepicker #datepickerFrom></mat-datepicker>
     </mat-form-field>
@@ -49,7 +49,7 @@
   <div class="col-sm-2">
     <label>{{ToDateLabel}}</label>
     <mat-form-field style="display: block;">
-      <input matInput [matDatepicker]="datepickerTo" [(ngModel)]="searchObj.ToDate" placeholder="Select Date">
+      <input matInput readonly [matDatepicker]="datepickerTo" (dateChange)="onDateChangeTo($event)" placeholder="Select Date">
       <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
       <mat-datepicker #datepickerTo></mat-datepicker>
     </mat-form-field>

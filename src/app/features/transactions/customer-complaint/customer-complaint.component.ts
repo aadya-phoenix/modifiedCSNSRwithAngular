@@ -19,7 +19,7 @@ export class CustomerComplaintComponent implements OnInit {
   session = this.constantService.takeSession();
   VINNumber:string=this.constants.VINNumber;
 
-  SerachText: string = '';
+  SearchText: string = '';
   CustomerNameLabel: string = '';
   CustomerContactLabel: string = '';
   CustomerEmailLabel: string = '';
@@ -35,7 +35,7 @@ export class CustomerComplaintComponent implements OnInit {
   ButtonText: string = '';
   PageTitle: string = '';
   CustomerRemarksLabel: string = '';
-  SerachTextLabel: string = '';
+  SearchTextLabel: string = '';
   DealerOutletLabel: string = '';
   ComplaintSourceLabel: string = '';
   CCLabel: string = '';
@@ -64,7 +64,7 @@ export class CustomerComplaintComponent implements OnInit {
       this.defaultLanguage = true;
       for (var i = 0; i < this.labelObj.length; i++) {
         if (this.labelObj[i].DefaultLanguage == 'Search by VIN Number or Mobile Number or Registration Number') {
-          this.SerachText = this.labelObj[i].DefaultLanguage;
+          this.SearchText = this.labelObj[i].DefaultLanguage;
         }
         if (this.labelObj[i].DefaultLanguage == 'Customer Name') {
           this.CustomerNameLabel = this.labelObj[i].DefaultLanguage;
@@ -113,7 +113,7 @@ export class CustomerComplaintComponent implements OnInit {
           this.CustomerRemarksLabel = this.labelObj[i].DefaultLanguage;
         }
         if (this.labelObj[i].DefaultLanguage == 'Search') {
-          this.SerachTextLabel = this.labelObj[i].DefaultLanguage;
+          this.SearchTextLabel = this.labelObj[i].DefaultLanguage;
         }
         if (this.labelObj[i].DefaultLanguage == 'Dealer Outlet Code') {
           this.DealerOutletLabel = this.labelObj[i].DefaultLanguage;
@@ -188,10 +188,10 @@ export class CustomerComplaintComponent implements OnInit {
             this.CustomerRemarksLabel = this.labelObj[i].ConvertedLanguage;
           }
           if (this.labelObj[i].DefaultLanguage == 'Search by VIN Number or Mobile Number or Registration Number') {
-            this.SerachText = this.labelObj[i].ConvertedLanguage;
+            this.SearchText = this.labelObj[i].ConvertedLanguage;
           }
           if (this.labelObj[i].DefaultLanguage == 'Search') {
-            this.SerachTextLabel = this.labelObj[i].ConvertedLanguage;
+            this.SearchTextLabel = this.labelObj[i].ConvertedLanguage;
           }
           if (this.labelObj[i].DefaultLanguage == 'Dealer Outlet Code') {
             this.DealerOutletLabel = this.labelObj[i].ConvertedLanguage;

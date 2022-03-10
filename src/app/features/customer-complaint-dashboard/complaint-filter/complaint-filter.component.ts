@@ -13,6 +13,7 @@ import { Level } from 'src/app/models/level.model';
 import { LevelDetailInfo } from 'src/app/models/levelDetailInfo.model';
 import { LevelSearch } from 'src/app/models/levelSeach.model';
 import { DatePipe } from '@angular/common';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-complaint-filter',
@@ -321,5 +322,12 @@ export class ComplaintFilterComponent implements OnInit {
        }
     this.common.sendCountryEvent({obj:this.searchObj});
     
+  }
+
+  onDateChangeFrom(event: MatDatepickerInputEvent<Date>){
+     this.searchObj.FromDate  = event.value;
+  }
+   onDateChangeTo(event: MatDatepickerInputEvent<Date>){
+    this.searchObj.ToDate  = event.value;
   }
 }

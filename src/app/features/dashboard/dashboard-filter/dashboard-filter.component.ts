@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { Level } from 'src/app/models/level.model';
 import { LevelSearch } from 'src/app/models/levelSeach.model';
 import { LevelDetailInfo } from 'src/app/models/levelDetailInfo.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { LevelDetailInfo } from 'src/app/models/levelDetailInfo.model';
 
 })
 export class DashboardFilterComponent implements OnInit {
+
 
   labelObj: Label[] = [];
   searchObj: Search = this.constantService.takeSearchObject();
@@ -582,9 +584,20 @@ export class DashboardFilterComponent implements OnInit {
     };
   }
 
+  onDateChangeFrom(event: MatDatepickerInputEvent<Date>){
+   // this.events.push(`${type}: ${event.value}`);
+    //console.log("event From is",event.value);
+    this.searchObj.FromDate  = event.value;
+  }
 
+  onDateChangeTo(event: MatDatepickerInputEvent<Date>){
+   // this.events.push(`${type}: ${event.value}`);
+   // console.log("event To is",event.value);
+   this.searchObj.ToDate  = event.value;
+  }
 
   toggleDashboard(id: number) {
+    console.log("search object after format",this.searchObj);
     let currentdate = new Date();
     let selectedDate = new Date(this.searchObj.ToDate);
     if (selectedDate.getFullYear() >= currentdate.getFullYear()) {

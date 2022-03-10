@@ -1,0 +1,53 @@
+<div class="box">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">
+            {{DisSatisfactionLabel}}</h3>
+        <div class="language-selection pull-right"
+            style="font-size:10px;margin-top:-25px;margin-right:30px;font-size:14px;">
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="form-group has-feedback">
+                <div class="col-xs-2">
+                    <label>{{FromDateLabel}}</label>
+                    <mat-form-field style="display: block;">
+                        <input matInput readonly [matDatepicker]="datepickerFrom" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
+                        <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
+                        <mat-datepicker #datepickerFrom></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-xs-2">
+                    <label>{{ToDateLabel}}</label>
+                    <mat-form-field style="display: block;">
+                        <input matInput readonly [matDatepicker]="datepickerTo" [(ngModel)]="searchObj.ToDate" placeholder="Select Date">
+                        <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+                        <mat-datepicker #datepickerTo></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-xs-2">
+                    <label>{{SourceLabel}}</label>
+                    <select [(ngModel)]="searchObj.Source" class="form-control col-xs-3">
+                        <option value="All">All</option>
+                        <option value="Instant">Instant</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Telephonic">Telephone</option>
+                        <option value="Email">Email</option>
+                        <option value="SMS">SMS</option>
+                    </select>
+                </div>
+                <div class="col-xs-3">
+                    <label style="width:100%">&nbsp;</label>
+                    <button type="button" class="btn btn-primary btn-sm"
+                        (click)="searchCustomer()">{{SearchTextLabel}}</button>
+                </div>
+            </div>
+        </div>
+        <hr />
+      <app-dissatisfied-customers-form [labelObj]="resultObj" [searchObj]="searchObj"></app-dissatisfied-customers-form>
+        
+    </div>
+
+</div>

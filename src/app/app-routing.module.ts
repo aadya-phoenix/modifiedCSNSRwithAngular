@@ -36,6 +36,7 @@ import { DirectBookingComponent } from './features/transactions/direct-booking/d
 import { CustomerServiceHistoryComponent } from './features/transactions/customer-service-history/customer-service-history.component';
 import { SurveyComponent } from './features/masters/survey/survey.component';
 import { PendingSurveyComponent } from './features/transactions/pending-survey/pending-survey.component';
+import { DissatisfiedCustomersComponent } from './features/transactions/dissatisfied-customers/dissatisfied-customers.component';
 const routes: Routes = [
   
   {
@@ -121,6 +122,8 @@ const routes: Routes = [
       path:'CSH',component:CustomerServiceHistoryComponent
     },{
       path:'PendingSurvey',component:PendingSurveyComponent
+    },{
+      path:'DIS', component:DissatisfiedCustomersComponent
     }
   ]
   },
