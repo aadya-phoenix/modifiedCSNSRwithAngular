@@ -102,7 +102,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="active treeview">
                 <a>
                    <i class="fa fa-gears"></i>
                     <span>Head Office</span>
@@ -130,7 +130,7 @@
 
                 </ul>
             </li>
-            <li class="treeview" *ngIf="Role=='HOAdmin' || Role=='DealerAdmin'">
+            <li class="active treeview" *ngIf="Role=='HOAdmin' || Role=='DealerAdmin'">
                 <a>
                     <i class="fa fa-gears"></i>
                     <span>Dealer Outlet</span>
@@ -144,7 +144,7 @@
                      <li (click)="CRElogout()" *ngIf="Role=='DealerAdmin'"><a routerLink="#/DlrOutletTrgt"><i class="fa fa-circle-o"></i>Dealer Outlet Target </a></li> -->
                 </ul> 
             </li>
-            <li class="treeview" *ngIf="Role=='Distributor'  || Role=='HOAdmin'">
+            <li class="active treeview" *ngIf="Role=='Distributor'  || Role=='HOAdmin'">
 
                 <a>
                     <i class="fa fa-gears"></i>
@@ -181,8 +181,8 @@
         <li (click)="CRElogout()"><a routerLink="PendingSurvey"><i class="fa fa-circle-o"></i>Pending Surveys</a></li>
         <!-- <li (click)="CRElogout()"><a routerLink="SMR"><i class="fa fa-circle-o"></i>Service Reminders</a></li> -->
         <li (click)="CRElogout()"><a routerLink="DB"><i class="fa fa-circle-o"></i>Direct Booking</a></li>
-        <!-- <li (click)="CRElogout()"><a routerLink="DIS"><i class="fa fa-circle-o"></i>Dissatisfied Customers</a></li> -->
-       <!--  <li (click)="CRElogout()"><a routerLink="CC"><i class="fa fa-circle-o"></i>Customer Complaint</a></li> -->
+        <li (click)="CRElogout()"><a routerLink="DIS"><i class="fa fa-circle-o"></i>Dissatisfied Customers</a></li> 
+        <li (click)="CRElogout()"><a routerLink="CC"><i class="fa fa-circle-o"></i>Customer Complaint</a></li> 
         <li (click)="CRElogout()"><a routerLink="CSH"><i class="fa fa-circle-o"></i>Service History</a></li>
         <!-- <li (click)="CRElogout()" ng-show="false"><a routerLink="#/VR"><i class="fa fa-circle-o"></i>Vehicle Receipt</a></li> -->
     </ul>

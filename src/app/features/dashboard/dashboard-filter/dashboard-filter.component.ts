@@ -597,7 +597,6 @@ export class DashboardFilterComponent implements OnInit {
   }
 
   toggleDashboard(id: number) {
-    console.log("search object after format",this.searchObj);
     let currentdate = new Date();
     let selectedDate = new Date(this.searchObj.ToDate);
     if (selectedDate.getFullYear() >= currentdate.getFullYear()) {
@@ -605,7 +604,7 @@ export class DashboardFilterComponent implements OnInit {
         if (selectedDate.getFullYear() > currentdate.getFullYear() || selectedDate.getMonth() > currentdate.getMonth()
           || (selectedDate.getDate() != 1 && selectedDate.getDate() >= currentdate.getDate())) {
           let lastDay = new Date(currentdate.getFullYear(), currentdate.getMonth(), currentdate.getDate() - 1);
-          this.searchObj.ToDate = this.datepipe.transform(lastDay, 'MMMM dd, yyyy')
+          this.searchObj.ToDate = this.datepipe.transform(lastDay, 'MMMM dd, yyyy');
         }
       }
     }

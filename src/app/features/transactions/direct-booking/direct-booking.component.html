@@ -61,7 +61,7 @@
                         <div class="col-xs-3">
                             <label>{{BookingDateLabel}}<label style="color:red">*</label></label>
                             <mat-form-field style="display: block;">
-                                <input required matInput [matDatepicker]="datepicker" [(ngModel)]="Customer.BookingDate" placeholder="{{BookingDateLabel}}">
+                                <input readonly required matInput [matDatepicker]="datepicker" (dateChange)="onDateChange($event)"  placeholder="{{BookingDateLabel}}">
                                 <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                                 <mat-datepicker #datepicker></mat-datepicker>
                               </mat-form-field>

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConstantsService } from 'src/app/constants/constants.service';
 import { Label } from 'src/app/models/label.model';
 import { Search } from 'src/app/models/search.model';
@@ -78,6 +79,14 @@ export class DissatisfiedCustomersComponent implements OnInit {
      },(error)=>{
       console.log(error);
    });
+  }
+
+  onDateChangeFrom(event: MatDatepickerInputEvent<Date>){
+     this.searchObj.FromDate  = event.value;
+  }
+   
+  onDateChangeTo(event: MatDatepickerInputEvent<Date>){
+    this.searchObj.ToDate  = event.value;
   }
 
   selectLanguage(id:number){
@@ -214,9 +223,9 @@ export class DissatisfiedCustomersComponent implements OnInit {
       DisSatisfactionLabel:this.DisSatisfactionLabel ,
       UpdateLabel:this.UpdateLabel ,
     }
-  } 
+   } 
 
   searchCustomer(){
     this.rx.sendEvent({search:this.searchObj});
-  }
+   }
 }

@@ -9,7 +9,7 @@ export interface BookingInfo{
       RegistrationNumber : string ;
       Vehicle_Id : number ;
       ServiceType_Id : number ;
-      BookingDate ?: Date ;
+      BookingDate ?: any ;
       BookingTime ?: any ;
       Remarks : string ;
       Mileage ?: number ;

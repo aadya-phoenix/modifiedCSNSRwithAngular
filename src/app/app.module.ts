@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
 import { DashboardAnalyticsModule } from './features/dashboard-analytics/dashboard-analytics.module';
 import { CustomerComplaintDashboardModule } from './features/customer-complaint-dashboard/customer-complaint-dashboard.module';
 
-import { TransactionsModule } from './features/transactions/transactions.module';
 import { CompanyModule } from './features/masters/company/company.module';
 import { LanguageModule } from './features/masters/language/language.module';
 import { CountryModule } from './features/masters/country/country.module';
@@ -50,6 +49,8 @@ import { DissatisfiedCustomersModule } from './features/transactions/dissatisfie
 import { CustomerComplaintModule } from './features/transactions/customer-complaint/customer-complaint.module';
 import { CustomerServiceHistoryModule } from './features/transactions/customer-service-history/customer-service-history.module';
 
+import { IfcReportsModule } from './features/reports/ifc-reports/ifc-reports.module';
+
 
 
 
@@ -77,8 +78,6 @@ import { CustomerServiceHistoryModule } from './features/transactions/customer-s
     CsnsrHomeModule,
     DashboardAnalyticsModule,
     CustomerComplaintDashboardModule,
-   
-    TransactionsModule,
     CompanyModule,
     LanguageModule,
     CountryModule,
@@ -108,7 +107,9 @@ import { CustomerServiceHistoryModule } from './features/transactions/customer-s
     DirectBookingModule,
     DissatisfiedCustomersModule,
     CustomerComplaintModule,
-    CustomerServiceHistoryModule
+    CustomerServiceHistoryModule,
+    
+    IfcReportsModule
    
   ],
   providers: [{

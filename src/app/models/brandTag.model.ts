@@ -1,6 +1,3 @@
-export class BrandTag{
+export interface BrandTag{
     BrandTag:string;
-    constructor(){
-        this.BrandTag='';
-    }
 }

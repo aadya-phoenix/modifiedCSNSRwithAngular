@@ -50,8 +50,6 @@ const routes: Routes = [
     },{
       path:'ccdashboard',component:ComplaintFilterComponent
     },{
-      path:'tcc', component:CustomerComplaintComponent
-    },{
       path:'Company', component:CompanyComponent
     },{
       path:'Language', component:LanguageComponent
@@ -124,6 +122,8 @@ const routes: Routes = [
       path:'PendingSurvey',component:PendingSurveyComponent
     },{
       path:'DIS', component:DissatisfiedCustomersComponent
+    },{
+      path:'CC', component:CustomerComplaintComponent
     }
   ]
   },

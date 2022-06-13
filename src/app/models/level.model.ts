@@ -1,22 +1,12 @@
-export class Level{
-              
-      public Level_Id: number; 
-      public LevelName: string;
-      public Country_Id: number;
-      public Sequence: string;
-      public IsActive: boolean;
-      public CreatedBy?: number; 
-      public CreationDate?: Date;
-      public ModifiedBy?: number; 
-      public ModifiedDate?: Date;
-
-    constructor(){
-
-        this.Country_Id = 0;       
-        this.Level_Id = 0;
-        this.LevelName = '';
-        this.Sequence = '';
-        this.IsActive = false;
-        
-    }
-}
+export interface Level{
+                  
+       Level_Id: number; 
+       LevelName: string;
+       Country_Id: number;
+       Sequence: string;
+       IsActive: boolean;
+       CreatedBy?: number; 
+       CreationDate?: Date;
+       ModifiedBy?: number; 
+       ModifiedDate?: Date;     
+}  

@@ -7,8 +7,8 @@ import { Observable, Subject } from 'rxjs';
 export class CommonService {
  private customerSubject = new Subject<any>();
   constructor() { }
-  sendCustomerEvent(){
-     this.customerSubject.next();
+  sendCustomerEvent(obj:string){
+     this.customerSubject.next(obj);
   }
   getCustomerEvent():Observable<any>{
    return this.customerSubject.asObservable();

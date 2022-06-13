@@ -10,6 +10,7 @@ import { CustomerInfo } from '../models/customerInfo.model';
 import { ServiceType } from 'src/app/models/serviceType.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { TrnCommonService } from '../services/trn-common.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-direct-booking',
@@ -223,6 +224,11 @@ export class DirectBookingComponent implements OnInit {
     });
 
   }
+
+  onDateChange(event: MatDatepickerInputEvent<Date>){
+    this.Customer.BookingDate  = event.value;
+    this.Customer.BookingDate = this.datePipe.transform(this.Customer.BookingDate,'MMMM dd, yyyy');
+   }
   
   getEmployee(id:any){
     

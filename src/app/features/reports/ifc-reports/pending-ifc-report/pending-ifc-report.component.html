@@ -1,0 +1,185 @@
+<section class="content-header">
+    <h1>
+        Instant Feedback - Pending Instant feedback
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>{{DashboardLabel}}</a></li>
+        <li><a href="#"> Instant Feedback - Pending Instant feedback</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                      <form #pendingIfcForm="ngForm">
+                        <div class="form-group has-feedback">
+                            <div class="col-xs-2">
+                                <label>{{FromDateLabel}}</label>
+                                <mat-form-field style="display: block;">
+                                    <input matInput readonly [matDatepicker]="datepickerFrom" 
+                                   (dateChange)="onDateChangeFrom($event)"  placeholder="Select Date">
+                                    <mat-datepicker-toggle matSuffix [for]="datepickerFrom"></mat-datepicker-toggle>
+                                    <mat-datepicker #datepickerFrom></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-xs-2">
+                                <label>{{ToDateLabel}}</label>
+                                <mat-form-field style="display: block;">
+                                    <input matInput readonly [matDatepicker]="datepickerTo" (dateChange)="onDateChangeTo($event)"  placeholder="Select Date">
+                                    <mat-datepicker-toggle matSuffix [for]="datepickerTo"></mat-datepicker-toggle>
+                                    <mat-datepicker #datepickerTo></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-xs-2 " *ngIf="Role=='HOAdmin'">
+                                <label>{{CountryLabel}}</label>
+                                <ng-select class="form-control selectpicker" name="Language" (change)     ="getLevelList(searchObj.Country_Id)"
+                                          [items]="countryObj" 
+                                           bindLabel="CountryName" 
+                                           bindValue="Country_Id" 
+                                           [(ngModel)]="searchObj.Country_Id">
+                                </ng-select>
+                               <!--  <select  
+                                [(ngModel)]="toDate"
+                                    
+                                    [(ngModel)]="searchObj.Country_Id">
+                                    <option  *ngFor="let DC of countryObj" [value]="DC.Country_Id">{{DC.CountryName}}</option>
+                                </select> -->
+                            </div>
+                            <div class="col-xs-2"
+                                *ngIf="Role=='HOAdmin' || Role=='Zone/Region' || Role=='Distributor' || Role=='LastLeg'   ">
+                                <label>Level</label>
+                                <ng-select class="form-control "  (change)="getLevelDetails(searchObj.Level_Id)"
+                                          [items]="levelObj" 
+                                           bindLabel="LevelName" 
+                                           bindValue="Level_Id" 
+                                           [(ngModel)]="searchObj.Level_Id">
+                                </ng-select>
+                                <!-- <select class="form-control"    [(ngModel)]="searchObj.Level_Id"
+                                    (change)="getLevelDetails(searchObj.Level_Id)">
+                                    <option  *ngFor="let item of levelObj" [value]="item.Level_Id">{{item.LevelName}}</option>
+                                </select> -->
+                            </div>
+                            <div class="col-xs-2"
+                                *ngIf="Role=='HOAdmin' || Role=='Zone/Region' || Role=='Distributor' || Role=='LastLeg'   ">
+                                <label>Sub Level</label>
+                                <ng-select class="form-control"  (change)="getOutletListBySublevel()"
+                                       [items]="levelDetail" 
+                                       bindLabel="LeveldetailName" 
+                                       bindValue="Leveldetail_Id" 
+                                       [(ngModel)]="searchObj.Leveldetail_Id">
+                                </ng-select>
+                               <!--  <select class="form-control"   [(ngModel)]="levelDetailId" (change)="getOutletListBySublevel()">
+                                    <option  *ngFor="let item of levelDetail" [value]="item.Leveldetail_Id">{{item.LeveldetailName}}</option>
+                                </select> -->
+                            </div>
+                            <div class="col-xs-2 "
+                                *ngIf="Role=='HOAdmin' || Role=='Zone/Region' || Role=='Distributor' || Role=='LastLeg'   ">
+                                <label>{{DealerOutletCodeLabel}}</label>
+                                <ng-select  name="Language" class="form-control selectpicker"
+                                       [items]="outletObj" 
+                                       bindLabel="OutletCode" 
+                                       bindValue="Outlet_Id" 
+                                       [(ngModel)]="searchObj.OutletId">
+                                </ng-select>
+                                <!-- <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="searchObj.OutletId">
+                                    <option  *ngFor="let DC of outletObj" [value]="DC.Outlet_Id">{{DC.OutletCode}}</option>
+                                </select> -->
+                            </div>
+                            <div class="col-xs-2 ">
+                                <label>{{BrandLabel}}</label>
+                                <ng-select  name="brandLabel" class="form-control selectpicker"
+                                       [items]="brandTagObj" 
+                                       bindLabel="BrandTag" 
+                                       bindValue="BrandTag" 
+                                       [(ngModel)]="searchObj.BrandType">
+                                </ng-select>
+                                <!-- <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="searchObj.BrandType">
+                                    <option  *ngFor="let DC of brandTagObj" [value]="DC.BrandTag">{{DC.BrandTag}}</option></select> -->
+                            </div>
+                            <div class="col-xs-2 ">
+                                <label>{{VehicleLabel}}</label>
+                                <ng-select  class="form-control selectpicker"
+                                       [items]="vehicleTypeObj" 
+                                       bindLabel="VehicleType" 
+                                       bindValue="VehicleType_Id" 
+                                       [(ngModel)]="searchObj.VehicleType">
+                                </ng-select>
+                                <!-- <select name="Language" class="form-control selectpicker"
+                                    [(ngModel)]="searchObj.VehicleType">
+                                    <option  *ngFor="let DC of vehicleTypeObj" [value]="DC.VehicleType_Id">{{DC.VehicleType}}</option>
+                                </select> -->
+                            </div>
+                            <div class="col-xs-3">
+                                <label style="width:100%">&nbsp;</label>
+                                <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="search()">{{SearchLabel}}</button>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+                <div class="box-body" *ngIf="dataExists==true">
+                    <div class="col-xs-2" style="padding: 0;">
+                        <input type="text" class="form-control" id="Text17" [(ngModel)]="searchText"
+                            placeholder="Enter search" trim>
+                    </div>
+                    <div class="col-xs-10">
+                        <a (click)="downloadExcel()" class="btn btn-xs btn-warning pull-right" target="_blank">
+                            {{DownloadReportLabel}}</a>
+                    </div>
+                </div>
+                <div class="box-body" *ngIf="dataExists==true"
+                    style="overflow-x:auto;max-height:92vh;overflow:scroll;">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="background-color:cornflowerblue;color:white">
+                                <th>S.No.</th>
+                                <th>{{OutletLabel}}</th>
+                                <th>{{RegistrationNumberLabel}}</th>
+                                <th>{{VehicleNameLabel}}</th>
+                                <th>{{JobCardLabel}}#</th>
+                                <th>{{SaleDateLabel}}</th>
+                                <th>{{ServiceTypeLabel}}</th>
+                                <th>{{MileageLabel}}</th>
+                                <th>{{BillDateLabel}}</th>
+                                <th>{{CustomerNameLabel}}</th>
+                                <th>{{CustomerMobileLabel}}</th>
+                                <th>{{EmailLabel}}</th>
+                                <th>{{ServiceAdvisorLabel}}</th>
+                                <th>{{TechnicianLabel}}</th>
+                                <th>Level</th>
+                                <th>Sub Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pt of savedFormArray| filter:searchText; let i = index;">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    {{pt.OutletCode}}-{{pt.OutletName}}
+                                </td>
+                                <td>{{pt.CarNumber}}</td>
+                                <td>{{pt.VehicleName}}</td>
+                                <td>{{pt.JobCardNumber}}</td>
+                                <td>{{pt.VehicleSaleDate | date : 'dd-MM-yyyy' }}</td>
+                                <td>{{pt.ServiceType}}</td>
+                                <td>{{pt.Mileage}}</td>
+                                <td>{{pt.BillDate | date : 'dd-MM-yyyy' }}</td>
+                                <td>{{pt.CustomerName}}</td>
+                                <td>{{pt.CustomerMobile}}</td>
+                                <td>{{pt.CustomerEmail}}</td>
+                                <td>{{pt.ServiceAdvisor}}</td>
+                                <td>{{pt.Technician}}</td>
+                                <td>{{pt.LevelName}}</td>
+                                <td>{{pt.SubLevelName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

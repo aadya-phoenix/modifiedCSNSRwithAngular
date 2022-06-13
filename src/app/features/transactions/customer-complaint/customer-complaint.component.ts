@@ -17,7 +17,9 @@ export class CustomerComplaintComponent implements OnInit {
   defaultLanguage:boolean = true;
   selectedLanguage: number = this.constantService.selectedLanguage;
   session = this.constantService.takeSession();
-  VINNumber:string=this.constants.VINNumber;
+  VINNumber:string='';
+
+  resultObj:any;
 
   SearchText: string = '';
   CustomerNameLabel: string = '';
@@ -44,7 +46,6 @@ export class CustomerComplaintComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private constants:TransactionConstantsService,
     private constantService: ConstantsService,
     private common:CommonService
   ) { }
@@ -52,7 +53,6 @@ export class CustomerComplaintComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getLabel().subscribe(data=>{
      this.labelObj  = data;
-     console.log("data is",this.labelObj);
      this.selectLanguage(this.selectedLanguage);
     },err=>{
       console.log(err);
@@ -213,10 +213,35 @@ export class CustomerComplaintComponent implements OnInit {
         }
       }
     }
-  };
+
+    this.resultObj = {
+      SearchText: this.SearchText ,
+      CustomerNameLabel: this.CustomerNameLabel ,
+      CustomerContactLabel: this.CustomerContactLabel ,
+      CustomerEmailLabel: this.CustomerEmailLabel ,
+      CustomerVINLabel: this.CustomerVINLabel ,
+      CustomerRegistrationLabel: this.CustomerRegistrationLabel ,
+      CustomerVehicleLabel: this.CustomerVehicleLabel ,
+      CustomerJCNLabel: this.CustomerJCNLabel ,
+      CustomerInvoiceDateLabel: this.CustomerInvoiceDateLabel ,
+      CustomerServiceTypeLabel: this.CustomerServiceTypeLabel ,
+      CustomerMileageLabel: this.CustomerMileageLabel ,
+      CustomerSALabel: this.CustomerSALabel ,
+      CustomerTecLabel: this.CustomerTecLabel ,
+      ButtonText: this.ButtonText ,
+      PageTitle: this.PageTitle ,
+      CustomerRemarksLabel: this.CustomerRemarksLabel ,
+      SearchTextLabel: this.SearchTextLabel ,
+      DealerOutletLabel: this.DealerOutletLabel ,
+      ComplaintSourceLabel: this.ComplaintSourceLabel ,
+      CCLabel: this.CCLabel ,
+      CustomerContactLabel2: this.CustomerContactLabel2 ,
+      RepairDetailsLabel: this.RepairDetailsLabel ,
+    }
+  }
 
   searchByVIN():any{
-    this.common.sendCustomerEvent();
+    this.common.sendCustomerEvent(this.VINNumber);
     if (this.VINNumber == null || this.VINNumber == '') {
       Swal.fire('Error', 'Please enter VIN Nunmber to continue', 'error');
       return false;
